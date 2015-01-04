@@ -690,5 +690,86 @@ namespace IBSampleApp
             }
         }
 
+        private void buttonOffsetIncrease_Click(object sender, EventArgs e)
+        {
+            var offset = Int32.Parse(txtOffset.Text);
+            txtOffset.Text = (++offset).ToString("0");
+
+            SyncLimitPrice(); 
+        }
+
+        private void buttonOffsetDecrease_Click(object sender, EventArgs e)
+        {
+            var offset = Int32.Parse(txtOffset.Text);
+
+            if (offset == 0) return;
+
+            txtOffset.Text = (--offset).ToString("0");
+
+            SyncLimitPrice();            
+        }
+
+        private void SyncLimitPrice()
+        {
+            if (chkLimitOrder.Checked)
+            {
+                var offset = Double.Parse(txtOffset.Text) / 1000;
+                if (!string.IsNullOrEmpty(txtTriggerPrice.Text))
+                    if (radioBuy.Checked)
+                        txtLimitPrice.Text = (Double.Parse(txtTriggerPrice.Text) + offset).ToString("0.000");
+                    else if (radioSell.Checked)
+                        txtLimitPrice.Text = (Double.Parse(txtTriggerPrice.Text) - offset).ToString("0.000");
+            }
+            else
+            {
+                txtLimitPrice.Text = string.Empty;
+            }
+        }
+
+        private void contextMenuItemBuyLMT_Click(object sender, EventArgs e)
+        {
+            SetBuyLMTOrder(Double.Parse(lblY.Text));
+        }
+
+        private void SetBuyLMTOrder(double price)
+        {
+            txtTriggerPrice.Text = price.ToString("0.000");
+
+            radioBuy.Checked = true;
+            chkLimitOrder.Checked = true;
+
+            SyncLimitPrice();
+
+            //TODO: implement buy order
+        }
+
+        private void SetSellLMTOrder(double price)
+        {
+            txtTriggerPrice.Text = price.ToString("0.000");
+
+            radioSell.Checked = true;
+            chkLimitOrder.Checked = true;
+
+            SyncLimitPrice();
+
+            //TODO: implement sell order
+        }
+
+        private void radioBuy_CheckedChanged(object sender, EventArgs e)
+        {
+            SyncLimitPrice();
+        }
+
+        private void radioSell_CheckedChanged(object sender, EventArgs e)
+        {
+            SyncLimitPrice();
+        }
+
+        private void chkLimitOrder_CheckedChanged(object sender, EventArgs e)
+        {
+            SyncLimitPrice();
+        }
+        
+
     }
 }

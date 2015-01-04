@@ -1,2 +1,13 @@
 C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.exe
 C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.pdb
+C:\projects-github\tws-api-csharp-client\csharpclientapp\bin\Debug\IBSampleApp.exe
+C:\projects-github\tws-api-csharp-client\csharpclientapp\bin\Debug\IBSampleApp.pdb
+C:\projects-github\tws-api-csharp-client\csharpclientapp\bin\Debug\TWSLib.dll
+C:\projects-github\tws-api-csharp-client\csharpclientapp\bin\Debug\TWSLib.pdb
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\CSharpClientApp.csprojResolveAssemblyReference.cache
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.ui.ComboContractResults.resources
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.IBSampleApp.resources
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.Properties.Resources.resources
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.ui.MarginDialog.resources
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.OrderDialog.resources
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\CSharpClientApp.csproj.GenerateResource.Cache
