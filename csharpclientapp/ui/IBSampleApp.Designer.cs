@@ -54,7 +54,22 @@ namespace IBSampleApp
             this.host_CT = new System.Windows.Forms.TextBox();
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();
+            this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
+            this.cancelMarketDataRequests = new System.Windows.Forms.Button();
+            this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
+            this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
+            this.marketDataContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.chkLimitOrder = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioBuy = new System.Windows.Forms.RadioButton();
@@ -93,18 +108,6 @@ namespace IBSampleApp
             this.contextMenuOrder = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
-            this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
-            this.cancelMarketDataRequests = new System.Windows.Forms.Button();
-            this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
-            this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
-            this.marketDataContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
             this.deepBookGrid = new System.Windows.Forms.DataGridView();
@@ -415,13 +418,13 @@ namespace IBSampleApp
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
+            this.topMarketDataTab_MDT.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).BeginInit();
             this.historicalDataTab.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
-            this.topMarketDataTab_MDT.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).BeginInit();
             this.deepBookTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).BeginInit();
             this.rtBarsTab_MDT.SuspendLayout();
@@ -617,12 +620,130 @@ namespace IBSampleApp
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
             this.marketData_MDT.SelectedIndex = 0;
-            this.marketData_MDT.Size = new System.Drawing.Size(1656, 304);
+            this.marketData_MDT.Size = new System.Drawing.Size(1656, 298);
             this.marketData_MDT.TabIndex = 1;
+            // 
+            // topMarketDataTab_MDT
+            // 
+            this.topMarketDataTab_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.topMarketDataTab_MDT.Controls.Add(this.cancelMarketDataRequests);
+            this.topMarketDataTab_MDT.Controls.Add(this.closeMketDataTab);
+            this.topMarketDataTab_MDT.Controls.Add(this.marketDataGrid_MDT);
+            this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 25);
+            this.topMarketDataTab_MDT.Margin = new System.Windows.Forms.Padding(4);
+            this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
+            this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(4);
+            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 269);
+            this.topMarketDataTab_MDT.TabIndex = 0;
+            this.topMarketDataTab_MDT.Text = "Market Data";
+            // 
+            // cancelMarketDataRequests
+            // 
+            this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
+            this.cancelMarketDataRequests.Margin = new System.Windows.Forms.Padding(4);
+            this.cancelMarketDataRequests.Name = "cancelMarketDataRequests";
+            this.cancelMarketDataRequests.Size = new System.Drawing.Size(100, 28);
+            this.cancelMarketDataRequests.TabIndex = 2;
+            this.cancelMarketDataRequests.Text = "Stop";
+            this.cancelMarketDataRequests.UseVisualStyleBackColor = true;
+            this.cancelMarketDataRequests.Click += new System.EventHandler(this.cancelMarketDataRequests_Click);
+            // 
+            // closeMketDataTab
+            // 
+            this.closeMketDataTab.AutoSize = true;
+            this.closeMketDataTab.Location = new System.Drawing.Point(8, 4);
+            this.closeMketDataTab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.closeMketDataTab.Name = "closeMketDataTab";
+            this.closeMketDataTab.Size = new System.Drawing.Size(43, 17);
+            this.closeMketDataTab.TabIndex = 1;
+            this.closeMketDataTab.TabStop = true;
+            this.closeMketDataTab.Text = "Close";
+            this.closeMketDataTab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeMketDataTab_LinkClicked);
+            // 
+            // marketDataGrid_MDT
+            // 
+            this.marketDataGrid_MDT.AllowUserToAddRows = false;
+            this.marketDataGrid_MDT.AllowUserToDeleteRows = false;
+            this.marketDataGrid_MDT.AllowUserToOrderColumns = true;
+            this.marketDataGrid_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.marketDataGrid_MDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.marketDataGrid_MDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.marketDataContract,
+            this.bidSize,
+            this.bidPrice,
+            this.askPrice,
+            this.askSize,
+            this.lastPrice,
+            this.volume,
+            this.closeTickerColumn});
+            this.marketDataGrid_MDT.Location = new System.Drawing.Point(4, 23);
+            this.marketDataGrid_MDT.Margin = new System.Windows.Forms.Padding(4);
+            this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
+            this.marketDataGrid_MDT.ReadOnly = true;
+            this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 232);
+            this.marketDataGrid_MDT.TabIndex = 0;
+            this.marketDataGrid_MDT.Visible = false;
+            // 
+            // marketDataContract
+            // 
+            this.marketDataContract.HeaderText = "Description";
+            this.marketDataContract.Name = "marketDataContract";
+            this.marketDataContract.ReadOnly = true;
+            this.marketDataContract.Width = 200;
+            // 
+            // bidSize
+            // 
+            this.bidSize.HeaderText = "Bid Size";
+            this.bidSize.Name = "bidSize";
+            this.bidSize.ReadOnly = true;
+            // 
+            // bidPrice
+            // 
+            this.bidPrice.HeaderText = "Bid";
+            this.bidPrice.Name = "bidPrice";
+            this.bidPrice.ReadOnly = true;
+            // 
+            // askPrice
+            // 
+            this.askPrice.HeaderText = "Ask";
+            this.askPrice.Name = "askPrice";
+            this.askPrice.ReadOnly = true;
+            // 
+            // askSize
+            // 
+            this.askSize.HeaderText = "Ask Size";
+            this.askSize.Name = "askSize";
+            this.askSize.ReadOnly = true;
+            // 
+            // lastPrice
+            // 
+            this.lastPrice.HeaderText = "Last Size";
+            this.lastPrice.Name = "lastPrice";
+            this.lastPrice.ReadOnly = true;
+            // 
+            // volume
+            // 
+            this.volume.HeaderText = "Volume";
+            this.volume.Name = "volume";
+            this.volume.ReadOnly = true;
+            // 
+            // closeTickerColumn
+            // 
+            this.closeTickerColumn.HeaderText = "Close";
+            this.closeTickerColumn.Name = "closeTickerColumn";
+            this.closeTickerColumn.ReadOnly = true;
+            this.closeTickerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.closeTickerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // historicalDataTab
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
+            this.historicalDataTab.Controls.Add(this.button5);
+            this.historicalDataTab.Controls.Add(this.button4);
+            this.historicalDataTab.Controls.Add(this.button3);
             this.historicalDataTab.Controls.Add(this.chkLimitOrder);
             this.historicalDataTab.Controls.Add(this.panel1);
             this.historicalDataTab.Controls.Add(this.buttonOffsetDecrease);
@@ -653,9 +774,36 @@ namespace IBSampleApp
             this.historicalDataTab.Margin = new System.Windows.Forms.Padding(4);
             this.historicalDataTab.Name = "historicalDataTab";
             this.historicalDataTab.Padding = new System.Windows.Forms.Padding(4);
-            this.historicalDataTab.Size = new System.Drawing.Size(1648, 275);
+            this.historicalDataTab.Size = new System.Drawing.Size(1648, 269);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(683, 235);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(73, 29);
+            this.button5.TabIndex = 30;
+            this.button5.Text = "Queue";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(625, 235);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(52, 30);
+            this.button4.TabIndex = 29;
+            this.button4.Text = "Place";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(570, 235);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(49, 30);
+            this.button3.TabIndex = 28;
+            this.button3.Text = "Clear";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // chkLimitOrder
             // 
@@ -703,7 +851,7 @@ namespace IBSampleApp
             // 
             // buttonOffsetDecrease
             // 
-            this.buttonOffsetDecrease.Location = new System.Drawing.Point(618, 159);
+            this.buttonOffsetDecrease.Location = new System.Drawing.Point(618, 149);
             this.buttonOffsetDecrease.Name = "buttonOffsetDecrease";
             this.buttonOffsetDecrease.Size = new System.Drawing.Size(23, 22);
             this.buttonOffsetDecrease.TabIndex = 23;
@@ -722,7 +870,7 @@ namespace IBSampleApp
             // 
             // buttonOffsetIncrease
             // 
-            this.buttonOffsetIncrease.Location = new System.Drawing.Point(688, 159);
+            this.buttonOffsetIncrease.Location = new System.Drawing.Point(688, 149);
             this.buttonOffsetIncrease.Name = "buttonOffsetIncrease";
             this.buttonOffsetIncrease.Size = new System.Drawing.Size(23, 22);
             this.buttonOffsetIncrease.TabIndex = 22;
@@ -732,7 +880,7 @@ namespace IBSampleApp
             // 
             // txtOffset
             // 
-            this.txtOffset.Location = new System.Drawing.Point(647, 159);
+            this.txtOffset.Location = new System.Drawing.Point(647, 149);
             this.txtOffset.Name = "txtOffset";
             this.txtOffset.Size = new System.Drawing.Size(35, 22);
             this.txtOffset.TabIndex = 21;
@@ -742,7 +890,7 @@ namespace IBSampleApp
             // lblOffsetLabel
             // 
             this.lblOffsetLabel.AutoSize = true;
-            this.lblOffsetLabel.Location = new System.Drawing.Point(597, 139);
+            this.lblOffsetLabel.Location = new System.Drawing.Point(597, 129);
             this.lblOffsetLabel.Name = "lblOffsetLabel";
             this.lblOffsetLabel.Size = new System.Drawing.Size(67, 17);
             this.lblOffsetLabel.TabIndex = 20;
@@ -750,7 +898,7 @@ namespace IBSampleApp
             // 
             // txtLimitPrice
             // 
-            this.txtLimitPrice.Location = new System.Drawing.Point(624, 213);
+            this.txtLimitPrice.Location = new System.Drawing.Point(624, 194);
             this.txtLimitPrice.Name = "txtLimitPrice";
             this.txtLimitPrice.Size = new System.Drawing.Size(73, 22);
             this.txtLimitPrice.TabIndex = 19;
@@ -758,7 +906,7 @@ namespace IBSampleApp
             // lblLimitPriceLabel
             // 
             this.lblLimitPriceLabel.AutoSize = true;
-            this.lblLimitPriceLabel.Location = new System.Drawing.Point(597, 193);
+            this.lblLimitPriceLabel.Location = new System.Drawing.Point(597, 174);
             this.lblLimitPriceLabel.Name = "lblLimitPriceLabel";
             this.lblLimitPriceLabel.Size = new System.Drawing.Size(73, 17);
             this.lblLimitPriceLabel.TabIndex = 18;
@@ -917,7 +1065,7 @@ namespace IBSampleApp
             this.barsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.barsGrid.Size = new System.Drawing.Size(559, 238);
+            this.barsGrid.Size = new System.Drawing.Size(559, 232);
             this.barsGrid.TabIndex = 1;
             // 
             // hdDate
@@ -989,7 +1137,7 @@ namespace IBSampleApp
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
             legend1.Name = "Legend1";
             this.historicalChart.Legends.Add(legend1);
-            this.historicalChart.Location = new System.Drawing.Point(718, 4);
+            this.historicalChart.Location = new System.Drawing.Point(718, 23);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
             series1.ChartArea = "ChartArea1";
@@ -1001,7 +1149,7 @@ namespace IBSampleApp
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.historicalChart.Series.Add(series1);
-            this.historicalChart.Size = new System.Drawing.Size(919, 227);
+            this.historicalChart.Size = new System.Drawing.Size(823, 202);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
             this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
@@ -1015,135 +1163,21 @@ namespace IBSampleApp
             this.contextMenuItemBuyLMT,
             this.contextMenuItemSellLMT});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(135, 52);
+            this.contextMenuOrder.Size = new System.Drawing.Size(176, 80);
             // 
             // contextMenuItemBuyLMT
             // 
             this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
-            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(175, 24);
             this.contextMenuItemBuyLMT.Text = "Buy LMT";
             this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
             // 
             // contextMenuItemSellLMT
             // 
             this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
-            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(175, 24);
             this.contextMenuItemSellLMT.Text = "Sell LMT";
-            // 
-            // topMarketDataTab_MDT
-            // 
-            this.topMarketDataTab_MDT.BackColor = System.Drawing.Color.LightGray;
-            this.topMarketDataTab_MDT.Controls.Add(this.cancelMarketDataRequests);
-            this.topMarketDataTab_MDT.Controls.Add(this.closeMketDataTab);
-            this.topMarketDataTab_MDT.Controls.Add(this.marketDataGrid_MDT);
-            this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 25);
-            this.topMarketDataTab_MDT.Margin = new System.Windows.Forms.Padding(4);
-            this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
-            this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 275);
-            this.topMarketDataTab_MDT.TabIndex = 0;
-            this.topMarketDataTab_MDT.Text = "Market Data";
-            // 
-            // cancelMarketDataRequests
-            // 
-            this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
-            this.cancelMarketDataRequests.Margin = new System.Windows.Forms.Padding(4);
-            this.cancelMarketDataRequests.Name = "cancelMarketDataRequests";
-            this.cancelMarketDataRequests.Size = new System.Drawing.Size(100, 28);
-            this.cancelMarketDataRequests.TabIndex = 2;
-            this.cancelMarketDataRequests.Text = "Stop";
-            this.cancelMarketDataRequests.UseVisualStyleBackColor = true;
-            this.cancelMarketDataRequests.Click += new System.EventHandler(this.cancelMarketDataRequests_Click);
-            // 
-            // closeMketDataTab
-            // 
-            this.closeMketDataTab.AutoSize = true;
-            this.closeMketDataTab.Location = new System.Drawing.Point(8, 4);
-            this.closeMketDataTab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.closeMketDataTab.Name = "closeMketDataTab";
-            this.closeMketDataTab.Size = new System.Drawing.Size(43, 17);
-            this.closeMketDataTab.TabIndex = 1;
-            this.closeMketDataTab.TabStop = true;
-            this.closeMketDataTab.Text = "Close";
-            this.closeMketDataTab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeMketDataTab_LinkClicked);
-            // 
-            // marketDataGrid_MDT
-            // 
-            this.marketDataGrid_MDT.AllowUserToAddRows = false;
-            this.marketDataGrid_MDT.AllowUserToDeleteRows = false;
-            this.marketDataGrid_MDT.AllowUserToOrderColumns = true;
-            this.marketDataGrid_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.marketDataGrid_MDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.marketDataGrid_MDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.marketDataContract,
-            this.bidSize,
-            this.bidPrice,
-            this.askPrice,
-            this.askSize,
-            this.lastPrice,
-            this.volume,
-            this.closeTickerColumn});
-            this.marketDataGrid_MDT.Location = new System.Drawing.Point(4, 23);
-            this.marketDataGrid_MDT.Margin = new System.Windows.Forms.Padding(4);
-            this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
-            this.marketDataGrid_MDT.ReadOnly = true;
-            this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 238);
-            this.marketDataGrid_MDT.TabIndex = 0;
-            this.marketDataGrid_MDT.Visible = false;
-            // 
-            // marketDataContract
-            // 
-            this.marketDataContract.HeaderText = "Description";
-            this.marketDataContract.Name = "marketDataContract";
-            this.marketDataContract.ReadOnly = true;
-            this.marketDataContract.Width = 200;
-            // 
-            // bidSize
-            // 
-            this.bidSize.HeaderText = "Bid Size";
-            this.bidSize.Name = "bidSize";
-            this.bidSize.ReadOnly = true;
-            // 
-            // bidPrice
-            // 
-            this.bidPrice.HeaderText = "Bid";
-            this.bidPrice.Name = "bidPrice";
-            this.bidPrice.ReadOnly = true;
-            // 
-            // askPrice
-            // 
-            this.askPrice.HeaderText = "Ask";
-            this.askPrice.Name = "askPrice";
-            this.askPrice.ReadOnly = true;
-            // 
-            // askSize
-            // 
-            this.askSize.HeaderText = "Ask Size";
-            this.askSize.Name = "askSize";
-            this.askSize.ReadOnly = true;
-            // 
-            // lastPrice
-            // 
-            this.lastPrice.HeaderText = "Last Size";
-            this.lastPrice.Name = "lastPrice";
-            this.lastPrice.ReadOnly = true;
-            // 
-            // volume
-            // 
-            this.volume.HeaderText = "Volume";
-            this.volume.Name = "volume";
-            this.volume.ReadOnly = true;
-            // 
-            // closeTickerColumn
-            // 
-            this.closeTickerColumn.HeaderText = "Close";
-            this.closeTickerColumn.Name = "closeTickerColumn";
-            this.closeTickerColumn.ReadOnly = true;
-            this.closeTickerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.closeTickerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
             // 
             // deepBookTab_MDT
             // 
@@ -1154,7 +1188,7 @@ namespace IBSampleApp
             this.deepBookTab_MDT.Margin = new System.Windows.Forms.Padding(4);
             this.deepBookTab_MDT.Name = "deepBookTab_MDT";
             this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 275);
+            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 269);
             this.deepBookTab_MDT.TabIndex = 1;
             this.deepBookTab_MDT.Text = "Deep Book";
             // 
@@ -1198,7 +1232,7 @@ namespace IBSampleApp
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
             this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deepBookGrid.Size = new System.Drawing.Size(1632, 238);
+            this.deepBookGrid.Size = new System.Drawing.Size(1632, 232);
             this.deepBookGrid.TabIndex = 0;
             // 
             // bidBookMaker
@@ -1247,7 +1281,7 @@ namespace IBSampleApp
             this.rtBarsTab_MDT.Margin = new System.Windows.Forms.Padding(4);
             this.rtBarsTab_MDT.Name = "rtBarsTab_MDT";
             this.rtBarsTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1648, 275);
+            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1648, 269);
             this.rtBarsTab_MDT.TabIndex = 2;
             this.rtBarsTab_MDT.Text = "RT Bars";
             // 
@@ -1281,7 +1315,7 @@ namespace IBSampleApp
             this.rtBarsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.rtBarsGrid.Name = "rtBarsGrid";
             this.rtBarsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rtBarsGrid.Size = new System.Drawing.Size(672, 238);
+            this.rtBarsGrid.Size = new System.Drawing.Size(672, 232);
             this.rtBarsGrid.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn1
@@ -1363,7 +1397,7 @@ namespace IBSampleApp
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series2.YValuesPerPoint = 4;
             this.rtBarsChart.Series.Add(series2);
-            this.rtBarsChart.Size = new System.Drawing.Size(932, 257);
+            this.rtBarsChart.Size = new System.Drawing.Size(932, 251);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
             // 
@@ -1376,7 +1410,7 @@ namespace IBSampleApp
             this.scannerTab.Margin = new System.Windows.Forms.Padding(4);
             this.scannerTab.Name = "scannerTab";
             this.scannerTab.Padding = new System.Windows.Forms.Padding(4);
-            this.scannerTab.Size = new System.Drawing.Size(1648, 275);
+            this.scannerTab.Size = new System.Drawing.Size(1648, 269);
             this.scannerTab.TabIndex = 3;
             this.scannerTab.Text = "Scanner";
             // 
@@ -4441,6 +4475,9 @@ namespace IBSampleApp
             this.connectionTab.PerformLayout();
             this.marketDataTab.ResumeLayout(false);
             this.marketData_MDT.ResumeLayout(false);
+            this.topMarketDataTab_MDT.ResumeLayout(false);
+            this.topMarketDataTab_MDT.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).EndInit();
             this.historicalDataTab.ResumeLayout(false);
             this.historicalDataTab.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -4448,9 +4485,6 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
             this.contextMenuOrder.ResumeLayout(false);
-            this.topMarketDataTab_MDT.ResumeLayout(false);
-            this.topMarketDataTab_MDT.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).EndInit();
             this.deepBookTab_MDT.ResumeLayout(false);
             this.deepBookTab_MDT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).EndInit();
@@ -4900,6 +4934,9 @@ namespace IBSampleApp
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioBuy;
         private System.Windows.Forms.RadioButton radioSell;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
     }
 }
 

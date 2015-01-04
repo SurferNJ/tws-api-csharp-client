@@ -23,6 +23,9 @@ namespace IBSampleApp
     {
         delegate void MessageHandlerDelegate(IBMessage message);
 
+        const string BUY_LINE_NAME = "BUY_LINE";
+        const string SELL_LINE_NAME = "SELL_LINE";
+
         private MarketDataManager marketDataManager;
         private DeepBookManager deepBookManager;
         private HistoricalDataManager historicalDataManager;
@@ -746,6 +749,11 @@ namespace IBSampleApp
             SetBuyLMTOrder(Double.Parse(lblY.Text));
         }
 
+        private void contextMenuItemSellLMT_Click(object sender, EventArgs e)
+        {
+            SetSellLMTOrder(Double.Parse(lblY.Text));
+        }
+
         private void SetBuyLMTOrder(double price)
         {
             txtTriggerPrice.Text = price.ToString("0.000");
@@ -754,6 +762,8 @@ namespace IBSampleApp
             chkLimitOrder.Checked = true;
 
             SyncLimitPrice();
+
+            AddHorizontalLineAnnotation(BUY_LINE_NAME, price, Color.DarkGreen); 
 
             //TODO: implement buy order
         }
@@ -767,8 +777,62 @@ namespace IBSampleApp
 
             SyncLimitPrice();
 
+            AddHorizontalLineAnnotation(SELL_LINE_NAME, price, Color.DarkCyan); 
+
             //TODO: implement sell order
         }
+
+        // TODO: use this for plotting Technical Indicators 
+        //private void DrawPriceLineSeries(double price)
+        //{
+        //    var seriesLine = new Series(BUY_LINE_SERIES);
+
+        //    foreach (var point in historicalChart.Series[0].Points)
+        //    {
+        //        seriesLine.Points.AddXY(System.DateTime.FromOADate(point.XValue), price);
+        //    }
+
+        //    seriesLine.ChartType = SeriesChartType.Line;
+        //    seriesLine.IsVisibleInLegend = false;
+        //    seriesLine.Color = Color.Green;
+        //    seriesLine.BorderWidth = 3;
+        //    seriesLine.IsXValueIndexed = true;
+        //    seriesLine.XAxisType = AxisType.Primary;
+        //    seriesLine.YAxisType = AxisType.Primary;
+
+        //    historicalChart.Series.Add(seriesLine);    
+        //}
+
+        private void AddHorizontalLineAnnotation(string name, double price, Color color)
+        {
+            var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)).FirstOrDefault();
+
+            if (existingAnnotation != null)
+                historicalChart.Annotations.Remove(existingAnnotation);
+
+            var a = new HorizontalLineAnnotation()
+            {
+                Name = name,
+                AxisX = historicalChart.ChartAreas[0].AxisX,
+                AxisY = historicalChart.ChartAreas[0].AxisY,
+                AnchorY = price,
+                X = 0,
+                Width = historicalChart.ChartAreas[0].AxisX.Maximum,
+                IsSizeAlwaysRelative = false,
+                IsInfinitive = true,
+                ClipToChartArea = historicalChart.ChartAreas[0].Name,
+                LineColor = color,
+                LineWidth = 3,
+                AllowSelecting = true,
+                AllowMoving = true
+            };
+
+            historicalChart.Annotations.Add(a);
+        }
+
+        
+
+
 
         private void radioBuy_CheckedChanged(object sender, EventArgs e)
         {
@@ -839,5 +903,7 @@ namespace IBSampleApp
             }
             catch { }
         }
+
+
     }
 }
