@@ -69,6 +69,11 @@ namespace IBSampleApp
             this.profileType.DataSource = AllocationProfileType.GetAsData();
             this.profileType.ValueMember = "Value";
             this.profileType.DisplayMember = "Name";
+
+            // TODO: Added this to speed up debugging. Remove when ready to deploy.
+            this.TabControl.SelectedTab = marketDataTab;
+            this.marketData_MDT.SelectedTab = historicalDataTab;
+            ConnectToTWS();
         }
 
        
@@ -284,6 +289,11 @@ namespace IBSampleApp
                
         private void connectButton_Click(object sender, EventArgs e)
         {
+            ConnectToTWS();           
+        }
+
+        private void ConnectToTWS()
+        {
             if (!IsConnected)
             {
                 int port;
@@ -347,7 +357,7 @@ namespace IBSampleApp
         }
 
         private void histDataButton_Click(object sender, EventArgs e)
-        {
+        {            
             if (isConnected)
             {
                 Contract contract = GetMDContract();
@@ -656,37 +666,42 @@ namespace IBSampleApp
 
         private void historicalChart_MouseMove(object sender, MouseEventArgs e)
         {
-            Point mousePoint = new Point(e.X, e.Y);
+            try
+            { 
+                Point mousePoint = new Point(e.X, e.Y);
 
-            historicalChart.ChartAreas[0].CursorX.Interval = 0;
-            historicalChart.ChartAreas[0].CursorY.Interval = 0;
+                historicalChart.ChartAreas[0].CursorX.Interval = 0;
+                historicalChart.ChartAreas[0].CursorY.Interval = 0;
 
-            historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
-            historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+                historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
+                historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
 
-            int x = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
+                int pointX = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
 
-            //lblX.Text = x.ToString();
-            //lblX.Text = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X).ToString("0.000");
-            lblY.Text = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString("0.000");
+                lblY.Text = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString("0.000");
 
-            HitTestResult result = historicalChart.HitTest(e.X, e.Y);
-
-            if (x > -1)
-            {
-                lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[x].XValue).ToString("MM/dd/yyyy");
-                lblHigh.Text = historicalChart.Series[0].Points[x].YValues[0].ToString("0.000");
-                lblLow.Text = historicalChart.Series[0].Points[x].YValues[1].ToString("0.000");
-                lblOpen.Text = historicalChart.Series[0].Points[x].YValues[2].ToString("0.000");
-                lblClose.Text = historicalChart.Series[0].Points[x].YValues[3].ToString("0.000");
+                HitTestResult result = historicalChart.HitTest(e.X, e.Y);
+                
+                if (pointX > -1)
+                {
+                    lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[pointX].XValue).ToString("MM/dd/yyyy");
+                    lblHigh.Text = historicalChart.Series[0].Points[pointX].YValues[0].ToString("0.000");
+                    lblLow.Text = historicalChart.Series[0].Points[pointX].YValues[1].ToString("0.000");
+                    lblOpen.Text = historicalChart.Series[0].Points[pointX].YValues[2].ToString("0.000");
+                    lblClose.Text = historicalChart.Series[0].Points[pointX].YValues[3].ToString("0.000");
+                }
+                else
+                {
+                    lblX.Text = String.Empty;
+                    lblHigh.Text = String.Empty;
+                    lblLow.Text = String.Empty;
+                    lblOpen.Text = String.Empty;
+                    lblClose.Text = String.Empty;
+                }
             }
-            else
+            catch(Exception ex)
             {
-                lblX.Text = String.Empty;
-                lblHigh.Text = String.Empty;
-                lblLow.Text = String.Empty;
-                lblOpen.Text = String.Empty;
-                lblClose.Text = String.Empty;
+                // do nothing as exceptions can occur during graph resizing
             }
         }
 
@@ -769,7 +784,60 @@ namespace IBSampleApp
         {
             SyncLimitPrice();
         }
-        
 
+        private void historicalChart_MouseEnter(object sender, EventArgs e)
+        {            
+            this.historicalChart.Focus();
+        }
+
+        private void historicalChart_MouseLeave(object sender, EventArgs e)
+        {
+            this.historicalChart.Parent.Focus();
+        }
+
+        private void historicalChart_MouseWheel(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
+                {
+                    // Zoom In
+                    if (e.Delta > 0)
+                    {
+                        double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+                        double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
+
+                        double posXStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                        double posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+
+                        historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                    }
+                    else
+                    {
+                        // Zoom Out
+                        double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+                        double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
+
+                        double posXStart = xMin - (xMax - xMin) / 4;
+                        double posXFinish = xMax + (xMax - xMin) / 4;
+
+                        historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                    }
+                }
+                else
+                {
+                    // Scrolling
+                    double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+                    
+                    var offset = e.Delta > 0 ? 0 : 2;
+
+                    double posXStart = xMin + offset;                    
+
+                    historicalChart.ChartAreas[0].AxisX.ScaleView.Scroll(posXStart);
+
+                }
+            }
+            catch { }
+        }
     }
 }

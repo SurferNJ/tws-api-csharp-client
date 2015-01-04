@@ -35,10 +35,10 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -54,36 +54,19 @@ namespace IBSampleApp
             this.host_CT = new System.Windows.Forms.TextBox();
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();
-            this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
-            this.cancelMarketDataRequests = new System.Windows.Forms.Button();
-            this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
-            this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
-            this.marketDataContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
-            this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
-            this.deepBookGrid = new System.Windows.Forms.DataGridView();
-            this.bidBookMaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidBookSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bidBookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askBookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askBookSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.askBookMaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.chkLimitOrder = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.radioBuy = new System.Windows.Forms.RadioButton();
+            this.radioSell = new System.Windows.Forms.RadioButton();
             this.buttonOffsetDecrease = new System.Windows.Forms.Button();
+            this.lblTriggerPriceLabel = new System.Windows.Forms.Label();
             this.buttonOffsetIncrease = new System.Windows.Forms.Button();
             this.txtOffset = new System.Windows.Forms.TextBox();
             this.lblOffsetLabel = new System.Windows.Forms.Label();
             this.txtLimitPrice = new System.Windows.Forms.TextBox();
             this.lblLimitPriceLabel = new System.Windows.Forms.Label();
             this.txtTriggerPrice = new System.Windows.Forms.TextBox();
-            this.lblTriggerPriceLabel = new System.Windows.Forms.Label();
             this.lblOrderLabel = new System.Windows.Forms.Label();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
@@ -107,6 +90,30 @@ namespace IBSampleApp
             this.hdVolume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hdWap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.contextMenuOrder = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
+            this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
+            this.cancelMarketDataRequests = new System.Windows.Forms.Button();
+            this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
+            this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
+            this.marketDataContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
+            this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
+            this.deepBookGrid = new System.Windows.Forms.DataGridView();
+            this.bidBookMaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidBookSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bidBookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askBookPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askBookSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.askBookMaker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rtBarsTab_MDT = new System.Windows.Forms.TabPage();
             this.rtBarsCloseLink = new System.Windows.Forms.LinkLabel();
             this.rtBarsGrid = new System.Windows.Forms.DataGridView();
@@ -404,24 +411,19 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.contextMenuOrder = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
-            this.radioBuy = new System.Windows.Forms.RadioButton();
-            this.radioSell = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.chkLimitOrder = new System.Windows.Forms.CheckBox();
             this.TabControl.SuspendLayout();
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
             this.marketData_MDT.SuspendLayout();
+            this.historicalDataTab.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
+            this.contextMenuOrder.SuspendLayout();
             this.topMarketDataTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).BeginInit();
             this.deepBookTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).BeginInit();
-            this.historicalDataTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.rtBarsTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rtBarsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rtBarsChart)).BeginInit();
@@ -477,8 +479,6 @@ namespace IBSampleApp
             this.comboContractBox.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.messagesTab.SuspendLayout();
-            this.contextMenuOrder.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControl
@@ -609,8 +609,8 @@ namespace IBSampleApp
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.marketData_MDT.Controls.Add(this.topMarketDataTab_MDT);
-            this.marketData_MDT.Controls.Add(this.deepBookTab_MDT);
             this.marketData_MDT.Controls.Add(this.historicalDataTab);
+            this.marketData_MDT.Controls.Add(this.deepBookTab_MDT);
             this.marketData_MDT.Controls.Add(this.rtBarsTab_MDT);
             this.marketData_MDT.Controls.Add(this.scannerTab);
             this.marketData_MDT.Location = new System.Drawing.Point(0, 258);
@@ -619,213 +619,6 @@ namespace IBSampleApp
             this.marketData_MDT.SelectedIndex = 0;
             this.marketData_MDT.Size = new System.Drawing.Size(1656, 304);
             this.marketData_MDT.TabIndex = 1;
-            // 
-            // topMarketDataTab_MDT
-            // 
-            this.topMarketDataTab_MDT.BackColor = System.Drawing.Color.LightGray;
-            this.topMarketDataTab_MDT.Controls.Add(this.cancelMarketDataRequests);
-            this.topMarketDataTab_MDT.Controls.Add(this.closeMketDataTab);
-            this.topMarketDataTab_MDT.Controls.Add(this.marketDataGrid_MDT);
-            this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 25);
-            this.topMarketDataTab_MDT.Margin = new System.Windows.Forms.Padding(4);
-            this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
-            this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 275);
-            this.topMarketDataTab_MDT.TabIndex = 0;
-            this.topMarketDataTab_MDT.Text = "Market Data";
-            // 
-            // cancelMarketDataRequests
-            // 
-            this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
-            this.cancelMarketDataRequests.Margin = new System.Windows.Forms.Padding(4);
-            this.cancelMarketDataRequests.Name = "cancelMarketDataRequests";
-            this.cancelMarketDataRequests.Size = new System.Drawing.Size(100, 28);
-            this.cancelMarketDataRequests.TabIndex = 2;
-            this.cancelMarketDataRequests.Text = "Stop";
-            this.cancelMarketDataRequests.UseVisualStyleBackColor = true;
-            this.cancelMarketDataRequests.Click += new System.EventHandler(this.cancelMarketDataRequests_Click);
-            // 
-            // closeMketDataTab
-            // 
-            this.closeMketDataTab.AutoSize = true;
-            this.closeMketDataTab.Location = new System.Drawing.Point(8, 4);
-            this.closeMketDataTab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.closeMketDataTab.Name = "closeMketDataTab";
-            this.closeMketDataTab.Size = new System.Drawing.Size(43, 17);
-            this.closeMketDataTab.TabIndex = 1;
-            this.closeMketDataTab.TabStop = true;
-            this.closeMketDataTab.Text = "Close";
-            this.closeMketDataTab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeMketDataTab_LinkClicked);
-            // 
-            // marketDataGrid_MDT
-            // 
-            this.marketDataGrid_MDT.AllowUserToAddRows = false;
-            this.marketDataGrid_MDT.AllowUserToDeleteRows = false;
-            this.marketDataGrid_MDT.AllowUserToOrderColumns = true;
-            this.marketDataGrid_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.marketDataGrid_MDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.marketDataGrid_MDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.marketDataContract,
-            this.bidSize,
-            this.bidPrice,
-            this.askPrice,
-            this.askSize,
-            this.lastPrice,
-            this.volume,
-            this.closeTickerColumn});
-            this.marketDataGrid_MDT.Location = new System.Drawing.Point(4, 23);
-            this.marketDataGrid_MDT.Margin = new System.Windows.Forms.Padding(4);
-            this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
-            this.marketDataGrid_MDT.ReadOnly = true;
-            this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 238);
-            this.marketDataGrid_MDT.TabIndex = 0;
-            this.marketDataGrid_MDT.Visible = false;
-            // 
-            // marketDataContract
-            // 
-            this.marketDataContract.HeaderText = "Description";
-            this.marketDataContract.Name = "marketDataContract";
-            this.marketDataContract.ReadOnly = true;
-            this.marketDataContract.Width = 200;
-            // 
-            // bidSize
-            // 
-            this.bidSize.HeaderText = "Bid Size";
-            this.bidSize.Name = "bidSize";
-            this.bidSize.ReadOnly = true;
-            // 
-            // bidPrice
-            // 
-            this.bidPrice.HeaderText = "Bid";
-            this.bidPrice.Name = "bidPrice";
-            this.bidPrice.ReadOnly = true;
-            // 
-            // askPrice
-            // 
-            this.askPrice.HeaderText = "Ask";
-            this.askPrice.Name = "askPrice";
-            this.askPrice.ReadOnly = true;
-            // 
-            // askSize
-            // 
-            this.askSize.HeaderText = "Ask Size";
-            this.askSize.Name = "askSize";
-            this.askSize.ReadOnly = true;
-            // 
-            // lastPrice
-            // 
-            this.lastPrice.HeaderText = "Last Size";
-            this.lastPrice.Name = "lastPrice";
-            this.lastPrice.ReadOnly = true;
-            // 
-            // volume
-            // 
-            this.volume.HeaderText = "Volume";
-            this.volume.Name = "volume";
-            this.volume.ReadOnly = true;
-            // 
-            // closeTickerColumn
-            // 
-            this.closeTickerColumn.HeaderText = "Close";
-            this.closeTickerColumn.Name = "closeTickerColumn";
-            this.closeTickerColumn.ReadOnly = true;
-            this.closeTickerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.closeTickerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // deepBookTab_MDT
-            // 
-            this.deepBookTab_MDT.BackColor = System.Drawing.Color.LightGray;
-            this.deepBookTab_MDT.Controls.Add(this.closeDeepBookLink);
-            this.deepBookTab_MDT.Controls.Add(this.deepBookGrid);
-            this.deepBookTab_MDT.Location = new System.Drawing.Point(4, 25);
-            this.deepBookTab_MDT.Margin = new System.Windows.Forms.Padding(4);
-            this.deepBookTab_MDT.Name = "deepBookTab_MDT";
-            this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 275);
-            this.deepBookTab_MDT.TabIndex = 1;
-            this.deepBookTab_MDT.Text = "Deep Book";
-            // 
-            // closeDeepBookLink
-            // 
-            this.closeDeepBookLink.AutoSize = true;
-            this.closeDeepBookLink.Location = new System.Drawing.Point(8, 4);
-            this.closeDeepBookLink.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.closeDeepBookLink.Name = "closeDeepBookLink";
-            this.closeDeepBookLink.Size = new System.Drawing.Size(43, 17);
-            this.closeDeepBookLink.TabIndex = 1;
-            this.closeDeepBookLink.TabStop = true;
-            this.closeDeepBookLink.Text = "Close";
-            this.closeDeepBookLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeDeepBookLink_LinkClicked);
-            // 
-            // deepBookGrid
-            // 
-            this.deepBookGrid.AllowUserToAddRows = false;
-            this.deepBookGrid.AllowUserToDeleteRows = false;
-            this.deepBookGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.deepBookGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.deepBookGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.bidBookMaker,
-            this.bidBookSize,
-            this.bidBookPrice,
-            this.askBookPrice,
-            this.askBookSize,
-            this.askBookMaker});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
-            this.deepBookGrid.Location = new System.Drawing.Point(5, 23);
-            this.deepBookGrid.Margin = new System.Windows.Forms.Padding(4);
-            this.deepBookGrid.Name = "deepBookGrid";
-            this.deepBookGrid.ReadOnly = true;
-            this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deepBookGrid.Size = new System.Drawing.Size(1632, 238);
-            this.deepBookGrid.TabIndex = 0;
-            // 
-            // bidBookMaker
-            // 
-            this.bidBookMaker.HeaderText = "Market Maker";
-            this.bidBookMaker.Name = "bidBookMaker";
-            this.bidBookMaker.ReadOnly = true;
-            // 
-            // bidBookSize
-            // 
-            this.bidBookSize.HeaderText = "Bid Size";
-            this.bidBookSize.Name = "bidBookSize";
-            this.bidBookSize.ReadOnly = true;
-            // 
-            // bidBookPrice
-            // 
-            this.bidBookPrice.HeaderText = "Bid Price";
-            this.bidBookPrice.Name = "bidBookPrice";
-            this.bidBookPrice.ReadOnly = true;
-            // 
-            // askBookPrice
-            // 
-            this.askBookPrice.HeaderText = "Ask Price";
-            this.askBookPrice.Name = "askBookPrice";
-            this.askBookPrice.ReadOnly = true;
-            // 
-            // askBookSize
-            // 
-            this.askBookSize.HeaderText = "Ask Size";
-            this.askBookSize.Name = "askBookSize";
-            this.askBookSize.ReadOnly = true;
-            // 
-            // askBookMaker
-            // 
-            this.askBookMaker.HeaderText = "Market Maker";
-            this.askBookMaker.Name = "askBookMaker";
-            this.askBookMaker.ReadOnly = true;
             // 
             // historicalDataTab
             // 
@@ -864,6 +657,50 @@ namespace IBSampleApp
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
             // 
+            // chkLimitOrder
+            // 
+            this.chkLimitOrder.AutoSize = true;
+            this.chkLimitOrder.Location = new System.Drawing.Point(597, 60);
+            this.chkLimitOrder.Name = "chkLimitOrder";
+            this.chkLimitOrder.Size = new System.Drawing.Size(100, 21);
+            this.chkLimitOrder.TabIndex = 27;
+            this.chkLimitOrder.Text = "Limit Order";
+            this.chkLimitOrder.UseVisualStyleBackColor = true;
+            this.chkLimitOrder.CheckedChanged += new System.EventHandler(this.chkLimitOrder_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.radioBuy);
+            this.panel1.Controls.Add(this.radioSell);
+            this.panel1.Location = new System.Drawing.Point(593, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(118, 26);
+            this.panel1.TabIndex = 26;
+            // 
+            // radioBuy
+            // 
+            this.radioBuy.AutoSize = true;
+            this.radioBuy.Location = new System.Drawing.Point(3, 3);
+            this.radioBuy.Name = "radioBuy";
+            this.radioBuy.Size = new System.Drawing.Size(53, 21);
+            this.radioBuy.TabIndex = 24;
+            this.radioBuy.TabStop = true;
+            this.radioBuy.Text = "Buy";
+            this.radioBuy.UseVisualStyleBackColor = true;
+            this.radioBuy.CheckedChanged += new System.EventHandler(this.radioBuy_CheckedChanged);
+            // 
+            // radioSell
+            // 
+            this.radioSell.AutoSize = true;
+            this.radioSell.Location = new System.Drawing.Point(62, 3);
+            this.radioSell.Name = "radioSell";
+            this.radioSell.Size = new System.Drawing.Size(52, 21);
+            this.radioSell.TabIndex = 25;
+            this.radioSell.TabStop = true;
+            this.radioSell.Text = "Sell";
+            this.radioSell.UseVisualStyleBackColor = true;
+            this.radioSell.CheckedChanged += new System.EventHandler(this.radioSell_CheckedChanged);
+            // 
             // buttonOffsetDecrease
             // 
             this.buttonOffsetDecrease.Location = new System.Drawing.Point(618, 159);
@@ -873,6 +710,15 @@ namespace IBSampleApp
             this.buttonOffsetDecrease.Text = "-";
             this.buttonOffsetDecrease.UseVisualStyleBackColor = true;
             this.buttonOffsetDecrease.Click += new System.EventHandler(this.buttonOffsetDecrease_Click);
+            // 
+            // lblTriggerPriceLabel
+            // 
+            this.lblTriggerPriceLabel.AutoSize = true;
+            this.lblTriggerPriceLabel.Location = new System.Drawing.Point(594, 84);
+            this.lblTriggerPriceLabel.Name = "lblTriggerPriceLabel";
+            this.lblTriggerPriceLabel.Size = new System.Drawing.Size(90, 17);
+            this.lblTriggerPriceLabel.TabIndex = 16;
+            this.lblTriggerPriceLabel.Text = "Trigger Price";
             // 
             // buttonOffsetIncrease
             // 
@@ -924,15 +770,6 @@ namespace IBSampleApp
             this.txtTriggerPrice.Name = "txtTriggerPrice";
             this.txtTriggerPrice.Size = new System.Drawing.Size(73, 22);
             this.txtTriggerPrice.TabIndex = 17;
-            // 
-            // lblTriggerPriceLabel
-            // 
-            this.lblTriggerPriceLabel.AutoSize = true;
-            this.lblTriggerPriceLabel.Location = new System.Drawing.Point(594, 84);
-            this.lblTriggerPriceLabel.Name = "lblTriggerPriceLabel";
-            this.lblTriggerPriceLabel.Size = new System.Drawing.Size(90, 17);
-            this.lblTriggerPriceLabel.TabIndex = 16;
-            this.lblTriggerPriceLabel.Text = "Trigger Price";
             // 
             // lblOrderLabel
             // 
@@ -1167,7 +1004,238 @@ namespace IBSampleApp
             this.historicalChart.Size = new System.Drawing.Size(919, 227);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
+            this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
+            this.historicalChart.MouseLeave += new System.EventHandler(this.historicalChart_MouseLeave);
             this.historicalChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseMove);
+            this.historicalChart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseWheel);
+            // 
+            // contextMenuOrder
+            // 
+            this.contextMenuOrder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuItemBuyLMT,
+            this.contextMenuItemSellLMT});
+            this.contextMenuOrder.Name = "contextMenuOrder";
+            this.contextMenuOrder.Size = new System.Drawing.Size(135, 52);
+            // 
+            // contextMenuItemBuyLMT
+            // 
+            this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
+            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemBuyLMT.Text = "Buy LMT";
+            this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
+            // 
+            // contextMenuItemSellLMT
+            // 
+            this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
+            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemSellLMT.Text = "Sell LMT";
+            // 
+            // topMarketDataTab_MDT
+            // 
+            this.topMarketDataTab_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.topMarketDataTab_MDT.Controls.Add(this.cancelMarketDataRequests);
+            this.topMarketDataTab_MDT.Controls.Add(this.closeMketDataTab);
+            this.topMarketDataTab_MDT.Controls.Add(this.marketDataGrid_MDT);
+            this.topMarketDataTab_MDT.Location = new System.Drawing.Point(4, 25);
+            this.topMarketDataTab_MDT.Margin = new System.Windows.Forms.Padding(4);
+            this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
+            this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(4);
+            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 275);
+            this.topMarketDataTab_MDT.TabIndex = 0;
+            this.topMarketDataTab_MDT.Text = "Market Data";
+            // 
+            // cancelMarketDataRequests
+            // 
+            this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
+            this.cancelMarketDataRequests.Margin = new System.Windows.Forms.Padding(4);
+            this.cancelMarketDataRequests.Name = "cancelMarketDataRequests";
+            this.cancelMarketDataRequests.Size = new System.Drawing.Size(100, 28);
+            this.cancelMarketDataRequests.TabIndex = 2;
+            this.cancelMarketDataRequests.Text = "Stop";
+            this.cancelMarketDataRequests.UseVisualStyleBackColor = true;
+            this.cancelMarketDataRequests.Click += new System.EventHandler(this.cancelMarketDataRequests_Click);
+            // 
+            // closeMketDataTab
+            // 
+            this.closeMketDataTab.AutoSize = true;
+            this.closeMketDataTab.Location = new System.Drawing.Point(8, 4);
+            this.closeMketDataTab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.closeMketDataTab.Name = "closeMketDataTab";
+            this.closeMketDataTab.Size = new System.Drawing.Size(43, 17);
+            this.closeMketDataTab.TabIndex = 1;
+            this.closeMketDataTab.TabStop = true;
+            this.closeMketDataTab.Text = "Close";
+            this.closeMketDataTab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeMketDataTab_LinkClicked);
+            // 
+            // marketDataGrid_MDT
+            // 
+            this.marketDataGrid_MDT.AllowUserToAddRows = false;
+            this.marketDataGrid_MDT.AllowUserToDeleteRows = false;
+            this.marketDataGrid_MDT.AllowUserToOrderColumns = true;
+            this.marketDataGrid_MDT.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.marketDataGrid_MDT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.marketDataGrid_MDT.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.marketDataContract,
+            this.bidSize,
+            this.bidPrice,
+            this.askPrice,
+            this.askSize,
+            this.lastPrice,
+            this.volume,
+            this.closeTickerColumn});
+            this.marketDataGrid_MDT.Location = new System.Drawing.Point(4, 23);
+            this.marketDataGrid_MDT.Margin = new System.Windows.Forms.Padding(4);
+            this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
+            this.marketDataGrid_MDT.ReadOnly = true;
+            this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 238);
+            this.marketDataGrid_MDT.TabIndex = 0;
+            this.marketDataGrid_MDT.Visible = false;
+            // 
+            // marketDataContract
+            // 
+            this.marketDataContract.HeaderText = "Description";
+            this.marketDataContract.Name = "marketDataContract";
+            this.marketDataContract.ReadOnly = true;
+            this.marketDataContract.Width = 200;
+            // 
+            // bidSize
+            // 
+            this.bidSize.HeaderText = "Bid Size";
+            this.bidSize.Name = "bidSize";
+            this.bidSize.ReadOnly = true;
+            // 
+            // bidPrice
+            // 
+            this.bidPrice.HeaderText = "Bid";
+            this.bidPrice.Name = "bidPrice";
+            this.bidPrice.ReadOnly = true;
+            // 
+            // askPrice
+            // 
+            this.askPrice.HeaderText = "Ask";
+            this.askPrice.Name = "askPrice";
+            this.askPrice.ReadOnly = true;
+            // 
+            // askSize
+            // 
+            this.askSize.HeaderText = "Ask Size";
+            this.askSize.Name = "askSize";
+            this.askSize.ReadOnly = true;
+            // 
+            // lastPrice
+            // 
+            this.lastPrice.HeaderText = "Last Size";
+            this.lastPrice.Name = "lastPrice";
+            this.lastPrice.ReadOnly = true;
+            // 
+            // volume
+            // 
+            this.volume.HeaderText = "Volume";
+            this.volume.Name = "volume";
+            this.volume.ReadOnly = true;
+            // 
+            // closeTickerColumn
+            // 
+            this.closeTickerColumn.HeaderText = "Close";
+            this.closeTickerColumn.Name = "closeTickerColumn";
+            this.closeTickerColumn.ReadOnly = true;
+            this.closeTickerColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.closeTickerColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // deepBookTab_MDT
+            // 
+            this.deepBookTab_MDT.BackColor = System.Drawing.Color.LightGray;
+            this.deepBookTab_MDT.Controls.Add(this.closeDeepBookLink);
+            this.deepBookTab_MDT.Controls.Add(this.deepBookGrid);
+            this.deepBookTab_MDT.Location = new System.Drawing.Point(4, 25);
+            this.deepBookTab_MDT.Margin = new System.Windows.Forms.Padding(4);
+            this.deepBookTab_MDT.Name = "deepBookTab_MDT";
+            this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(4);
+            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 275);
+            this.deepBookTab_MDT.TabIndex = 1;
+            this.deepBookTab_MDT.Text = "Deep Book";
+            // 
+            // closeDeepBookLink
+            // 
+            this.closeDeepBookLink.AutoSize = true;
+            this.closeDeepBookLink.Location = new System.Drawing.Point(8, 4);
+            this.closeDeepBookLink.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.closeDeepBookLink.Name = "closeDeepBookLink";
+            this.closeDeepBookLink.Size = new System.Drawing.Size(43, 17);
+            this.closeDeepBookLink.TabIndex = 1;
+            this.closeDeepBookLink.TabStop = true;
+            this.closeDeepBookLink.Text = "Close";
+            this.closeDeepBookLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.closeDeepBookLink_LinkClicked);
+            // 
+            // deepBookGrid
+            // 
+            this.deepBookGrid.AllowUserToAddRows = false;
+            this.deepBookGrid.AllowUserToDeleteRows = false;
+            this.deepBookGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deepBookGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.deepBookGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.bidBookMaker,
+            this.bidBookSize,
+            this.bidBookPrice,
+            this.askBookPrice,
+            this.askBookSize,
+            this.askBookMaker});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.deepBookGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            this.deepBookGrid.Location = new System.Drawing.Point(5, 23);
+            this.deepBookGrid.Margin = new System.Windows.Forms.Padding(4);
+            this.deepBookGrid.Name = "deepBookGrid";
+            this.deepBookGrid.ReadOnly = true;
+            this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.deepBookGrid.Size = new System.Drawing.Size(1632, 238);
+            this.deepBookGrid.TabIndex = 0;
+            // 
+            // bidBookMaker
+            // 
+            this.bidBookMaker.HeaderText = "Market Maker";
+            this.bidBookMaker.Name = "bidBookMaker";
+            this.bidBookMaker.ReadOnly = true;
+            // 
+            // bidBookSize
+            // 
+            this.bidBookSize.HeaderText = "Bid Size";
+            this.bidBookSize.Name = "bidBookSize";
+            this.bidBookSize.ReadOnly = true;
+            // 
+            // bidBookPrice
+            // 
+            this.bidBookPrice.HeaderText = "Bid Price";
+            this.bidBookPrice.Name = "bidBookPrice";
+            this.bidBookPrice.ReadOnly = true;
+            // 
+            // askBookPrice
+            // 
+            this.askBookPrice.HeaderText = "Ask Price";
+            this.askBookPrice.Name = "askBookPrice";
+            this.askBookPrice.ReadOnly = true;
+            // 
+            // askBookSize
+            // 
+            this.askBookSize.HeaderText = "Ask Size";
+            this.askBookSize.Name = "askBookSize";
+            this.askBookSize.ReadOnly = true;
+            // 
+            // askBookMaker
+            // 
+            this.askBookMaker.HeaderText = "Market Maker";
+            this.askBookMaker.Name = "askBookMaker";
+            this.askBookMaker.ReadOnly = true;
             // 
             // rtBarsTab_MDT
             // 
@@ -1850,7 +1918,7 @@ namespace IBSampleApp
             this.hdRequest_Duration.Name = "hdRequest_Duration";
             this.hdRequest_Duration.Size = new System.Drawing.Size(88, 22);
             this.hdRequest_Duration.TabIndex = 47;
-            this.hdRequest_Duration.Text = "10";
+            this.hdRequest_Duration.Text = "30";
             // 
             // hdRequest_BarSize
             // 
@@ -4356,71 +4424,6 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // contextMenuOrder
-            // 
-            this.contextMenuOrder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.contextMenuItemBuyLMT,
-            this.contextMenuItemSellLMT});
-            this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(135, 52);
-            // 
-            // contextMenuItemBuyLMT
-            // 
-            this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
-            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(134, 24);
-            this.contextMenuItemBuyLMT.Text = "Buy LMT";
-            this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
-            // 
-            // contextMenuItemSellLMT
-            // 
-            this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
-            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(134, 24);
-            this.contextMenuItemSellLMT.Text = "Sell LMT";
-            // 
-            // radioBuy
-            // 
-            this.radioBuy.AutoSize = true;
-            this.radioBuy.Location = new System.Drawing.Point(3, 3);
-            this.radioBuy.Name = "radioBuy";
-            this.radioBuy.Size = new System.Drawing.Size(53, 21);
-            this.radioBuy.TabIndex = 24;
-            this.radioBuy.TabStop = true;
-            this.radioBuy.Text = "Buy";
-            this.radioBuy.UseVisualStyleBackColor = true;
-            this.radioBuy.CheckedChanged += new System.EventHandler(this.radioBuy_CheckedChanged);
-            // 
-            // radioSell
-            // 
-            this.radioSell.AutoSize = true;
-            this.radioSell.Location = new System.Drawing.Point(62, 3);
-            this.radioSell.Name = "radioSell";
-            this.radioSell.Size = new System.Drawing.Size(52, 21);
-            this.radioSell.TabIndex = 25;
-            this.radioSell.TabStop = true;
-            this.radioSell.Text = "Sell";
-            this.radioSell.UseVisualStyleBackColor = true;
-            this.radioSell.CheckedChanged += new System.EventHandler(this.radioSell_CheckedChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radioBuy);
-            this.panel1.Controls.Add(this.radioSell);
-            this.panel1.Location = new System.Drawing.Point(593, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(118, 26);
-            this.panel1.TabIndex = 26;
-            // 
-            // chkLimitOrder
-            // 
-            this.chkLimitOrder.AutoSize = true;
-            this.chkLimitOrder.Location = new System.Drawing.Point(597, 60);
-            this.chkLimitOrder.Name = "chkLimitOrder";
-            this.chkLimitOrder.Size = new System.Drawing.Size(100, 21);
-            this.chkLimitOrder.TabIndex = 27;
-            this.chkLimitOrder.Text = "Limit Order";
-            this.chkLimitOrder.UseVisualStyleBackColor = true;
-            this.chkLimitOrder.CheckedChanged += new System.EventHandler(this.chkLimitOrder_CheckedChanged);
-            // 
             // IBSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -4438,16 +4441,19 @@ namespace IBSampleApp
             this.connectionTab.PerformLayout();
             this.marketDataTab.ResumeLayout(false);
             this.marketData_MDT.ResumeLayout(false);
+            this.historicalDataTab.ResumeLayout(false);
+            this.historicalDataTab.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
+            this.contextMenuOrder.ResumeLayout(false);
             this.topMarketDataTab_MDT.ResumeLayout(false);
             this.topMarketDataTab_MDT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).EndInit();
             this.deepBookTab_MDT.ResumeLayout(false);
             this.deepBookTab_MDT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).EndInit();
-            this.historicalDataTab.ResumeLayout(false);
-            this.historicalDataTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
             this.rtBarsTab_MDT.ResumeLayout(false);
             this.rtBarsTab_MDT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rtBarsGrid)).EndInit();
@@ -4520,9 +4526,6 @@ namespace IBSampleApp
             this.tabControl2.ResumeLayout(false);
             this.messagesTab.ResumeLayout(false);
             this.messagesTab.PerformLayout();
-            this.contextMenuOrder.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
