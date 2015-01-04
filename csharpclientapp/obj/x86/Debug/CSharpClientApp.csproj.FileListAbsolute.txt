@@ -1,0 +1,2 @@
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.exe
+C:\projects-github\tws-api-csharp-client\csharpclientapp\obj\x86\Debug\IBSampleApp.pdb
