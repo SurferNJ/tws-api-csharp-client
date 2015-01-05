@@ -3,6 +3,7 @@
 
 using IBSampleApp.types;
 using System.Data;
+
 namespace IBSampleApp
 {
     partial class IBSampleApp
@@ -67,22 +68,8 @@ namespace IBSampleApp
             this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.chkLimitOrder = new System.Windows.Forms.CheckBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioBuy = new System.Windows.Forms.RadioButton();
-            this.radioSell = new System.Windows.Forms.RadioButton();
-            this.buttonOffsetDecrease = new System.Windows.Forms.Button();
-            this.lblTriggerPriceLabel = new System.Windows.Forms.Label();
-            this.buttonOffsetIncrease = new System.Windows.Forms.Button();
-            this.txtOffset = new System.Windows.Forms.TextBox();
-            this.lblOffsetLabel = new System.Windows.Forms.Label();
-            this.txtLimitPrice = new System.Windows.Forms.TextBox();
-            this.lblLimitPriceLabel = new System.Windows.Forms.Label();
-            this.txtTriggerPrice = new System.Windows.Forms.TextBox();
-            this.lblOrderLabel = new System.Windows.Forms.Label();
+            this.orderFormSell = new usercontrols.OrderForm();
+            this.orderFormBuy = new usercontrols.OrderForm();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
@@ -421,7 +408,6 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).BeginInit();
             this.historicalDataTab.SuspendLayout();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
@@ -741,20 +727,8 @@ namespace IBSampleApp
             // historicalDataTab
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
-            this.historicalDataTab.Controls.Add(this.button5);
-            this.historicalDataTab.Controls.Add(this.button4);
-            this.historicalDataTab.Controls.Add(this.button3);
-            this.historicalDataTab.Controls.Add(this.chkLimitOrder);
-            this.historicalDataTab.Controls.Add(this.panel1);
-            this.historicalDataTab.Controls.Add(this.buttonOffsetDecrease);
-            this.historicalDataTab.Controls.Add(this.lblTriggerPriceLabel);
-            this.historicalDataTab.Controls.Add(this.buttonOffsetIncrease);
-            this.historicalDataTab.Controls.Add(this.txtOffset);
-            this.historicalDataTab.Controls.Add(this.lblOffsetLabel);
-            this.historicalDataTab.Controls.Add(this.txtLimitPrice);
-            this.historicalDataTab.Controls.Add(this.lblLimitPriceLabel);
-            this.historicalDataTab.Controls.Add(this.txtTriggerPrice);
-            this.historicalDataTab.Controls.Add(this.lblOrderLabel);
+            this.historicalDataTab.Controls.Add(this.orderFormSell);
+            this.historicalDataTab.Controls.Add(this.orderFormBuy);
             this.historicalDataTab.Controls.Add(this.lblLow);
             this.historicalDataTab.Controls.Add(this.lblLowLabel);
             this.historicalDataTab.Controls.Add(this.lblClose);
@@ -778,156 +752,21 @@ namespace IBSampleApp
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
             // 
-            // button5
+            // orderFormSell
             // 
-            this.button5.Location = new System.Drawing.Point(683, 235);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(73, 29);
-            this.button5.TabIndex = 30;
-            this.button5.Text = "Queue";
-            this.button5.UseVisualStyleBackColor = true;
+            this.orderFormSell.Location = new System.Drawing.Point(466, 17);
+            this.orderFormSell.Name = "orderFormSell";
+            this.orderFormSell.Order = usercontrols.OrderType.SELL;
+            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
+            this.orderFormSell.TabIndex = 32;
             // 
-            // button4
+            // orderFormBuy
             // 
-            this.button4.Location = new System.Drawing.Point(625, 235);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(52, 30);
-            this.button4.TabIndex = 29;
-            this.button4.Text = "Place";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(570, 235);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(49, 30);
-            this.button3.TabIndex = 28;
-            this.button3.Text = "Clear";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // chkLimitOrder
-            // 
-            this.chkLimitOrder.AutoSize = true;
-            this.chkLimitOrder.Location = new System.Drawing.Point(597, 60);
-            this.chkLimitOrder.Name = "chkLimitOrder";
-            this.chkLimitOrder.Size = new System.Drawing.Size(100, 21);
-            this.chkLimitOrder.TabIndex = 27;
-            this.chkLimitOrder.Text = "Limit Order";
-            this.chkLimitOrder.UseVisualStyleBackColor = true;
-            this.chkLimitOrder.CheckedChanged += new System.EventHandler(this.chkLimitOrder_CheckedChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radioBuy);
-            this.panel1.Controls.Add(this.radioSell);
-            this.panel1.Location = new System.Drawing.Point(593, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(118, 26);
-            this.panel1.TabIndex = 26;
-            // 
-            // radioBuy
-            // 
-            this.radioBuy.AutoSize = true;
-            this.radioBuy.Location = new System.Drawing.Point(3, 3);
-            this.radioBuy.Name = "radioBuy";
-            this.radioBuy.Size = new System.Drawing.Size(53, 21);
-            this.radioBuy.TabIndex = 24;
-            this.radioBuy.TabStop = true;
-            this.radioBuy.Text = "Buy";
-            this.radioBuy.UseVisualStyleBackColor = true;
-            this.radioBuy.CheckedChanged += new System.EventHandler(this.radioBuy_CheckedChanged);
-            // 
-            // radioSell
-            // 
-            this.radioSell.AutoSize = true;
-            this.radioSell.Location = new System.Drawing.Point(62, 3);
-            this.radioSell.Name = "radioSell";
-            this.radioSell.Size = new System.Drawing.Size(52, 21);
-            this.radioSell.TabIndex = 25;
-            this.radioSell.TabStop = true;
-            this.radioSell.Text = "Sell";
-            this.radioSell.UseVisualStyleBackColor = true;
-            this.radioSell.CheckedChanged += new System.EventHandler(this.radioSell_CheckedChanged);
-            // 
-            // buttonOffsetDecrease
-            // 
-            this.buttonOffsetDecrease.Location = new System.Drawing.Point(618, 149);
-            this.buttonOffsetDecrease.Name = "buttonOffsetDecrease";
-            this.buttonOffsetDecrease.Size = new System.Drawing.Size(23, 22);
-            this.buttonOffsetDecrease.TabIndex = 23;
-            this.buttonOffsetDecrease.Text = "-";
-            this.buttonOffsetDecrease.UseVisualStyleBackColor = true;
-            this.buttonOffsetDecrease.Click += new System.EventHandler(this.buttonOffsetDecrease_Click);
-            // 
-            // lblTriggerPriceLabel
-            // 
-            this.lblTriggerPriceLabel.AutoSize = true;
-            this.lblTriggerPriceLabel.Location = new System.Drawing.Point(594, 84);
-            this.lblTriggerPriceLabel.Name = "lblTriggerPriceLabel";
-            this.lblTriggerPriceLabel.Size = new System.Drawing.Size(90, 17);
-            this.lblTriggerPriceLabel.TabIndex = 16;
-            this.lblTriggerPriceLabel.Text = "Trigger Price";
-            // 
-            // buttonOffsetIncrease
-            // 
-            this.buttonOffsetIncrease.Location = new System.Drawing.Point(688, 149);
-            this.buttonOffsetIncrease.Name = "buttonOffsetIncrease";
-            this.buttonOffsetIncrease.Size = new System.Drawing.Size(23, 22);
-            this.buttonOffsetIncrease.TabIndex = 22;
-            this.buttonOffsetIncrease.Text = "+";
-            this.buttonOffsetIncrease.UseVisualStyleBackColor = true;
-            this.buttonOffsetIncrease.Click += new System.EventHandler(this.buttonOffsetIncrease_Click);
-            // 
-            // txtOffset
-            // 
-            this.txtOffset.Location = new System.Drawing.Point(647, 149);
-            this.txtOffset.Name = "txtOffset";
-            this.txtOffset.Size = new System.Drawing.Size(35, 22);
-            this.txtOffset.TabIndex = 21;
-            this.txtOffset.Text = "1";
-            this.txtOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // lblOffsetLabel
-            // 
-            this.lblOffsetLabel.AutoSize = true;
-            this.lblOffsetLabel.Location = new System.Drawing.Point(597, 129);
-            this.lblOffsetLabel.Name = "lblOffsetLabel";
-            this.lblOffsetLabel.Size = new System.Drawing.Size(67, 17);
-            this.lblOffsetLabel.TabIndex = 20;
-            this.lblOffsetLabel.Text = "+/- Offset";
-            // 
-            // txtLimitPrice
-            // 
-            this.txtLimitPrice.Location = new System.Drawing.Point(624, 194);
-            this.txtLimitPrice.Name = "txtLimitPrice";
-            this.txtLimitPrice.Size = new System.Drawing.Size(73, 22);
-            this.txtLimitPrice.TabIndex = 19;
-            // 
-            // lblLimitPriceLabel
-            // 
-            this.lblLimitPriceLabel.AutoSize = true;
-            this.lblLimitPriceLabel.Location = new System.Drawing.Point(597, 174);
-            this.lblLimitPriceLabel.Name = "lblLimitPriceLabel";
-            this.lblLimitPriceLabel.Size = new System.Drawing.Size(73, 17);
-            this.lblLimitPriceLabel.TabIndex = 18;
-            this.lblLimitPriceLabel.Text = "Limit Price";
-            // 
-            // txtTriggerPrice
-            // 
-            this.txtTriggerPrice.Location = new System.Drawing.Point(625, 104);
-            this.txtTriggerPrice.Name = "txtTriggerPrice";
-            this.txtTriggerPrice.Size = new System.Drawing.Size(73, 22);
-            this.txtTriggerPrice.TabIndex = 17;
-            // 
-            // lblOrderLabel
-            // 
-            this.lblOrderLabel.AutoSize = true;
-            this.lblOrderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOrderLabel.Location = new System.Drawing.Point(593, 4);
-            this.lblOrderLabel.Name = "lblOrderLabel";
-            this.lblOrderLabel.Size = new System.Drawing.Size(105, 17);
-            this.lblOrderLabel.TabIndex = 15;
-            this.lblOrderLabel.Text = "Order Details";
+            this.orderFormBuy.Location = new System.Drawing.Point(603, 17);
+            this.orderFormBuy.Name = "orderFormBuy";
+            this.orderFormBuy.Order = usercontrols.OrderType.BUY;
+            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
+            this.orderFormBuy.TabIndex = 31;
             // 
             // lblLow
             // 
@@ -1065,7 +904,7 @@ namespace IBSampleApp
             this.barsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.barsGrid.Size = new System.Drawing.Size(559, 232);
+            this.barsGrid.Size = new System.Drawing.Size(429, 232);
             this.barsGrid.TabIndex = 1;
             // 
             // hdDate
@@ -1163,19 +1002,19 @@ namespace IBSampleApp
             this.contextMenuItemBuyLMT,
             this.contextMenuItemSellLMT});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(176, 80);
+            this.contextMenuOrder.Size = new System.Drawing.Size(135, 52);
             // 
             // contextMenuItemBuyLMT
             // 
             this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
-            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(175, 24);
+            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(134, 24);
             this.contextMenuItemBuyLMT.Text = "Buy LMT";
             this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
             // 
             // contextMenuItemSellLMT
             // 
             this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
-            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(175, 24);
+            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(134, 24);
             this.contextMenuItemSellLMT.Text = "Sell LMT";
             this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
             // 
@@ -4480,8 +4319,6 @@ namespace IBSampleApp
             ((System.ComponentModel.ISupportInitialize)(this.marketDataGrid_MDT)).EndInit();
             this.historicalDataTab.ResumeLayout(false);
             this.historicalDataTab.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
             this.contextMenuOrder.ResumeLayout(false);
@@ -4918,25 +4755,11 @@ namespace IBSampleApp
         private System.Windows.Forms.Label lblCloseLabel;
         private System.Windows.Forms.Label lblOpen;
         private System.Windows.Forms.Label lblOpenLabel;
-        private System.Windows.Forms.Button buttonOffsetIncrease;
-        private System.Windows.Forms.TextBox txtOffset;
-        private System.Windows.Forms.Label lblOffsetLabel;
-        private System.Windows.Forms.TextBox txtLimitPrice;
-        private System.Windows.Forms.Label lblLimitPriceLabel;
-        private System.Windows.Forms.TextBox txtTriggerPrice;
-        private System.Windows.Forms.Label lblTriggerPriceLabel;
-        private System.Windows.Forms.Label lblOrderLabel;
         private System.Windows.Forms.ContextMenuStrip contextMenuOrder;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemBuyLMT;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSellLMT;
-        private System.Windows.Forms.Button buttonOffsetDecrease;
-        private System.Windows.Forms.CheckBox chkLimitOrder;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioBuy;
-        private System.Windows.Forms.RadioButton radioSell;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private usercontrols.OrderForm orderFormBuy;
+        private usercontrols.OrderForm orderFormSell;
     }
 }
 

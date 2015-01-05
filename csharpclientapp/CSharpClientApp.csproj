@@ -122,6 +122,12 @@
     <Compile Include="ui\OrderManager.cs" />
     <Compile Include="ui\RealTimeBarsManager.cs" />
     <Compile Include="ui\ScannerManager.cs" />
+    <Compile Include="usercontrols\OrderForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usercontrols\OrderForm.Designer.cs">
+      <DependentUpon>OrderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">
@@ -145,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ui\OrderDialog.resx">
       <DependentUpon>OrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usercontrols\OrderForm.resx">
+      <DependentUpon>OrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

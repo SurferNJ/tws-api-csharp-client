@@ -708,42 +708,6 @@ namespace IBSampleApp
             }
         }
 
-        private void buttonOffsetIncrease_Click(object sender, EventArgs e)
-        {
-            var offset = Int32.Parse(txtOffset.Text);
-            txtOffset.Text = (++offset).ToString("0");
-
-            SyncLimitPrice(); 
-        }
-
-        private void buttonOffsetDecrease_Click(object sender, EventArgs e)
-        {
-            var offset = Int32.Parse(txtOffset.Text);
-
-            if (offset == 0) return;
-
-            txtOffset.Text = (--offset).ToString("0");
-
-            SyncLimitPrice();            
-        }
-
-        private void SyncLimitPrice()
-        {
-            if (chkLimitOrder.Checked)
-            {
-                var offset = Double.Parse(txtOffset.Text) / 1000;
-                if (!string.IsNullOrEmpty(txtTriggerPrice.Text))
-                    if (radioBuy.Checked)
-                        txtLimitPrice.Text = (Double.Parse(txtTriggerPrice.Text) + offset).ToString("0.000");
-                    else if (radioSell.Checked)
-                        txtLimitPrice.Text = (Double.Parse(txtTriggerPrice.Text) - offset).ToString("0.000");
-            }
-            else
-            {
-                txtLimitPrice.Text = string.Empty;
-            }
-        }
-
         private void contextMenuItemBuyLMT_Click(object sender, EventArgs e)
         {
             SetBuyLMTOrder(Double.Parse(lblY.Text));
@@ -756,12 +720,7 @@ namespace IBSampleApp
 
         private void SetBuyLMTOrder(double price)
         {
-            txtTriggerPrice.Text = price.ToString("0.000");
-
-            radioBuy.Checked = true;
-            chkLimitOrder.Checked = true;
-
-            SyncLimitPrice();
+            orderFormBuy.SetTriggerPrice(usercontrols.OrderType.BUY_LMT, price);
 
             AddHorizontalLineAnnotation(BUY_LINE_NAME, price, Color.DarkGreen); 
 
@@ -770,14 +729,9 @@ namespace IBSampleApp
 
         private void SetSellLMTOrder(double price)
         {
-            txtTriggerPrice.Text = price.ToString("0.000");
+            orderFormSell.SetTriggerPrice(usercontrols.OrderType.SELL_LMT, price);
 
-            radioSell.Checked = true;
-            chkLimitOrder.Checked = true;
-
-            SyncLimitPrice();
-
-            AddHorizontalLineAnnotation(SELL_LINE_NAME, price, Color.DarkCyan); 
+            AddHorizontalLineAnnotation(SELL_LINE_NAME, price, Color.Red); 
 
             //TODO: implement sell order
         }
@@ -829,26 +783,7 @@ namespace IBSampleApp
 
             historicalChart.Annotations.Add(a);
         }
-
-        
-
-
-
-        private void radioBuy_CheckedChanged(object sender, EventArgs e)
-        {
-            SyncLimitPrice();
-        }
-
-        private void radioSell_CheckedChanged(object sender, EventArgs e)
-        {
-            SyncLimitPrice();
-        }
-
-        private void chkLimitOrder_CheckedChanged(object sender, EventArgs e)
-        {
-            SyncLimitPrice();
-        }
-
+                
         private void historicalChart_MouseEnter(object sender, EventArgs e)
         {            
             this.historicalChart.Focus();
