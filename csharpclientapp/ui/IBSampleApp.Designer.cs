@@ -156,6 +156,7 @@ namespace IBSampleApp
             this.expiry_label_TMD_MDT = new System.Windows.Forms.Label();
             this.strike_label_TMD_MDT = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.histData_1M_Button = new System.Windows.Forms.Button();
             this.contractMDRTH = new System.Windows.Forms.CheckBox();
             this.realTime_Button = new System.Windows.Forms.Button();
             this.histData_Button = new System.Windows.Forms.Button();
@@ -754,7 +755,7 @@ namespace IBSampleApp
             // 
             // orderFormSell
             // 
-            this.orderFormSell.Location = new System.Drawing.Point(466, 17);
+            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
             this.orderFormSell.Name = "orderFormSell";
             this.orderFormSell.Order = usercontrols.OrderType.SELL;
             this.orderFormSell.Size = new System.Drawing.Size(131, 235);
@@ -762,7 +763,7 @@ namespace IBSampleApp
             // 
             // orderFormBuy
             // 
-            this.orderFormBuy.Location = new System.Drawing.Point(603, 17);
+            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
             this.orderFormBuy.Name = "orderFormBuy";
             this.orderFormBuy.Order = usercontrols.OrderType.BUY;
             this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
@@ -771,7 +772,7 @@ namespace IBSampleApp
             // lblLow
             // 
             this.lblLow.AutoSize = true;
-            this.lblLow.Location = new System.Drawing.Point(1362, 235);
+            this.lblLow.Location = new System.Drawing.Point(591, 244);
             this.lblLow.Name = "lblLow";
             this.lblLow.Size = new System.Drawing.Size(16, 17);
             this.lblLow.TabIndex = 14;
@@ -780,7 +781,7 @@ namespace IBSampleApp
             // lblLowLabel
             // 
             this.lblLowLabel.AutoSize = true;
-            this.lblLowLabel.Location = new System.Drawing.Point(1315, 235);
+            this.lblLowLabel.Location = new System.Drawing.Point(544, 244);
             this.lblLowLabel.Name = "lblLowLabel";
             this.lblLowLabel.Size = new System.Drawing.Size(37, 17);
             this.lblLowLabel.TabIndex = 13;
@@ -789,7 +790,7 @@ namespace IBSampleApp
             // lblClose
             // 
             this.lblClose.AutoSize = true;
-            this.lblClose.Location = new System.Drawing.Point(1156, 235);
+            this.lblClose.Location = new System.Drawing.Point(385, 244);
             this.lblClose.Name = "lblClose";
             this.lblClose.Size = new System.Drawing.Size(16, 17);
             this.lblClose.TabIndex = 12;
@@ -798,7 +799,7 @@ namespace IBSampleApp
             // lblCloseLabel
             // 
             this.lblCloseLabel.AutoSize = true;
-            this.lblCloseLabel.Location = new System.Drawing.Point(1109, 235);
+            this.lblCloseLabel.Location = new System.Drawing.Point(338, 244);
             this.lblCloseLabel.Name = "lblCloseLabel";
             this.lblCloseLabel.Size = new System.Drawing.Size(47, 17);
             this.lblCloseLabel.TabIndex = 11;
@@ -807,7 +808,7 @@ namespace IBSampleApp
             // lblOpen
             // 
             this.lblOpen.AutoSize = true;
-            this.lblOpen.Location = new System.Drawing.Point(1067, 235);
+            this.lblOpen.Location = new System.Drawing.Point(296, 244);
             this.lblOpen.Name = "lblOpen";
             this.lblOpen.Size = new System.Drawing.Size(16, 17);
             this.lblOpen.TabIndex = 10;
@@ -816,7 +817,7 @@ namespace IBSampleApp
             // lblOpenLabel
             // 
             this.lblOpenLabel.AutoSize = true;
-            this.lblOpenLabel.Location = new System.Drawing.Point(1020, 235);
+            this.lblOpenLabel.Location = new System.Drawing.Point(249, 244);
             this.lblOpenLabel.Name = "lblOpenLabel";
             this.lblOpenLabel.Size = new System.Drawing.Size(47, 17);
             this.lblOpenLabel.TabIndex = 9;
@@ -825,7 +826,7 @@ namespace IBSampleApp
             // lblHigh
             // 
             this.lblHigh.AutoSize = true;
-            this.lblHigh.Location = new System.Drawing.Point(1259, 235);
+            this.lblHigh.Location = new System.Drawing.Point(488, 244);
             this.lblHigh.Name = "lblHigh";
             this.lblHigh.Size = new System.Drawing.Size(16, 17);
             this.lblHigh.TabIndex = 8;
@@ -834,7 +835,7 @@ namespace IBSampleApp
             // lblHighLabel
             // 
             this.lblHighLabel.AutoSize = true;
-            this.lblHighLabel.Location = new System.Drawing.Point(1212, 235);
+            this.lblHighLabel.Location = new System.Drawing.Point(441, 244);
             this.lblHighLabel.Name = "lblHighLabel";
             this.lblHighLabel.Size = new System.Drawing.Size(41, 17);
             this.lblHighLabel.TabIndex = 7;
@@ -843,7 +844,7 @@ namespace IBSampleApp
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(938, 235);
+            this.lblY.Location = new System.Drawing.Point(167, 244);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(0, 17);
             this.lblY.TabIndex = 6;
@@ -851,7 +852,7 @@ namespace IBSampleApp
             // lblYLabel
             // 
             this.lblYLabel.AutoSize = true;
-            this.lblYLabel.Location = new System.Drawing.Point(911, 235);
+            this.lblYLabel.Location = new System.Drawing.Point(140, 244);
             this.lblYLabel.Name = "lblYLabel";
             this.lblYLabel.Size = new System.Drawing.Size(21, 17);
             this.lblYLabel.TabIndex = 5;
@@ -860,7 +861,7 @@ namespace IBSampleApp
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(810, 235);
+            this.lblX.Location = new System.Drawing.Point(39, 244);
             this.lblX.Name = "lblX";
             this.lblX.Size = new System.Drawing.Size(0, 17);
             this.lblX.TabIndex = 4;
@@ -868,7 +869,7 @@ namespace IBSampleApp
             // lblXLabel
             // 
             this.lblXLabel.AutoSize = true;
-            this.lblXLabel.Location = new System.Drawing.Point(779, 235);
+            this.lblXLabel.Location = new System.Drawing.Point(8, 244);
             this.lblXLabel.Name = "lblXLabel";
             this.lblXLabel.Size = new System.Drawing.Size(21, 17);
             this.lblXLabel.TabIndex = 3;
@@ -900,7 +901,7 @@ namespace IBSampleApp
             this.hdClose,
             this.hdVolume,
             this.hdWap});
-            this.barsGrid.Location = new System.Drawing.Point(4, 23);
+            this.barsGrid.Location = new System.Drawing.Point(949, 23);
             this.barsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -976,7 +977,7 @@ namespace IBSampleApp
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
             legend1.Name = "Legend1";
             this.historicalChart.Legends.Add(legend1);
-            this.historicalChart.Location = new System.Drawing.Point(718, 23);
+            this.historicalChart.Location = new System.Drawing.Point(7, 38);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
             series1.ChartArea = "ChartArea1";
@@ -988,7 +989,7 @@ namespace IBSampleApp
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.historicalChart.Series.Add(series1);
-            this.historicalChart.Size = new System.Drawing.Size(823, 202);
+            this.historicalChart.Size = new System.Drawing.Size(613, 202);
             this.historicalChart.TabIndex = 0;
             this.historicalChart.Text = "Historical Data";
             this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
@@ -1678,6 +1679,7 @@ namespace IBSampleApp
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.histData_1M_Button);
             this.groupBox1.Controls.Add(this.contractMDRTH);
             this.groupBox1.Controls.Add(this.realTime_Button);
             this.groupBox1.Controls.Add(this.histData_Button);
@@ -1699,6 +1701,17 @@ namespace IBSampleApp
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bar request";
             // 
+            // histData_1M_Button
+            // 
+            this.histData_1M_Button.Location = new System.Drawing.Point(185, 180);
+            this.histData_1M_Button.Margin = new System.Windows.Forms.Padding(4);
+            this.histData_1M_Button.Name = "histData_1M_Button";
+            this.histData_1M_Button.Size = new System.Drawing.Size(100, 28);
+            this.histData_1M_Button.TabIndex = 61;
+            this.histData_1M_Button.Text = "Historical 1M";
+            this.histData_1M_Button.UseVisualStyleBackColor = true;
+            this.histData_1M_Button.Click += new System.EventHandler(this.histData_1M_Button_Click);
+            // 
             // contractMDRTH
             // 
             this.contractMDRTH.AutoSize = true;
@@ -1712,7 +1725,7 @@ namespace IBSampleApp
             // 
             // realTime_Button
             // 
-            this.realTime_Button.Location = new System.Drawing.Point(187, 180);
+            this.realTime_Button.Location = new System.Drawing.Point(308, 180);
             this.realTime_Button.Margin = new System.Windows.Forms.Padding(4);
             this.realTime_Button.Name = "realTime_Button";
             this.realTime_Button.Size = new System.Drawing.Size(100, 28);
@@ -4760,6 +4773,7 @@ namespace IBSampleApp
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSellLMT;
         private usercontrols.OrderForm orderFormBuy;
         private usercontrols.OrderForm orderFormSell;
+        private System.Windows.Forms.Button histData_1M_Button;
     }
 }
 

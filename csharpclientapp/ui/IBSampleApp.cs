@@ -28,7 +28,10 @@ namespace IBSampleApp
 
         private MarketDataManager marketDataManager;
         private DeepBookManager deepBookManager;
-        private HistoricalDataManager historicalDataManager;
+
+        private List<HistoricalDataManager> historicalDataManagers = new List<HistoricalDataManager>();
+        //private HistoricalDataManager historicalDataManager;
+
         private RealTimeBarsManager realTimeBarManager;
         private ScannerManager scannerManager;
         private OrderManager orderManager;
@@ -47,8 +50,9 @@ namespace IBSampleApp
             ibClient = new IBClient(this);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
-            historicalDataManager = new HistoricalDataManager(ibClient, historicalChart, barsGrid);
-            realTimeBarManager = new RealTimeBarsManager(ibClient, rtBarsChart, rtBarsGrid);
+            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, historicalChart, barsGrid)); // Long term histoy
+            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, rtBarsChart, barsGrid)); // Short term (1min) history
+            realTimeBarManager = new RealTimeBarsManager(0, ibClient, rtBarsChart, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
@@ -140,9 +144,32 @@ namespace IBSampleApp
                         break;
                     }
                 case MessageType.HistoricalData:
+                    {
+                        var msg = (HistoricalDataMessage)message;
+                        switch (msg.RequestId - HistoricalDataManager.HISTORICAL_ID_BASE)
+                        {
+                            case 0:                               
+                                historicalDataManagers[0].UpdateUI(message);
+                                break;                                
+                            case 1:
+                                historicalDataManagers[1].UpdateUI(message);
+                                break;
+                        }
+                        break;
+                    }
+                        
                 case MessageType.HistoricalDataEnd:
                     {
-                        historicalDataManager.UpdateUI(message);
+                        var msg = (HistoricalDataEndMessage)message;
+                        switch (msg.RequestId - HistoricalDataManager.HISTORICAL_ID_BASE)
+                        {
+                            case 0:                               
+                                historicalDataManagers[0].UpdateUI(message);
+                                break;                                
+                            case 1:
+                                historicalDataManagers[1].UpdateUI(message);
+                                break;
+                        }
                         break;
                     }
                 case MessageType.RealTimeBars:
@@ -369,7 +396,7 @@ namespace IBSampleApp
                 string barSize = hdRequest_BarSize.Text.Trim();
                 string whatToShow = hdRequest_WhatToShow.Text.Trim();
                 int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
-                historicalDataManager.AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
+                historicalDataManagers[0].AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
                 ShowTab(marketData_MDT, historicalDataTab);
             }
@@ -702,7 +729,7 @@ namespace IBSampleApp
                     lblClose.Text = String.Empty;
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 // do nothing as exceptions can occur during graph resizing
             }
@@ -837,6 +864,24 @@ namespace IBSampleApp
                 }
             }
             catch { }
+        }
+
+        private void histData_1M_Button_Click(object sender, EventArgs e)
+        {
+            if (isConnected)
+            {
+                Contract contract = GetMDContract();
+                string endTime = hdRequest_EndTime.Text.Trim();
+                string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
+                string barSize = hdRequest_BarSize.Text.Trim();
+                string whatToShow = hdRequest_WhatToShow.Text.Trim();
+                int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
+                historicalDataManagers[1].AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
+                //historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
+                //ShowTab(marketData_MDT, historicalDataTab);
+                rtBarsTab_MDT.Text = Utils.ContractToString(contract) + " (RTB)";
+                ShowTab(marketData_MDT, rtBarsTab_MDT);
+            }
         }
 
 

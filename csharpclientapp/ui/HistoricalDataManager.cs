@@ -14,7 +14,10 @@ namespace IBSampleApp.ui
 {
     public class HistoricalDataManager : DataManager
     {
+        
         public const int HISTORICAL_ID_BASE = 30000000;
+
+        protected int seqId; // Sequence id to keep track of multiple HistoricalDataManagers
 
         private string fullDatePattern = "yyyyMMdd  HH:mm:ss";
         private string yearMonthDayPattern = "yyyyMMdd";
@@ -24,8 +27,9 @@ namespace IBSampleApp.ui
 
         private List<HistoricalDataMessage> historicalData;
 
-        public HistoricalDataManager(IBClient ibClient, Chart chart, DataGridView gridView) : base(ibClient, chart) 
+        public HistoricalDataManager(int seqId, IBClient ibClient, Chart chart, DataGridView gridView) : base(ibClient, chart) 
         {
+            this.seqId = seqId;
             Chart historicalChart = (Chart)uiControl;
             historicalChart.Series[0]["PriceUpColor"] = "Green";
             historicalChart.Series[0]["PriceDownColor"] = "Red";
@@ -35,7 +39,7 @@ namespace IBSampleApp.ui
         public void AddRequest(Contract contract, string endDateTime, string durationString, string barSizeSetting, string whatToShow, int useRTH, int dateFormat)
         {
             Clear();
-            ibClient.ClientSocket.reqHistoricalData(currentTicker + HISTORICAL_ID_BASE, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1, new List<TagValue>());
+            ibClient.ClientSocket.reqHistoricalData(seqId + HISTORICAL_ID_BASE, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, dateFormat, new List<TagValue>());
         }
 
         public override void Clear()

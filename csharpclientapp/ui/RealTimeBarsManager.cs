@@ -15,20 +15,21 @@ namespace IBSampleApp.ui
     {
         public const int RT_BARS_ID_BASE = 40000000;
 
-        public RealTimeBarsManager(IBClient ibClient, Chart rtBarsChart, DataGridView rtBarsGrid) : base(ibClient, rtBarsChart, rtBarsGrid)
+        public RealTimeBarsManager(int seqId, IBClient ibClient, Chart rtBarsChart, DataGridView rtBarsGrid) 
+            : base(seqId, ibClient, rtBarsChart, rtBarsGrid)
         {
         }
 
         public void AddRequest(Contract contract, string whatToShow, bool useRTH)
         {
             Clear();
-            //ibClient.ClientSocket.reqHistoricalData(currentTicker, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1);
-            ibClient.ClientSocket.reqRealTimeBars(currentTicker + RT_BARS_ID_BASE, contract, 5, whatToShow, useRTH, null);
+            //ibClient.ClientSocket.reqHistoricalData(seqId, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, 1);
+            ibClient.ClientSocket.reqRealTimeBars(seqId + RT_BARS_ID_BASE, contract, 5, whatToShow, useRTH, null);
         }
 
         public override void Clear()
         {
-            ibClient.ClientSocket.cancelRealTimeBars(currentTicker + RT_BARS_ID_BASE);
+            ibClient.ClientSocket.cancelRealTimeBars(seqId + RT_BARS_ID_BASE);
             base.Clear();
         }
 
