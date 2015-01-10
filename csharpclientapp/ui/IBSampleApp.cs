@@ -15,6 +15,9 @@ using IBSampleApp.ui;
 using IBSampleApp.util;
 using IBSampleApp.types;
 using System.Windows.Forms.DataVisualization.Charting;
+using CSharpClientApp.usercontrols;
+using System.Collections.ObjectModel;
+using CSharpClientApp.ui;
 
 
 namespace IBSampleApp
@@ -23,14 +26,14 @@ namespace IBSampleApp
     {
         delegate void MessageHandlerDelegate(IBMessage message);
 
-        const string BUY_LINE_NAME = "BUY_LINE";
-        const string SELL_LINE_NAME = "SELL_LINE";
-
         private MarketDataManager marketDataManager;
         private DeepBookManager deepBookManager;
 
+        // manages multuple charts
         private List<HistoricalDataManager> historicalDataManagers = new List<HistoricalDataManager>();
-        //private HistoricalDataManager historicalDataManager;
+
+        // manages multiple chart annotations, eg buy/sell lines, support/resistance lines, etc
+        public PriceLineManager priceLineManager; 
 
         private RealTimeBarsManager realTimeBarManager;
         private ScannerManager scannerManager;
@@ -47,11 +50,19 @@ namespace IBSampleApp
         public IBSampleApp()
         {
             InitializeComponent();
+
+            //this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
+            //this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
+            //this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
+            this.priceLineManager = new PriceLineManager();
+            this.dataChartDaily.PriceLineManager = this.priceLineManager;
+            this.dataChart1M.PriceLineManager = this.priceLineManager;
+            
             ibClient = new IBClient(this);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
-            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, historicalChart, barsGrid)); // Long term histoy
-            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, rtBarsChart, barsGrid)); // Short term (1min) history
+            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily.Chart, barsGrid)); // Daily histoy
+            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M.Chart, barsGrid)); // Intraday (1min) history
             realTimeBarManager = new RealTimeBarsManager(0, ibClient, rtBarsChart, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
@@ -694,193 +705,18 @@ namespace IBSampleApp
 
         }
 
-        private void historicalChart_MouseMove(object sender, MouseEventArgs e)
-        {
-            try
-            { 
-                Point mousePoint = new Point(e.X, e.Y);
-
-                historicalChart.ChartAreas[0].CursorX.Interval = 0;
-                historicalChart.ChartAreas[0].CursorY.Interval = 0;
-
-                historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
-                historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
-
-                int pointX = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
-
-                lblY.Text = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString("0.000");
-
-                HitTestResult result = historicalChart.HitTest(e.X, e.Y);
-                
-                if (pointX > -1)
-                {
-                    lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[pointX].XValue).ToString("MM/dd/yyyy");
-                    lblHigh.Text = historicalChart.Series[0].Points[pointX].YValues[0].ToString("0.000");
-                    lblLow.Text = historicalChart.Series[0].Points[pointX].YValues[1].ToString("0.000");
-                    lblOpen.Text = historicalChart.Series[0].Points[pointX].YValues[2].ToString("0.000");
-                    lblClose.Text = historicalChart.Series[0].Points[pointX].YValues[3].ToString("0.000");
-                }
-                else
-                {
-                    lblX.Text = String.Empty;
-                    lblHigh.Text = String.Empty;
-                    lblLow.Text = String.Empty;
-                    lblOpen.Text = String.Empty;
-                    lblClose.Text = String.Empty;
-                }
-            }
-            catch
-            {
-                // do nothing as exceptions can occur during graph resizing
-            }
-        }
-
-        private void contextMenuItemBuyLMT_Click(object sender, EventArgs e)
-        {
-            SetBuyLMTOrder(Double.Parse(lblY.Text));
-        }
-
-        private void contextMenuItemSellLMT_Click(object sender, EventArgs e)
-        {
-            SetSellLMTOrder(Double.Parse(lblY.Text));
-        }
-
-        private void SetBuyLMTOrder(double price)
-        {
-            orderFormBuy.SetTriggerPrice(usercontrols.OrderType.BUY_LMT, price);
-
-            AddHorizontalLineAnnotation(BUY_LINE_NAME, price, Color.DarkGreen); 
-
-            //TODO: implement buy order
-        }
-
-        private void SetSellLMTOrder(double price)
-        {
-            orderFormSell.SetTriggerPrice(usercontrols.OrderType.SELL_LMT, price);
-
-            AddHorizontalLineAnnotation(SELL_LINE_NAME, price, Color.Red); 
-
-            //TODO: implement sell order
-        }
-
-        // TODO: use this for plotting Technical Indicators 
-        //private void DrawPriceLineSeries(double price)
-        //{
-        //    var seriesLine = new Series(BUY_LINE_SERIES);
-
-        //    foreach (var point in historicalChart.Series[0].Points)
-        //    {
-        //        seriesLine.Points.AddXY(System.DateTime.FromOADate(point.XValue), price);
-        //    }
-
-        //    seriesLine.ChartType = SeriesChartType.Line;
-        //    seriesLine.IsVisibleInLegend = false;
-        //    seriesLine.Color = Color.Green;
-        //    seriesLine.BorderWidth = 3;
-        //    seriesLine.IsXValueIndexed = true;
-        //    seriesLine.XAxisType = AxisType.Primary;
-        //    seriesLine.YAxisType = AxisType.Primary;
-
-        //    historicalChart.Series.Add(seriesLine);    
-        //}
-
-        private void AddHorizontalLineAnnotation(string name, double price, Color color)
-        {
-            var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)).FirstOrDefault();
-
-            if (existingAnnotation != null)
-                historicalChart.Annotations.Remove(existingAnnotation);
-
-            var a = new HorizontalLineAnnotation()
-            {
-                Name = name,
-                AxisX = historicalChart.ChartAreas[0].AxisX,
-                AxisY = historicalChart.ChartAreas[0].AxisY,
-                AnchorY = price,
-                X = 0,
-                Width = historicalChart.ChartAreas[0].AxisX.Maximum,
-                IsSizeAlwaysRelative = false,
-                IsInfinitive = true,
-                ClipToChartArea = historicalChart.ChartAreas[0].Name,
-                LineColor = color,
-                LineWidth = 3,
-                AllowSelecting = true,
-                AllowMoving = true
-            };
-
-            historicalChart.Annotations.Add(a);
-        }
-                
-        private void historicalChart_MouseEnter(object sender, EventArgs e)
-        {            
-            this.historicalChart.Focus();
-        }
-
-        private void historicalChart_MouseLeave(object sender, EventArgs e)
-        {
-            this.historicalChart.Parent.Focus();
-        }
-
-        private void historicalChart_MouseWheel(object sender, MouseEventArgs e)
-        {
-            try
-            {
-                if ((Control.ModifierKeys & Keys.Control) == Keys.Control)
-                {
-                    // Zoom In
-                    if (e.Delta > 0)
-                    {
-                        double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
-                        double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
-
-                        double posXStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                        double posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
-
-                        historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
-                    }
-                    else
-                    {
-                        // Zoom Out
-                        double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
-                        double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
-
-                        double posXStart = xMin - (xMax - xMin) / 4;
-                        double posXFinish = xMax + (xMax - xMin) / 4;
-
-                        historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
-                    }
-                }
-                else
-                {
-                    // Scrolling
-                    double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
-                    
-                    var offset = e.Delta > 0 ? 0 : 2;
-
-                    double posXStart = xMin + offset;                    
-
-                    historicalChart.ChartAreas[0].AxisX.ScaleView.Scroll(posXStart);
-
-                }
-            }
-            catch { }
-        }
-
+ 
         private void histData_1M_Button_Click(object sender, EventArgs e)
         {
             if (isConnected)
             {
                 Contract contract = GetMDContract();
-                string endTime = hdRequest_EndTime.Text.Trim();
-                string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
-                string barSize = hdRequest_BarSize.Text.Trim();
-                string whatToShow = hdRequest_WhatToShow.Text.Trim();
-                int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
-                historicalDataManagers[1].AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
-                //historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
-                //ShowTab(marketData_MDT, historicalDataTab);
-                rtBarsTab_MDT.Text = Utils.ContractToString(contract) + " (RTB)";
-                ShowTab(marketData_MDT, rtBarsTab_MDT);
+                var endDateTime = DateTime.Now.ToString("yyyyMMdd hh:mm:ss") + " GMT";
+                historicalDataManagers[0].AddRequest(contract, endDateTime, "30 D", "1 day", "MIDPOINT", 0, 1);
+                historicalDataManagers[1].AddRequest(contract, endDateTime, "1 D", "1 min", "MIDPOINT", 0, 1);
+
+                historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
+                ShowTab(marketData_MDT, historicalDataTab);
             }
         }
 

@@ -1,4 +1,4 @@
-﻿namespace IBSampleApp.usercontrols
+﻿namespace CSharpClientApp.usercontrols
 {
     partial class OrderForm
     {

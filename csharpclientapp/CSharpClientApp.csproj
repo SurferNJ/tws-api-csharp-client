@@ -120,8 +120,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\MarketDataManager.cs" />
     <Compile Include="ui\OrderManager.cs" />
+    <Compile Include="ui\PriceLineManager.cs" />
     <Compile Include="ui\RealTimeBarsManager.cs" />
     <Compile Include="ui\ScannerManager.cs" />
+    <Compile Include="usercontrols\DataChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="usercontrols\DataChart.Designer.cs">
+      <DependentUpon>DataChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="usercontrols\OrderForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ui\OrderDialog.resx">
       <DependentUpon>OrderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usercontrols\DataChart.resx">
+      <DependentUpon>DataChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="usercontrols\OrderForm.resx">
       <DependentUpon>OrderForm.cs</DependentUpon>

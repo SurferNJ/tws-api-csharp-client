@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace IBSampleApp.usercontrols
+namespace CSharpClientApp.usercontrols
 {
     public partial class OrderForm : UserControl
     {
