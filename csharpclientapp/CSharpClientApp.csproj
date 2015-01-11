@@ -76,6 +76,7 @@
     <Compile Include="messages\TickOptionMessage.cs" />
     <Compile Include="messages\UpdateAccountTimeMessage.cs" />
     <Compile Include="messages\UpdatePortfolioMessage.cs" />
+    <Compile Include="types\Types.cs" />
     <Compile Include="types\FinancialAdvisorTypes.cs" />
     <Compile Include="types\IBTypes.cs" />
     <Compile Include="ui\AccountManager.cs" />

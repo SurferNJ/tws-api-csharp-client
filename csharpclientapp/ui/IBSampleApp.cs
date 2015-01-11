@@ -57,13 +57,14 @@ namespace IBSampleApp
             this.priceLineManager = new PriceLineManager();
             this.dataChartDaily.PriceLineManager = this.priceLineManager;
             this.dataChart1M.PriceLineManager = this.priceLineManager;
+            this.dataChartDaily.DataChartDoubleClick += this.DataChart_DoubleClick;
             
             ibClient = new IBClient(this);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
-            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily.Chart, barsGrid)); // Daily histoy
-            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M.Chart, barsGrid)); // Intraday (1min) history
-            realTimeBarManager = new RealTimeBarsManager(0, ibClient, rtBarsChart, rtBarsGrid);
+            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily)); // Daily histoy
+            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M)); // Intraday (1min) history
+            realTimeBarManager = new RealTimeBarsManager(0, ibClient, dataChartDaily, rtBarsGrid);
             scannerManager = new ScannerManager(ibClient, scannerGrid);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
@@ -711,15 +712,37 @@ namespace IBSampleApp
             if (isConnected)
             {
                 Contract contract = GetMDContract();
-                var endDateTime = DateTime.Now.ToString("yyyyMMdd hh:mm:ss") + " GMT";
-                historicalDataManagers[0].AddRequest(contract, endDateTime, "30 D", "1 day", "MIDPOINT", 0, 1);
-                historicalDataManagers[1].AddRequest(contract, endDateTime, "1 D", "1 min", "MIDPOINT", 0, 1);
+                var endDate = DateTime.Now;           
+                //historicalDataManagers[0].AddRequest(contract, endDateTime, "30 D", BarSizeType._1_day, "MIDPOINT", 0, 1);
+                //historicalDataManagers[1].AddRequest(contract, endDateTime, "1 D", BarSizeType._1_min, "MIDPOINT", 0, 1);
+                AddRequest(historicalDataManagers[0], endDate, "30 D", BarSizeType._1_day);
+                AddRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min);
 
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
                 ShowTab(marketData_MDT, historicalDataTab);
             }
         }
 
+        private void DataChart_DoubleClick(object sender, MouseEventArgs e)
+        {
+            var dataChart = (DataChart)sender;
+
+            DateTime date;
+            var dateText = dataChart.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                AddRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min);
+            }
+        }
+
+        private void AddRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType)
+        {
+            Contract contract = GetMDContract();
+            var endDateTime = endDate.ToString("yyyyMMdd") + " 23:59:59 GMT";
+            dataManager.AddRequest(contract, endDateTime, duration, barSizeType, "MIDPOINT", 0, 1);
+
+        }
 
     }
 }

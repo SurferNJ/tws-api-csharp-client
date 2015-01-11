@@ -127,7 +127,7 @@
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(160, 206);
+            this.lblY.Location = new System.Drawing.Point(191, 206);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(0, 17);
             this.lblY.TabIndex = 19;
@@ -135,7 +135,7 @@
             // lblYLabel
             // 
             this.lblYLabel.AutoSize = true;
-            this.lblYLabel.Location = new System.Drawing.Point(133, 206);
+            this.lblYLabel.Location = new System.Drawing.Point(170, 206);
             this.lblYLabel.Name = "lblYLabel";
             this.lblYLabel.Size = new System.Drawing.Size(21, 17);
             this.lblYLabel.TabIndex = 18;
@@ -144,7 +144,7 @@
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(32, 206);
+            this.lblX.Location = new System.Drawing.Point(22, 206);
             this.lblX.Name = "lblX";
             this.lblX.Size = new System.Drawing.Size(0, 17);
             this.lblX.TabIndex = 17;
@@ -193,6 +193,7 @@
             this.historicalChart.Size = new System.Drawing.Size(618, 202);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
+            this.historicalChart.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseDoubleClick);
             this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
             this.historicalChart.MouseLeave += new System.EventHandler(this.historicalChart_MouseLeave);
             this.historicalChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseMove);

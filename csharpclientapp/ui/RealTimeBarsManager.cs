@@ -8,6 +8,7 @@ using IBApi;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
 using IBSampleApp.messages;
+using CSharpClientApp.usercontrols;
 
 namespace IBSampleApp.ui
 {
@@ -15,8 +16,8 @@ namespace IBSampleApp.ui
     {
         public const int RT_BARS_ID_BASE = 40000000;
 
-        public RealTimeBarsManager(int seqId, IBClient ibClient, Chart rtBarsChart, DataGridView rtBarsGrid) 
-            : base(seqId, ibClient, rtBarsChart, rtBarsGrid)
+        public RealTimeBarsManager(int seqId, IBClient ibClient, DataChart rtBarsChart, DataGridView rtBarsGrid) 
+            : base(seqId, ibClient, rtBarsChart)
         {
         }
 
@@ -51,7 +52,7 @@ namespace IBSampleApp.ui
             rtBarsChart.Series[0].Points[barCounter].YValues[2] = rtBar.Open;
             // adding close
             rtBarsChart.Series[0].Points[barCounter].YValues[3] = rtBar.Close;
-            PopulateGrid(message);
+            //PopulateGrid(message);
         }
     }
 }

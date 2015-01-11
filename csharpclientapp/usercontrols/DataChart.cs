@@ -17,12 +17,12 @@ namespace CSharpClientApp.usercontrols
         //const string BUY_LINE_NAME = "BUY_LINE";
         //const string SELL_LINE_NAME = "SELL_LINE";
 
+        public event System.Windows.Forms.MouseEventHandler DataChartDoubleClick;
+
         // DataChart user control communicates with OrderFormBuy and OrderFormSell controls. They need to be assigned by parent control.
         public  CSharpClientApp.usercontrols.OrderForm OrderFormBuy { get; set; } 
         public CSharpClientApp.usercontrols.OrderForm OrderFormSell { get; set; }
-
-        
-
+                        
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
 
@@ -37,13 +37,21 @@ namespace CSharpClientApp.usercontrols
             } 
         }
 
-        public Chart Chart { get { return this.historicalChart; } } 
+        [Browsable(false)]
+        public string XLabelFormat { get; set; }
+
+        [Browsable(false)]
+        public string XLabelText { get { return lblX.Text; } }
+
+        public Chart Chart { get { return this.historicalChart; } }
 
         public DataChart()
         {
             InitializeComponent();
 
             _priceLineManager = new CSharpClientApp.ui.PriceLineManager();
+
+            //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             
         }
 
@@ -216,11 +224,11 @@ namespace CSharpClientApp.usercontrols
 
                 lblY.Text = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString("0.000");
 
-                HitTestResult result = historicalChart.HitTest(e.X, e.Y);
+                //HitTestResult result = historicalChart.HitTest(e.X, e.Y);
 
                 if (pointX > -1)
                 {
-                    lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[pointX].XValue).ToString("MM/dd/yyyy");
+                    lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[pointX].XValue).ToString(XLabelFormat);
                     lblHigh.Text = historicalChart.Series[0].Points[pointX].YValues[0].ToString("0.000");
                     lblLow.Text = historicalChart.Series[0].Points[pointX].YValues[1].ToString("0.000");
                     lblOpen.Text = historicalChart.Series[0].Points[pointX].YValues[2].ToString("0.000");
@@ -246,6 +254,20 @@ namespace CSharpClientApp.usercontrols
         private void contextMenuItemSellLMT_Click(object sender, EventArgs e)
         {
             SetSellLMTOrder(Double.Parse(lblY.Text));
+        }
+
+        //private void historicalChart_DoubleClick(object sender, EventArgs e)
+        //{
+        //    var newEvent = DataChartDoubleClick;
+
+        //    newEvent(this, e);
+        //}
+
+        private void historicalChart_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var newEvent = DataChartDoubleClick;
+
+            newEvent(this, e);
         }
 
         // TODO: use this for plotting Technical Indicators 

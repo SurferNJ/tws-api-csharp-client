@@ -60,7 +60,7 @@
             this.buttonPlaceOrder.Name = "buttonPlaceOrder";
             this.buttonPlaceOrder.Size = new System.Drawing.Size(59, 30);
             this.buttonPlaceOrder.TabIndex = 58;
-            this.buttonPlaceOrder.Text = "Place";
+            this.buttonPlaceOrder.Text = "Trade";
             this.buttonPlaceOrder.UseVisualStyleBackColor = true;
             // 
             // chkLimitOrder

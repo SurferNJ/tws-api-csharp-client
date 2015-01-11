@@ -17,10 +17,10 @@ namespace IBSampleApp.ui
 
         protected delegate void UpdateUICallback(IBMessage msg);
 
-        public DataManager(IBClient client, Control dataGrid)
+        public DataManager(IBClient client, Control grid)
         {
             ibClient = client;
-            uiControl = dataGrid;
+            uiControl = grid;
         }
         
         public abstract void NotifyError(int requestId);
