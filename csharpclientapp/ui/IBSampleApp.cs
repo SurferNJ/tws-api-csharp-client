@@ -43,6 +43,8 @@ namespace IBSampleApp
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
 
+        private ChartsSyncManager chartsSyncManager;
+
         protected IBClient ibClient;
 
         private bool isConnected = false;
@@ -71,6 +73,8 @@ namespace IBSampleApp
             contractManager = new ContractManager(ibClient, fundamentalsOutput, contractDetailsGrid);
             advisorManager = new AdvisorManager(ibClient, advisorAliasesGrid, advisorGroupsGrid, advisorProfilesGrid);
             optionsManager = new OptionsManager(ibClient, optionChainCallGrid, optionChainPutGrid, optionPositionsGrid);
+
+            var chartsSyncManager = new ChartsSyncManager(historicalDataManagers);
 
             mdContractRight.Items.AddRange(ContractRight.GetAll());
             mdContractRight.SelectedIndex = 0;
@@ -713,8 +717,7 @@ namespace IBSampleApp
             {
                 Contract contract = GetMDContract();
                 var endDate = DateTime.Now;           
-                //historicalDataManagers[0].AddRequest(contract, endDateTime, "30 D", BarSizeType._1_day, "MIDPOINT", 0, 1);
-                //historicalDataManagers[1].AddRequest(contract, endDateTime, "1 D", BarSizeType._1_min, "MIDPOINT", 0, 1);
+
                 AddRequest(historicalDataManagers[0], endDate, "30 D", BarSizeType._1_day);
                 AddRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min);
 

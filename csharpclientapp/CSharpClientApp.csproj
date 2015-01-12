@@ -81,6 +81,7 @@
     <Compile Include="types\IBTypes.cs" />
     <Compile Include="ui\AccountManager.cs" />
     <Compile Include="ui\AdvisorManager.cs" />
+    <Compile Include="ui\ChartsSyncManager.cs" />
     <Compile Include="ui\ComboContractResults.cs">
       <SubType>Form</SubType>
     </Compile>

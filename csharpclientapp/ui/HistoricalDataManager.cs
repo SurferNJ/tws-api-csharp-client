@@ -29,6 +29,8 @@ namespace IBSampleApp.ui
 
         private DataChart dataChart;
 
+        public DataChart DataChart { get { return dataChart; } }
+
         private List<HistoricalDataMessage> historicalData;
 
         public HistoricalDataManager(int seqId, IBClient ibClient, DataChart dataChart)
@@ -76,7 +78,8 @@ namespace IBSampleApp.ui
                 case BarSizeType._5_mins:
                 case BarSizeType._5_secs:                
                     historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-                    dataChart.XLabelFormat = "MM/dd/yyyy hh:mm tt";
+                    historicalChart.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm";
+                    dataChart.XLabelFormat = "MM/dd/yyyy hh:mm tt";                  
                     
                     break;
                 default:

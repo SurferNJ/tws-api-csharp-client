@@ -20,22 +20,6 @@ namespace IBSampleApp.types
 
             return result;
         }
-
-        //public static Dictionary<BarSizeType, string> BarSizeDescription = new Dictionary<BarSizeType, string>() { 
-        //                            {BarSizeType._1sec, "1 sec" },
-        //                            {BarSizeType._5secs, "1 sec" },
-        //                            {BarSizeType._15secs, "15 secs" },
-        //                            {BarSizeType._30secs, "30 secs" },
-        //                            {BarSizeType._1min, "1 min" },
-        //                            {BarSizeType._2mins, "2 mins" },
-        //                            {BarSizeType._3mins, "3 mins" },
-        //                            {BarSizeType._5mins, "5 mins" },
-        //                            {BarSizeType._15mins, "15 mins" },
-        //                            {BarSizeType._15mins, "15 mins" },
-        //                            {BarSizeType._30mins, "30 mins" },
-        //                            {BarSizeType._1hour, "1 hour" },
-        //                            {BarSizeType._1day, "1 day" }
-        //};
     }
 
     public enum BarSizeType

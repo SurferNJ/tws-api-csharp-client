@@ -19,9 +19,14 @@ namespace CSharpClientApp.usercontrols
 
         public event System.Windows.Forms.MouseEventHandler DataChartDoubleClick;
 
+        public event System.Windows.Forms.MouseEventHandler DataChartMouseMove;
+
         // DataChart user control communicates with OrderFormBuy and OrderFormSell controls. They need to be assigned by parent control.
         public  CSharpClientApp.usercontrols.OrderForm OrderFormBuy { get; set; } 
         public CSharpClientApp.usercontrols.OrderForm OrderFormSell { get; set; }
+
+        public double XValue { get; set; }
+        public double YValue { get; set; }
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -199,11 +204,8 @@ namespace CSharpClientApp.usercontrols
                 Price = price
             };
 
+            // Add price line annotation to all charts
             PriceLineManager.Add(priceLine);
-
-            //OrderFormSell.SetTriggerPrice(OrderType.SELL_LMT, price);
-
-            //AddHorizontalLineAnnotation(CSharpClientApp.ui.PriceLineManager.SELL_LINE_NAME, price, Color.Red);
 
             //TODO: implement sell order
         }
@@ -219,29 +221,17 @@ namespace CSharpClientApp.usercontrols
 
                 historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
                 historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+                
+                int xValue = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
+                var xPoint = (xValue > -1) ? historicalChart.Series[0].Points[xValue] : null;
 
-                int pointX = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
+                var yValue = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);                
 
-                lblY.Text = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y).ToString("0.000");
+                UpdateControls(xPoint, yValue);
 
-                //HitTestResult result = historicalChart.HitTest(e.X, e.Y);
-
-                if (pointX > -1)
-                {
-                    lblX.Text = System.DateTime.FromOADate(historicalChart.Series[0].Points[pointX].XValue).ToString(XLabelFormat);
-                    lblHigh.Text = historicalChart.Series[0].Points[pointX].YValues[0].ToString("0.000");
-                    lblLow.Text = historicalChart.Series[0].Points[pointX].YValues[1].ToString("0.000");
-                    lblOpen.Text = historicalChart.Series[0].Points[pointX].YValues[2].ToString("0.000");
-                    lblClose.Text = historicalChart.Series[0].Points[pointX].YValues[3].ToString("0.000");
-                }
-                else
-                {
-                    lblX.Text = String.Empty;
-                    lblHigh.Text = String.Empty;
-                    lblLow.Text = String.Empty;
-                    lblOpen.Text = String.Empty;
-                    lblClose.Text = String.Empty;
-                }
+                // notify listeners, so all charts can stay in sync
+                var newEvent = DataChartMouseMove;
+                newEvent(this, e);
             }
             catch { } // do nothing as exceptions can occur during graph resizing            
         }
@@ -255,13 +245,6 @@ namespace CSharpClientApp.usercontrols
         {
             SetSellLMTOrder(Double.Parse(lblY.Text));
         }
-
-        //private void historicalChart_DoubleClick(object sender, EventArgs e)
-        //{
-        //    var newEvent = DataChartDoubleClick;
-
-        //    newEvent(this, e);
-        //}
 
         private void historicalChart_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -290,5 +273,31 @@ namespace CSharpClientApp.usercontrols
 
         //    historicalChart.Series.Add(seriesLine);    
         //}
+
+        internal void UpdateControls(DataPoint xPoint, double yValue)
+        {
+            //HitTestResult result = historicalChart.HitTest(e.X, e.Y);
+            YValue = yValue;
+            lblY.Text = YValue.ToString("0.000");
+
+            if (xPoint != null)
+            {
+                XValue = xPoint.XValue;
+                lblX.Text = System.DateTime.FromOADate(XValue).ToString(XLabelFormat);
+                lblHigh.Text = xPoint.YValues[0].ToString("0.000");
+                lblLow.Text = xPoint.YValues[1].ToString("0.000");
+                lblOpen.Text = xPoint.YValues[2].ToString("0.000");
+                lblClose.Text = xPoint.YValues[3].ToString("0.000");
+            }
+            else
+            {
+                XValue = -1;
+                lblX.Text = String.Empty;
+                lblHigh.Text = String.Empty;
+                lblLow.Text = String.Empty;
+                lblOpen.Text = String.Empty;
+                lblClose.Text = String.Empty;
+            }
+        }
     }
 }

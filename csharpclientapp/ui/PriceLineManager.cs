@@ -47,25 +47,16 @@ namespace CSharpClientApp.ui
 
             switch (line.Name)
             {
-
                 case BUY_LINE_NAME:
-                    oldLine = PriceLines.Where(x => x.Name.Equals(BUY_LINE_NAME)).FirstOrDefault();
-                    break;
                 case SELL_LINE_NAME:
-                    oldLine = PriceLines.Where(x => x.Name.Equals(SELL_LINE_NAME)).FirstOrDefault();
-                    break;
+                    oldLine = PriceLines.Where(x => x.Name.Equals(line.Name)).FirstOrDefault();
+                    break;                
             }
 
             if (oldLine != null) PriceLines.Remove(oldLine);
 
             PriceLines.Add(line);
         }
-
-        //public void Remove(PriceLine line)
-        //{
-        //    var oldLine = PriceLines.Where(x => x.Name.Equals(line.Name) && x.Price == line.Price).FirstOrDefault();
-        //    if (oldLine != null) PriceLines.Remove(oldLine);
-        //}
     }
 
     public class PriceLine
