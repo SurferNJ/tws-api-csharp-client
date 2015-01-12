@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -8,6 +9,25 @@ namespace IBSampleApp.types
 {
     public static class Types
     {
+        // TODO: move these settings to config file
+        public static Dictionary<ExpMovAvgType, Color> EMAColors = new Dictionary<ExpMovAvgType, Color>() { 
+                                    {ExpMovAvgType.EMA10, Color.Green },
+                                    {ExpMovAvgType.EMA21, Color.Blue },
+                                    {ExpMovAvgType.EMA30, Color.Yellow },
+                                    {ExpMovAvgType.EMA50, Color.Red },
+                                    {ExpMovAvgType.EMA100, Color.White },
+                                    {ExpMovAvgType.EMA150, Color.LightBlue },
+                                    {ExpMovAvgType.EMA200, Color.Purple }
+        };
+        
+        public static string GetEMADuration(ExpMovAvgType ema)
+        {
+            var name = Enum.GetName(typeof(ExpMovAvgType), ema);
+
+            var result = name.Remove(0, 3);
+
+            return result;
+        }
 
         public static string GetBarSizeDescription(BarSizeType barSizeType)
         {
@@ -36,6 +56,17 @@ namespace IBSampleApp.types
         _30_mins,
         _1_hour,
         _1_day
+    }
+
+    public enum ExpMovAvgType
+    {
+        EMA10 = 1,
+        EMA21,
+        EMA30,
+        EMA50,
+        EMA100,
+        EMA150,
+        EMA200        
     }
 
 

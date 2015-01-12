@@ -18,14 +18,13 @@ namespace IBSampleApp.ui
     {
         
         public const int HISTORICAL_ID_BASE = 30000000;
-
+        
         protected int seqId; // Sequence id to keep track of multiple HistoricalDataManagers
 
         private string fullDatePattern = "yyyyMMdd  HH:mm:ss";
         private string yearMonthDayPattern = "yyyyMMdd";
 
         protected int barCounter = -1;
-        //protected DataGridView gridView;
 
         private DataChart dataChart;
 
@@ -38,10 +37,8 @@ namespace IBSampleApp.ui
         {
             this.seqId = seqId;
             this.dataChart = dataChart;
-            //Chart historicalChart = (Chart)uiControl;
             dataChart.Chart.Series[0]["PriceUpColor"] = "Green";
             dataChart.Chart.Series[0]["PriceDownColor"] = "Red";
-            //this.gridView = gridView;
         }
 
         // do not use this method... use BarSizeType parameter
@@ -92,9 +89,12 @@ namespace IBSampleApp.ui
         public override void Clear()
         {
             barCounter = -1;
-            //Chart historicalChart = (Chart)uiControl;
-            dataChart.Chart.Series[0].Points.Clear();
-            //gridView.Rows.Clear();
+
+            foreach (var series in dataChart.Chart.Series)
+            {
+                series.Points.Clear();
+            }
+            
             historicalData = new List<HistoricalDataMessage>();
         }
 
@@ -136,8 +136,40 @@ namespace IBSampleApp.ui
                 historicalChart.Series[0].Points[i].YValues[2] = historicalData[i].Open;
                 // adding close
                 historicalChart.Series[0].Points[i].YValues[3] = historicalData[i].Close;
-                //PopulateGrid(historicalData[i]);
             }
+
+
+            AddIndicator_EMA(ExpMovAvgType.EMA10);
+            AddIndicator_EMA(ExpMovAvgType.EMA21);  
+
+        }
+
+        private void AddIndicator_EMA(ExpMovAvgType ema)
+        {
+            Chart historicalChart = dataChart.Chart;
+
+            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
+
+            var seriesLine = historicalChart.Series.FindByName(seriesName);
+
+            if (seriesLine == null)
+            {
+                historicalChart.Series.Add(new Series(seriesName));
+                seriesLine = historicalChart.Series[seriesName];
+
+                seriesLine.ChartType = SeriesChartType.Line;
+                seriesLine.IsVisibleInLegend = false;
+                seriesLine.Color = Types.EMAColors[ema];
+                seriesLine.BorderWidth = 3;
+                seriesLine.IsXValueIndexed = true;
+                seriesLine.XAxisType = AxisType.Primary;
+                seriesLine.YAxisType = AxisType.Primary;
+
+            }
+
+            historicalChart.DataManipulator.IsStartFromFirst = true;
+            historicalChart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
+
         }
 
         //protected void PopulateGrid(IBMessage message)

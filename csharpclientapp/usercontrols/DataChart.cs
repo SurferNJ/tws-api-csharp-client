@@ -238,12 +238,12 @@ namespace CSharpClientApp.usercontrols
 
         private void contextMenuItemBuyLMT_Click(object sender, EventArgs e)
         {
-            SetBuyLMTOrder(Double.Parse(lblY.Text));
+            SetBuyLMTOrder(YValue);
         }
 
         private void contextMenuItemSellLMT_Click(object sender, EventArgs e)
         {
-            SetSellLMTOrder(Double.Parse(lblY.Text));
+            SetSellLMTOrder(YValue);
         }
 
         private void historicalChart_MouseDoubleClick(object sender, MouseEventArgs e)
