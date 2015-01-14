@@ -38,12 +38,12 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            CSharpClientApp.ui.PriceLineManager priceLineManager1 = new CSharpClientApp.ui.PriceLineManager();
+            CSharpClientApp.ui.PriceLineManager priceLineManager2 = new CSharpClientApp.ui.PriceLineManager();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            CSharpClientApp.ui.PriceLineManager priceLineManager1 = new CSharpClientApp.ui.PriceLineManager();
-            CSharpClientApp.ui.PriceLineManager priceLineManager2 = new CSharpClientApp.ui.PriceLineManager();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.connectionTab = new System.Windows.Forms.TabPage();
@@ -69,6 +69,10 @@ namespace IBSampleApp
             this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
+            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
+            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
+            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
             this.barsGrid = new System.Windows.Forms.DataGridView();
             this.hdDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -388,10 +392,6 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
-            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
-            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
-            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.TabControl.SuspendLayout();
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
@@ -476,7 +476,7 @@ namespace IBSampleApp
             this.TabControl.Margin = new System.Windows.Forms.Padding(4);
             this.TabControl.Name = "TabControl";
             this.TabControl.SelectedIndex = 0;
-            this.TabControl.Size = new System.Drawing.Size(1675, 641);
+            this.TabControl.Size = new System.Drawing.Size(1675, 685);
             this.TabControl.TabIndex = 0;
             // 
             // connectionTab
@@ -577,7 +577,7 @@ namespace IBSampleApp
             this.marketDataTab.Margin = new System.Windows.Forms.Padding(4);
             this.marketDataTab.Name = "marketDataTab";
             this.marketDataTab.Padding = new System.Windows.Forms.Padding(4);
-            this.marketDataTab.Size = new System.Drawing.Size(1667, 612);
+            this.marketDataTab.Size = new System.Drawing.Size(1667, 656);
             this.marketDataTab.TabIndex = 1;
             this.marketDataTab.Text = "Data";
             // 
@@ -595,7 +595,7 @@ namespace IBSampleApp
             this.marketData_MDT.Margin = new System.Windows.Forms.Padding(0);
             this.marketData_MDT.Name = "marketData_MDT";
             this.marketData_MDT.SelectedIndex = 0;
-            this.marketData_MDT.Size = new System.Drawing.Size(1656, 341);
+            this.marketData_MDT.Size = new System.Drawing.Size(1656, 450);
             this.marketData_MDT.TabIndex = 1;
             // 
             // topMarketDataTab_MDT
@@ -608,7 +608,7 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.Margin = new System.Windows.Forms.Padding(4);
             this.topMarketDataTab_MDT.Name = "topMarketDataTab_MDT";
             this.topMarketDataTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 312);
+            this.topMarketDataTab_MDT.Size = new System.Drawing.Size(1648, 421);
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
@@ -658,7 +658,7 @@ namespace IBSampleApp
             this.marketDataGrid_MDT.Name = "marketDataGrid_MDT";
             this.marketDataGrid_MDT.ReadOnly = true;
             this.marketDataGrid_MDT.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 275);
+            this.marketDataGrid_MDT.Size = new System.Drawing.Size(1288, 384);
             this.marketDataGrid_MDT.TabIndex = 0;
             this.marketDataGrid_MDT.Visible = false;
             // 
@@ -726,9 +726,51 @@ namespace IBSampleApp
             this.historicalDataTab.Margin = new System.Windows.Forms.Padding(4);
             this.historicalDataTab.Name = "historicalDataTab";
             this.historicalDataTab.Padding = new System.Windows.Forms.Padding(4);
-            this.historicalDataTab.Size = new System.Drawing.Size(1648, 312);
+            this.historicalDataTab.Size = new System.Drawing.Size(1648, 421);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
+            // 
+            // dataChartDaily
+            // 
+            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
+            this.dataChartDaily.Name = "dataChartDaily";
+            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
+            this.dataChartDaily.OrderFormSell = this.orderFormSell;
+            this.dataChartDaily.PriceLineManager = priceLineManager1;
+            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
+            this.dataChartDaily.TabIndex = 34;
+            this.dataChartDaily.XLabelFormat = null;
+            this.dataChartDaily.XValue = 0D;
+            this.dataChartDaily.YValue = 0D;
+            // 
+            // orderFormBuy
+            // 
+            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
+            this.orderFormBuy.Name = "orderFormBuy";
+            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
+            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
+            this.orderFormBuy.TabIndex = 31;
+            // 
+            // orderFormSell
+            // 
+            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
+            this.orderFormSell.Name = "orderFormSell";
+            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
+            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
+            this.orderFormSell.TabIndex = 32;
+            // 
+            // dataChart1M
+            // 
+            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
+            this.dataChart1M.Name = "dataChart1M";
+            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
+            this.dataChart1M.OrderFormSell = this.orderFormSell;
+            this.dataChart1M.PriceLineManager = priceLineManager2;
+            this.dataChart1M.Size = new System.Drawing.Size(612, 330);
+            this.dataChart1M.TabIndex = 33;
+            this.dataChart1M.XLabelFormat = null;
+            this.dataChart1M.XValue = 0D;
+            this.dataChart1M.YValue = 0D;
             // 
             // histDataTabClose_MDT
             // 
@@ -760,7 +802,7 @@ namespace IBSampleApp
             this.barsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.barsGrid.Name = "barsGrid";
             this.barsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.barsGrid.Size = new System.Drawing.Size(117, 275);
+            this.barsGrid.Size = new System.Drawing.Size(117, 384);
             this.barsGrid.TabIndex = 1;
             // 
             // hdDate
@@ -821,7 +863,7 @@ namespace IBSampleApp
             this.deepBookTab_MDT.Margin = new System.Windows.Forms.Padding(4);
             this.deepBookTab_MDT.Name = "deepBookTab_MDT";
             this.deepBookTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 312);
+            this.deepBookTab_MDT.Size = new System.Drawing.Size(1648, 377);
             this.deepBookTab_MDT.TabIndex = 1;
             this.deepBookTab_MDT.Text = "Deep Book";
             // 
@@ -865,7 +907,7 @@ namespace IBSampleApp
             this.deepBookGrid.Name = "deepBookGrid";
             this.deepBookGrid.ReadOnly = true;
             this.deepBookGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.deepBookGrid.Size = new System.Drawing.Size(1632, 275);
+            this.deepBookGrid.Size = new System.Drawing.Size(1632, 340);
             this.deepBookGrid.TabIndex = 0;
             // 
             // bidBookMaker
@@ -914,7 +956,7 @@ namespace IBSampleApp
             this.rtBarsTab_MDT.Margin = new System.Windows.Forms.Padding(4);
             this.rtBarsTab_MDT.Name = "rtBarsTab_MDT";
             this.rtBarsTab_MDT.Padding = new System.Windows.Forms.Padding(4);
-            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1648, 312);
+            this.rtBarsTab_MDT.Size = new System.Drawing.Size(1648, 377);
             this.rtBarsTab_MDT.TabIndex = 2;
             this.rtBarsTab_MDT.Text = "RT Bars";
             // 
@@ -948,7 +990,7 @@ namespace IBSampleApp
             this.rtBarsGrid.Margin = new System.Windows.Forms.Padding(4);
             this.rtBarsGrid.Name = "rtBarsGrid";
             this.rtBarsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rtBarsGrid.Size = new System.Drawing.Size(672, 275);
+            this.rtBarsGrid.Size = new System.Drawing.Size(672, 340);
             this.rtBarsGrid.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn1
@@ -1030,7 +1072,7 @@ namespace IBSampleApp
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.rtBarsChart.Series.Add(series1);
-            this.rtBarsChart.Size = new System.Drawing.Size(932, 294);
+            this.rtBarsChart.Size = new System.Drawing.Size(932, 359);
             this.rtBarsChart.TabIndex = 2;
             this.rtBarsChart.Text = "Historical Data";
             // 
@@ -1043,7 +1085,7 @@ namespace IBSampleApp
             this.scannerTab.Margin = new System.Windows.Forms.Padding(4);
             this.scannerTab.Name = "scannerTab";
             this.scannerTab.Padding = new System.Windows.Forms.Padding(4);
-            this.scannerTab.Size = new System.Drawing.Size(1648, 312);
+            this.scannerTab.Size = new System.Drawing.Size(1648, 377);
             this.scannerTab.TabIndex = 3;
             this.scannerTab.Text = "Scanner";
             // 
@@ -4067,11 +4109,11 @@ namespace IBSampleApp
             this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.messagesTab);
-            this.tabControl2.Location = new System.Drawing.Point(0, 660);
+            this.tabControl2.Location = new System.Drawing.Point(0, 704);
             this.tabControl2.Margin = new System.Windows.Forms.Padding(0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(1675, 186);
+            this.tabControl2.Size = new System.Drawing.Size(1675, 142);
             this.tabControl2.TabIndex = 1;
             // 
             // messagesTab
@@ -4085,7 +4127,7 @@ namespace IBSampleApp
             this.messagesTab.Margin = new System.Windows.Forms.Padding(4);
             this.messagesTab.Name = "messagesTab";
             this.messagesTab.Padding = new System.Windows.Forms.Padding(4);
-            this.messagesTab.Size = new System.Drawing.Size(1667, 157);
+            this.messagesTab.Size = new System.Drawing.Size(1667, 113);
             this.messagesTab.TabIndex = 0;
             this.messagesTab.Text = "Messages";
             // 
@@ -4113,54 +4155,12 @@ namespace IBSampleApp
             this.messageBox.Name = "messageBox";
             this.messageBox.ReadOnly = true;
             this.messageBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.messageBox.Size = new System.Drawing.Size(1647, 107);
+            this.messageBox.Size = new System.Drawing.Size(1647, 63);
             this.messageBox.TabIndex = 10;
             // 
             // informationTooltip
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            // 
-            // dataChartDaily
-            // 
-            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
-            this.dataChartDaily.Name = "dataChartDaily";
-            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
-            this.dataChartDaily.OrderFormSell = this.orderFormSell;
-            this.dataChartDaily.PriceLineManager = priceLineManager1;
-            this.dataChartDaily.Size = new System.Drawing.Size(622, 227);
-            this.dataChartDaily.TabIndex = 34;
-            this.dataChartDaily.XLabelFormat = null;
-            this.dataChartDaily.XValue = 0D;
-            this.dataChartDaily.YValue = 0D;
-            // 
-            // orderFormBuy
-            // 
-            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
-            this.orderFormBuy.Name = "orderFormBuy";
-            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
-            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
-            this.orderFormBuy.TabIndex = 31;
-            // 
-            // orderFormSell
-            // 
-            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
-            this.orderFormSell.Name = "orderFormSell";
-            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
-            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
-            this.orderFormSell.TabIndex = 32;
-            // 
-            // dataChart1M
-            // 
-            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
-            this.dataChart1M.Name = "dataChart1M";
-            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
-            this.dataChart1M.OrderFormSell = this.orderFormSell;
-            this.dataChart1M.PriceLineManager = priceLineManager2;
-            this.dataChart1M.Size = new System.Drawing.Size(612, 227);
-            this.dataChart1M.TabIndex = 33;
-            this.dataChart1M.XLabelFormat = null;
-            this.dataChart1M.XValue = 0D;
-            this.dataChart1M.YValue = 0D;
             // 
             // IBSampleApp
             // 

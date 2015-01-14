@@ -62,106 +62,118 @@
             // lblLow
             // 
             this.lblLow.AutoSize = true;
-            this.lblLow.Location = new System.Drawing.Point(591, 209);
+            this.lblLow.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLow.Location = new System.Drawing.Point(553, 303);
             this.lblLow.Name = "lblLow";
-            this.lblLow.Size = new System.Drawing.Size(16, 17);
+            this.lblLow.Size = new System.Drawing.Size(13, 13);
             this.lblLow.TabIndex = 27;
             this.lblLow.Text = "0";
             // 
             // lblLowLabel
             // 
             this.lblLowLabel.AutoSize = true;
-            this.lblLowLabel.Location = new System.Drawing.Point(544, 209);
+            this.lblLowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLowLabel.Location = new System.Drawing.Point(506, 303);
             this.lblLowLabel.Name = "lblLowLabel";
-            this.lblLowLabel.Size = new System.Drawing.Size(37, 17);
+            this.lblLowLabel.Size = new System.Drawing.Size(30, 13);
             this.lblLowLabel.TabIndex = 26;
             this.lblLowLabel.Text = "Low:";
             // 
             // lblClose
             // 
             this.lblClose.AutoSize = true;
-            this.lblClose.Location = new System.Drawing.Point(385, 209);
+            this.lblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClose.Location = new System.Drawing.Point(347, 303);
             this.lblClose.Name = "lblClose";
-            this.lblClose.Size = new System.Drawing.Size(16, 17);
+            this.lblClose.Size = new System.Drawing.Size(13, 13);
             this.lblClose.TabIndex = 25;
             this.lblClose.Text = "0";
             // 
             // lblCloseLabel
             // 
             this.lblCloseLabel.AutoSize = true;
-            this.lblCloseLabel.Location = new System.Drawing.Point(338, 209);
+            this.lblCloseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCloseLabel.Location = new System.Drawing.Point(300, 303);
             this.lblCloseLabel.Name = "lblCloseLabel";
-            this.lblCloseLabel.Size = new System.Drawing.Size(47, 17);
+            this.lblCloseLabel.Size = new System.Drawing.Size(36, 13);
             this.lblCloseLabel.TabIndex = 24;
             this.lblCloseLabel.Text = "Close:";
             // 
             // lblOpen
             // 
             this.lblOpen.AutoSize = true;
-            this.lblOpen.Location = new System.Drawing.Point(296, 209);
+            this.lblOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpen.Location = new System.Drawing.Point(258, 303);
             this.lblOpen.Name = "lblOpen";
-            this.lblOpen.Size = new System.Drawing.Size(16, 17);
+            this.lblOpen.Size = new System.Drawing.Size(13, 13);
             this.lblOpen.TabIndex = 23;
             this.lblOpen.Text = "0";
             // 
             // lblOpenLabel
             // 
             this.lblOpenLabel.AutoSize = true;
-            this.lblOpenLabel.Location = new System.Drawing.Point(249, 209);
+            this.lblOpenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpenLabel.Location = new System.Drawing.Point(211, 303);
             this.lblOpenLabel.Name = "lblOpenLabel";
-            this.lblOpenLabel.Size = new System.Drawing.Size(47, 17);
+            this.lblOpenLabel.Size = new System.Drawing.Size(36, 13);
             this.lblOpenLabel.TabIndex = 22;
             this.lblOpenLabel.Text = "Open:";
             // 
             // lblHigh
             // 
             this.lblHigh.AutoSize = true;
-            this.lblHigh.Location = new System.Drawing.Point(488, 209);
+            this.lblHigh.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHigh.Location = new System.Drawing.Point(450, 303);
             this.lblHigh.Name = "lblHigh";
-            this.lblHigh.Size = new System.Drawing.Size(16, 17);
+            this.lblHigh.Size = new System.Drawing.Size(13, 13);
             this.lblHigh.TabIndex = 21;
             this.lblHigh.Text = "0";
             // 
             // lblHighLabel
             // 
             this.lblHighLabel.AutoSize = true;
-            this.lblHighLabel.Location = new System.Drawing.Point(441, 209);
+            this.lblHighLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHighLabel.Location = new System.Drawing.Point(403, 303);
             this.lblHighLabel.Name = "lblHighLabel";
-            this.lblHighLabel.Size = new System.Drawing.Size(41, 17);
+            this.lblHighLabel.Size = new System.Drawing.Size(31, 13);
             this.lblHighLabel.TabIndex = 20;
             this.lblHighLabel.Text = "High:";
             // 
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(198, 209);
+            this.lblY.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblY.Location = new System.Drawing.Point(160, 303);
             this.lblY.Name = "lblY";
-            this.lblY.Size = new System.Drawing.Size(0, 17);
+            this.lblY.Size = new System.Drawing.Size(0, 13);
             this.lblY.TabIndex = 19;
             // 
             // lblYLabel
             // 
             this.lblYLabel.AutoSize = true;
-            this.lblYLabel.Location = new System.Drawing.Point(177, 209);
+            this.lblYLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYLabel.Location = new System.Drawing.Point(139, 303);
             this.lblYLabel.Name = "lblYLabel";
-            this.lblYLabel.Size = new System.Drawing.Size(21, 17);
+            this.lblYLabel.Size = new System.Drawing.Size(17, 13);
             this.lblYLabel.TabIndex = 18;
             this.lblYLabel.Text = "Y:";
             // 
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(29, 209);
+            this.lblX.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblX.Location = new System.Drawing.Point(24, 303);
             this.lblX.Name = "lblX";
-            this.lblX.Size = new System.Drawing.Size(0, 17);
+            this.lblX.Size = new System.Drawing.Size(0, 13);
             this.lblX.TabIndex = 17;
             // 
             // lblXLabel
             // 
             this.lblXLabel.AutoSize = true;
-            this.lblXLabel.Location = new System.Drawing.Point(8, 209);
+            this.lblXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblXLabel.Location = new System.Drawing.Point(3, 303);
             this.lblXLabel.Name = "lblXLabel";
-            this.lblXLabel.Size = new System.Drawing.Size(21, 17);
+            this.lblXLabel.Size = new System.Drawing.Size(17, 13);
             this.lblXLabel.TabIndex = 16;
             this.lblXLabel.Text = "X:";
             // 
@@ -197,7 +209,7 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.historicalChart.Series.Add(series1);
-            this.historicalChart.Size = new System.Drawing.Size(612, 174);
+            this.historicalChart.Size = new System.Drawing.Size(612, 268);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
             this.historicalChart.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.historicalChart_AxisViewChanged);
@@ -331,7 +343,7 @@
             this.Controls.Add(this.lblXLabel);
             this.Controls.Add(this.historicalChart);
             this.Name = "DataChart";
-            this.Size = new System.Drawing.Size(622, 240);
+            this.Size = new System.Drawing.Size(622, 331);
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
             this.contextMenuOrder.ResumeLayout(false);
             this.ResumeLayout(false);

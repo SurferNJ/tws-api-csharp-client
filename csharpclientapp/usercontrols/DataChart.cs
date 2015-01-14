@@ -370,7 +370,7 @@ namespace CSharpClientApp.usercontrols
                 series.ChartType = SeriesChartType.Line;
                 series.IsVisibleInLegend = false;
                 series.Color = Types.EMAColors[ema];
-                series.BorderWidth = 3;
+                series.BorderWidth = 2;
                 series.IsXValueIndexed = true;
                 series.XAxisType = AxisType.Primary;
                 series.YAxisType = AxisType.Primary;
