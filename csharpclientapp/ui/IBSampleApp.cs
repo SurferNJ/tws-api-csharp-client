@@ -716,10 +716,19 @@ namespace IBSampleApp
             if (isConnected)
             {
                 Contract contract = GetMDContract();
-                var endDate = DateTime.Now;           
+                var endDate = DateTime.Now;
 
-                AddRequest(historicalDataManagers[0], endDate, "30 D", BarSizeType._1_day);
-                AddRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min);
+                string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
+                
+                string barSize = hdRequest_BarSize.Text.Trim();
+                barSize = String.Concat("_", barSize.Replace(" ", "_"));
+                var barSizeType = (BarSizeType)Enum.Parse(typeof(BarSizeType), barSize);
+                
+                int useRTH = this.contractMDRTH.Checked ? 1 : 0;
+                
+
+                AddRequest(historicalDataManagers[0], endDate, duration, barSizeType, 1);
+                AddRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, useRTH);
 
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
                 ShowTab(marketData_MDT, historicalDataTab);
@@ -735,15 +744,16 @@ namespace IBSampleApp
 
             if (DateTime.TryParse(dateText, out date))
             {
-                AddRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min);
+                var rth = this.contractMDRTH.Checked ? 1 : 0;
+                AddRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, rth);
             }
         }
 
-        private void AddRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType)
+        private void AddRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, int useRTH)
         {
             Contract contract = GetMDContract();
             var endDateTime = endDate.ToString("yyyyMMdd") + " 23:59:59 GMT";
-            dataManager.AddRequest(contract, endDateTime, duration, barSizeType, "MIDPOINT", 0, 1);
+            dataManager.AddRequest(contract, endDateTime, duration, barSizeType, "MIDPOINT", useRTH, 1);
 
         }
 

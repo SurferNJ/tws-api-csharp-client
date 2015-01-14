@@ -48,6 +48,13 @@
             this.contextMenuOrder = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkEMA10 = new System.Windows.Forms.CheckBox();
+            this.checkEMA21 = new System.Windows.Forms.CheckBox();
+            this.checkEMA30 = new System.Windows.Forms.CheckBox();
+            this.checkEMA50 = new System.Windows.Forms.CheckBox();
+            this.checkEMA100 = new System.Windows.Forms.CheckBox();
+            this.checkEMA150 = new System.Windows.Forms.CheckBox();
+            this.checkEMA200 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +62,7 @@
             // lblLow
             // 
             this.lblLow.AutoSize = true;
-            this.lblLow.Location = new System.Drawing.Point(584, 206);
+            this.lblLow.Location = new System.Drawing.Point(591, 209);
             this.lblLow.Name = "lblLow";
             this.lblLow.Size = new System.Drawing.Size(16, 17);
             this.lblLow.TabIndex = 27;
@@ -64,7 +71,7 @@
             // lblLowLabel
             // 
             this.lblLowLabel.AutoSize = true;
-            this.lblLowLabel.Location = new System.Drawing.Point(537, 206);
+            this.lblLowLabel.Location = new System.Drawing.Point(544, 209);
             this.lblLowLabel.Name = "lblLowLabel";
             this.lblLowLabel.Size = new System.Drawing.Size(37, 17);
             this.lblLowLabel.TabIndex = 26;
@@ -73,7 +80,7 @@
             // lblClose
             // 
             this.lblClose.AutoSize = true;
-            this.lblClose.Location = new System.Drawing.Point(378, 206);
+            this.lblClose.Location = new System.Drawing.Point(385, 209);
             this.lblClose.Name = "lblClose";
             this.lblClose.Size = new System.Drawing.Size(16, 17);
             this.lblClose.TabIndex = 25;
@@ -82,7 +89,7 @@
             // lblCloseLabel
             // 
             this.lblCloseLabel.AutoSize = true;
-            this.lblCloseLabel.Location = new System.Drawing.Point(331, 206);
+            this.lblCloseLabel.Location = new System.Drawing.Point(338, 209);
             this.lblCloseLabel.Name = "lblCloseLabel";
             this.lblCloseLabel.Size = new System.Drawing.Size(47, 17);
             this.lblCloseLabel.TabIndex = 24;
@@ -91,7 +98,7 @@
             // lblOpen
             // 
             this.lblOpen.AutoSize = true;
-            this.lblOpen.Location = new System.Drawing.Point(289, 206);
+            this.lblOpen.Location = new System.Drawing.Point(296, 209);
             this.lblOpen.Name = "lblOpen";
             this.lblOpen.Size = new System.Drawing.Size(16, 17);
             this.lblOpen.TabIndex = 23;
@@ -100,7 +107,7 @@
             // lblOpenLabel
             // 
             this.lblOpenLabel.AutoSize = true;
-            this.lblOpenLabel.Location = new System.Drawing.Point(242, 206);
+            this.lblOpenLabel.Location = new System.Drawing.Point(249, 209);
             this.lblOpenLabel.Name = "lblOpenLabel";
             this.lblOpenLabel.Size = new System.Drawing.Size(47, 17);
             this.lblOpenLabel.TabIndex = 22;
@@ -109,7 +116,7 @@
             // lblHigh
             // 
             this.lblHigh.AutoSize = true;
-            this.lblHigh.Location = new System.Drawing.Point(481, 206);
+            this.lblHigh.Location = new System.Drawing.Point(488, 209);
             this.lblHigh.Name = "lblHigh";
             this.lblHigh.Size = new System.Drawing.Size(16, 17);
             this.lblHigh.TabIndex = 21;
@@ -118,7 +125,7 @@
             // lblHighLabel
             // 
             this.lblHighLabel.AutoSize = true;
-            this.lblHighLabel.Location = new System.Drawing.Point(434, 206);
+            this.lblHighLabel.Location = new System.Drawing.Point(441, 209);
             this.lblHighLabel.Name = "lblHighLabel";
             this.lblHighLabel.Size = new System.Drawing.Size(41, 17);
             this.lblHighLabel.TabIndex = 20;
@@ -127,7 +134,7 @@
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Location = new System.Drawing.Point(191, 206);
+            this.lblY.Location = new System.Drawing.Point(198, 209);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(0, 17);
             this.lblY.TabIndex = 19;
@@ -135,7 +142,7 @@
             // lblYLabel
             // 
             this.lblYLabel.AutoSize = true;
-            this.lblYLabel.Location = new System.Drawing.Point(170, 206);
+            this.lblYLabel.Location = new System.Drawing.Point(177, 209);
             this.lblYLabel.Name = "lblYLabel";
             this.lblYLabel.Size = new System.Drawing.Size(21, 17);
             this.lblYLabel.TabIndex = 18;
@@ -144,7 +151,7 @@
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Location = new System.Drawing.Point(22, 206);
+            this.lblX.Location = new System.Drawing.Point(29, 209);
             this.lblX.Name = "lblX";
             this.lblX.Size = new System.Drawing.Size(0, 17);
             this.lblX.TabIndex = 17;
@@ -152,7 +159,7 @@
             // lblXLabel
             // 
             this.lblXLabel.AutoSize = true;
-            this.lblXLabel.Location = new System.Drawing.Point(1, 206);
+            this.lblXLabel.Location = new System.Drawing.Point(8, 209);
             this.lblXLabel.Name = "lblXLabel";
             this.lblXLabel.Size = new System.Drawing.Size(21, 17);
             this.lblXLabel.TabIndex = 16;
@@ -178,7 +185,7 @@
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
             legend1.Name = "Legend1";
             this.historicalChart.Legends.Add(legend1);
-            this.historicalChart.Location = new System.Drawing.Point(0, 0);
+            this.historicalChart.Location = new System.Drawing.Point(4, 31);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
             series1.ChartArea = "ChartArea1";
@@ -190,9 +197,10 @@
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             this.historicalChart.Series.Add(series1);
-            this.historicalChart.Size = new System.Drawing.Size(618, 202);
+            this.historicalChart.Size = new System.Drawing.Size(612, 174);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
+            this.historicalChart.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.historicalChart_AxisViewChanged);
             this.historicalChart.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseDoubleClick);
             this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
             this.historicalChart.MouseLeave += new System.EventHandler(this.historicalChart_MouseLeave);
@@ -221,10 +229,94 @@
             this.contextMenuItemSellLMT.Text = "Sell LMT";
             this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
             // 
+            // checkEMA10
+            // 
+            this.checkEMA10.AutoSize = true;
+            this.checkEMA10.Location = new System.Drawing.Point(10, 3);
+            this.checkEMA10.Name = "checkEMA10";
+            this.checkEMA10.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA10.TabIndex = 28;
+            this.checkEMA10.Text = "10";
+            this.checkEMA10.UseVisualStyleBackColor = true;
+            this.checkEMA10.CheckedChanged += new System.EventHandler(this.checkEMA10_CheckedChanged);
+            // 
+            // checkEMA21
+            // 
+            this.checkEMA21.AutoSize = true;
+            this.checkEMA21.Location = new System.Drawing.Point(62, 3);
+            this.checkEMA21.Name = "checkEMA21";
+            this.checkEMA21.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA21.TabIndex = 29;
+            this.checkEMA21.Text = "21";
+            this.checkEMA21.UseVisualStyleBackColor = true;
+            this.checkEMA21.CheckedChanged += new System.EventHandler(this.checkEMA21_CheckedChanged);
+            // 
+            // checkEMA30
+            // 
+            this.checkEMA30.AutoSize = true;
+            this.checkEMA30.Location = new System.Drawing.Point(114, 3);
+            this.checkEMA30.Name = "checkEMA30";
+            this.checkEMA30.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA30.TabIndex = 30;
+            this.checkEMA30.Text = "30";
+            this.checkEMA30.UseVisualStyleBackColor = true;
+            this.checkEMA30.CheckedChanged += new System.EventHandler(this.checkEMA30_CheckedChanged);
+            // 
+            // checkEMA50
+            // 
+            this.checkEMA50.AutoSize = true;
+            this.checkEMA50.Location = new System.Drawing.Point(166, 3);
+            this.checkEMA50.Name = "checkEMA50";
+            this.checkEMA50.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA50.TabIndex = 31;
+            this.checkEMA50.Text = "50";
+            this.checkEMA50.UseVisualStyleBackColor = true;
+            this.checkEMA50.CheckedChanged += new System.EventHandler(this.checkEMA50_CheckedChanged);
+            // 
+            // checkEMA100
+            // 
+            this.checkEMA100.AutoSize = true;
+            this.checkEMA100.Location = new System.Drawing.Point(218, 3);
+            this.checkEMA100.Name = "checkEMA100";
+            this.checkEMA100.Size = new System.Drawing.Size(54, 21);
+            this.checkEMA100.TabIndex = 32;
+            this.checkEMA100.Text = "100";
+            this.checkEMA100.UseVisualStyleBackColor = true;
+            this.checkEMA100.CheckedChanged += new System.EventHandler(this.checkEMA100_CheckedChanged);
+            // 
+            // checkEMA150
+            // 
+            this.checkEMA150.AutoSize = true;
+            this.checkEMA150.Location = new System.Drawing.Point(270, 3);
+            this.checkEMA150.Name = "checkEMA150";
+            this.checkEMA150.Size = new System.Drawing.Size(54, 21);
+            this.checkEMA150.TabIndex = 33;
+            this.checkEMA150.Text = "150";
+            this.checkEMA150.UseVisualStyleBackColor = true;
+            this.checkEMA150.CheckedChanged += new System.EventHandler(this.checkEMA150_CheckedChanged);
+            // 
+            // checkEMA200
+            // 
+            this.checkEMA200.AutoSize = true;
+            this.checkEMA200.Location = new System.Drawing.Point(320, 3);
+            this.checkEMA200.Name = "checkEMA200";
+            this.checkEMA200.Size = new System.Drawing.Size(54, 21);
+            this.checkEMA200.TabIndex = 34;
+            this.checkEMA200.Text = "200";
+            this.checkEMA200.UseVisualStyleBackColor = true;
+            this.checkEMA200.CheckedChanged += new System.EventHandler(this.checkEMA200_CheckedChanged);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkEMA200);
+            this.Controls.Add(this.checkEMA150);
+            this.Controls.Add(this.checkEMA100);
+            this.Controls.Add(this.checkEMA50);
+            this.Controls.Add(this.checkEMA30);
+            this.Controls.Add(this.checkEMA21);
+            this.Controls.Add(this.checkEMA10);
             this.Controls.Add(this.lblLow);
             this.Controls.Add(this.lblLowLabel);
             this.Controls.Add(this.lblClose);
@@ -239,7 +331,7 @@
             this.Controls.Add(this.lblXLabel);
             this.Controls.Add(this.historicalChart);
             this.Name = "DataChart";
-            this.Size = new System.Drawing.Size(622, 227);
+            this.Size = new System.Drawing.Size(622, 240);
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).EndInit();
             this.contextMenuOrder.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -265,5 +357,12 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuOrder;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemBuyLMT;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemSellLMT;
+        private System.Windows.Forms.CheckBox checkEMA10;
+        private System.Windows.Forms.CheckBox checkEMA21;
+        private System.Windows.Forms.CheckBox checkEMA30;
+        private System.Windows.Forms.CheckBox checkEMA50;
+        private System.Windows.Forms.CheckBox checkEMA100;
+        private System.Windows.Forms.CheckBox checkEMA150;
+        private System.Windows.Forms.CheckBox checkEMA200;
     }
 }

@@ -139,38 +139,38 @@ namespace IBSampleApp.ui
             }
 
 
-            AddIndicator_EMA(ExpMovAvgType.EMA10);
-            AddIndicator_EMA(ExpMovAvgType.EMA21);  
+            //AddIndicator_EMA(ExpMovAvgType.EMA10);
+            //AddIndicator_EMA(ExpMovAvgType.EMA21);  
 
         }
 
-        private void AddIndicator_EMA(ExpMovAvgType ema)
-        {
-            Chart historicalChart = dataChart.Chart;
+        //private void AddIndicator_EMA(ExpMovAvgType ema)
+        //{
+        //    Chart historicalChart = dataChart.Chart;
 
-            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
+        //    var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
 
-            var seriesLine = historicalChart.Series.FindByName(seriesName);
+        //    var seriesLine = historicalChart.Series.FindByName(seriesName);
 
-            if (seriesLine == null)
-            {
-                historicalChart.Series.Add(new Series(seriesName));
-                seriesLine = historicalChart.Series[seriesName];
+        //    if (seriesLine == null)
+        //    {
+        //        historicalChart.Series.Add(new Series(seriesName));
+        //        seriesLine = historicalChart.Series[seriesName];
 
-                seriesLine.ChartType = SeriesChartType.Line;
-                seriesLine.IsVisibleInLegend = false;
-                seriesLine.Color = Types.EMAColors[ema];
-                seriesLine.BorderWidth = 3;
-                seriesLine.IsXValueIndexed = true;
-                seriesLine.XAxisType = AxisType.Primary;
-                seriesLine.YAxisType = AxisType.Primary;
+        //        seriesLine.ChartType = SeriesChartType.Line;
+        //        seriesLine.IsVisibleInLegend = false;
+        //        seriesLine.Color = Types.EMAColors[ema];
+        //        seriesLine.BorderWidth = 3;
+        //        seriesLine.IsXValueIndexed = true;
+        //        seriesLine.XAxisType = AxisType.Primary;
+        //        seriesLine.YAxisType = AxisType.Primary;
 
-            }
+        //    }
 
-            historicalChart.DataManipulator.IsStartFromFirst = true;
-            historicalChart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
+        //    historicalChart.DataManipulator.IsStartFromFirst = true;
+        //    historicalChart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
 
-        }
+        //}
 
         //protected void PopulateGrid(IBMessage message)
         //{

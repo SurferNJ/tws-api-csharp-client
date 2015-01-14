@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections.Specialized;
+using IBSampleApp.types;
 
 
 namespace CSharpClientApp.usercontrols
@@ -56,6 +57,39 @@ namespace CSharpClientApp.usercontrols
 
             _priceLineManager = new CSharpClientApp.ui.PriceLineManager();
 
+            // move x scroll bar outside
+            this.historicalChart.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
+            
+            // disable y scroll bar
+            this.historicalChart.ChartAreas[0].AxisY.ScrollBar.Enabled = false;
+            
+            // avoid grid stuttering
+            this.historicalChart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = false; 
+            this.historicalChart.ChartAreas[0].AxisY.LabelStyle.IsEndLabelVisible = false;  
+          
+            // remove grid lines
+            this.historicalChart.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
+            // enable chart selections by user
+            this.historicalChart.ChartAreas[0].CursorX.IsUserEnabled = true;
+            this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+            this.historicalChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+
+            // format X labels
+            this.Chart.ChartAreas[0].AxisX.IsLabelAutoFit = true;
+            this.Chart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
+
+            // format Y labels
+            this.Chart.ChartAreas[0].AxisY.IsLabelAutoFit = true;
+            this.Chart.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            this.Chart.ChartAreas[0].AxisY.LabelStyle.Format = "0.000";
+
+            // background color
+            this.Chart.ChartAreas[0].BackColor = Color.Black;
+            this.historicalChart.ChartAreas[0].AxisX.ScrollBar.ButtonColor = Color.Gray;
+
+            //this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
+
             //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             
         }
@@ -86,6 +120,15 @@ namespace CSharpClientApp.usercontrols
                         double posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
 
                         historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+
+                        //double yMax = historicalChart.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
+                        //double yMin = historicalChart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
+                        
+
+                        //double posYStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                        //double posYFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+
+                        //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
                     }
                     else
                     {
@@ -110,7 +153,10 @@ namespace CSharpClientApp.usercontrols
 
                     historicalChart.ChartAreas[0].AxisX.ScaleView.Scroll(posXStart);
 
+                    
                 }
+
+                ScaleYAxis();
             }
             catch { }
         }
@@ -298,6 +344,144 @@ namespace CSharpClientApp.usercontrols
                 lblOpen.Text = String.Empty;
                 lblClose.Text = String.Empty;
             }
+        }
+
+        private void checkEMA10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA10.Checked)
+                checkEMA10.Checked = AddIndicator_EMA(ExpMovAvgType.EMA10);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA10);
+        }
+
+        private bool AddIndicator_EMA(ExpMovAvgType ema)
+        {
+            if (this.Chart.Series[0].Points.Count <= 0) return false;
+
+            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
+
+            var series = this.Chart.Series.FindByName(seriesName);
+
+            if (series == null)
+            {
+                historicalChart.Series.Add(new Series(seriesName));
+                series = this.Chart.Series[seriesName];
+
+                series.ChartType = SeriesChartType.Line;
+                series.IsVisibleInLegend = false;
+                series.Color = Types.EMAColors[ema];
+                series.BorderWidth = 3;
+                series.IsXValueIndexed = true;
+                series.XAxisType = AxisType.Primary;
+                series.YAxisType = AxisType.Primary;
+
+            }
+
+
+            try
+            {
+                this.Chart.DataManipulator.IsStartFromFirst = true;
+                this.Chart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+
+            return true;
+
+        }
+
+        private void RemoveIndicator_EMA(ExpMovAvgType ema)
+        {
+            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
+
+            var series = this.Chart.Series.FindByName(seriesName);
+
+            if (series != null)
+                series.Points.Clear();
+        }
+
+        private void checkEMA21_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA21.Checked)
+                checkEMA21.Checked = AddIndicator_EMA(ExpMovAvgType.EMA21);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA21);
+        }
+
+        private void checkEMA30_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA30.Checked)
+                checkEMA30.Checked = AddIndicator_EMA(ExpMovAvgType.EMA30);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA30);
+        }
+
+        private void checkEMA50_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA50.Checked)
+                checkEMA50.Checked = AddIndicator_EMA(ExpMovAvgType.EMA50);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA50);
+        }
+
+        private void checkEMA100_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA100.Checked)
+                checkEMA100.Checked = AddIndicator_EMA(ExpMovAvgType.EMA100);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA100);
+        }
+
+        private void checkEMA150_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA150.Checked)
+                checkEMA150.Checked = AddIndicator_EMA(ExpMovAvgType.EMA150);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA150);
+        }
+
+        private void checkEMA200_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEMA200.Checked)
+                checkEMA200.Checked = AddIndicator_EMA(ExpMovAvgType.EMA200);
+            else
+                RemoveIndicator_EMA(ExpMovAvgType.EMA200);
+        }
+
+        private void historicalChart_AxisViewChanged(object sender, ViewEventArgs e)
+        {
+            if (e.Axis.AxisName == AxisName.X)
+            {
+                ScaleYAxis();
+            }
+        }
+
+        private void ScaleYAxis()
+        {
+            int start = (int)this.Chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
+            int end = (int)this.Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
+
+            double[] highs = this.Chart.Series[0].Points.Where((x, i) => i >= start && i <= end).Select(x => x.YValues[0]).ToArray();
+            double[] lows = this.Chart.Series[0].Points.Where((x, i) => i >= start && i <= end).Select(x => x.YValues[1]).ToArray();
+            double ymax = highs.Max();
+            double ymin = lows.Min();
+
+            var margin = (ymax - ymin) / 10;
+
+            this.Chart.ChartAreas[0].AxisY.ScaleView.Position = ymin - margin;
+            this.Chart.ChartAreas[0].AxisY.ScaleView.Size = ymax - ymin + margin * 2;
+
+
+
+            //this.Chart.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;
+            //this.Chart.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
+
+
+            //this.Chart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
+            //this.Chart.ChartAreas[0].AxisX.IsLabelAutoFit = true;
         }
     }
 }
