@@ -32,6 +32,8 @@ namespace IBSampleApp.ui
         public DataChart DataChart { get { return dataChart; } }
 
         private List<HistoricalDataMessage> historicalData;
+                
+        public event EventHandler<ChartPaintCompletedEventArgs> PaintCompleted;
 
         public HistoricalDataManager(int seqId, IBClient ibClient, DataChart dataChart)
             : base(ibClient, null) 
@@ -180,7 +182,7 @@ namespace IBSampleApp.ui
 
         private void PaintChart()
         {
-            DateTime dt;
+            DateTime dt = DateTime.MinValue;
             dataChart.CurrentPriceLabel.Text = "";
             Chart historicalChart = dataChart.Chart;
             for (int i = 0; i < historicalData.Count; i++)
@@ -201,6 +203,13 @@ namespace IBSampleApp.ui
             // reset view to no zoom
             historicalChart.ChartAreas[0].AxisX.ScaleView.ZoomReset(); 
             historicalChart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+
+            // check if any subscibers raise event
+            if (PaintCompleted != null)
+            {
+                var args = new ChartPaintCompletedEventArgs() { date = dt, dateOA = historicalChart.Series[0].Points.Last().XValue };
+                PaintCompleted(this, args);
+            }
         }
     }
 }

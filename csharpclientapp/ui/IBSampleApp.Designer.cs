@@ -67,6 +67,7 @@ namespace IBSampleApp
             this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.checkHighLowStudy = new System.Windows.Forms.CheckBox();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
@@ -706,6 +707,7 @@ namespace IBSampleApp
             // historicalDataTab
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
+            this.historicalDataTab.Controls.Add(this.checkHighLowStudy);
             this.historicalDataTab.Controls.Add(this.dataChartDaily);
             this.historicalDataTab.Controls.Add(this.dataChart1M);
             this.historicalDataTab.Controls.Add(this.orderFormSell);
@@ -718,6 +720,19 @@ namespace IBSampleApp
             this.historicalDataTab.Size = new System.Drawing.Size(1648, 421);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
+            // 
+            // checkHighLowStudy
+            // 
+            this.checkHighLowStudy.AutoSize = true;
+            this.checkHighLowStudy.Checked = true;
+            this.checkHighLowStudy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkHighLowStudy.Location = new System.Drawing.Point(1333, 24);
+            this.checkHighLowStudy.Name = "checkHighLowStudy";
+            this.checkHighLowStudy.Size = new System.Drawing.Size(88, 21);
+            this.checkHighLowStudy.TabIndex = 35;
+            this.checkHighLowStudy.Text = "High/Low";
+            this.checkHighLowStudy.UseVisualStyleBackColor = true;
+            this.checkHighLowStudy.CheckedChanged += new System.EventHandler(this.checkHighLowStudy_CheckedChanged);
             // 
             // histDataTabClose_MDT
             // 
@@ -1241,7 +1256,7 @@ namespace IBSampleApp
             this.secType_TMD_MDT.Name = "secType_TMD_MDT";
             this.secType_TMD_MDT.Size = new System.Drawing.Size(132, 24);
             this.secType_TMD_MDT.TabIndex = 2;
-            this.secType_TMD_MDT.Text = "CASH";
+            this.secType_TMD_MDT.Text = "STK";
             // 
             // label1
             // 
@@ -1296,7 +1311,7 @@ namespace IBSampleApp
             this.symbol_TMD_MDT.Name = "symbol_TMD_MDT";
             this.symbol_TMD_MDT.Size = new System.Drawing.Size(132, 22);
             this.symbol_TMD_MDT.TabIndex = 0;
-            this.symbol_TMD_MDT.Text = "EUR";
+            this.symbol_TMD_MDT.Text = "SPY";
             // 
             // strike_TMD_MDT
             // 
@@ -1322,7 +1337,7 @@ namespace IBSampleApp
             this.exchange_TMD_MDT.Name = "exchange_TMD_MDT";
             this.exchange_TMD_MDT.Size = new System.Drawing.Size(132, 22);
             this.exchange_TMD_MDT.TabIndex = 11;
-            this.exchange_TMD_MDT.Text = "IDEALPRO";
+            this.exchange_TMD_MDT.Text = "SMART";
             // 
             // localSymbol_label_TMD_MDT
             // 
@@ -4520,6 +4535,7 @@ namespace IBSampleApp
         private CSharpClientApp.usercontrols.DataChart dataChartDaily;
         private CSharpClientApp.usercontrols.DataChart dataChartRT;
         private System.Windows.Forms.CheckBox checkRTData;
+        private System.Windows.Forms.CheckBox checkHighLowStudy;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IBSampleApp.types;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -9,12 +10,15 @@ namespace CSharpClientApp.ui
 {
     public class PriceLineManager
     {
-        public const string BUY_LINE_NAME = "BUY_LINE";
-        public const string SELL_LINE_NAME = "SELL_LINE";
-        public const string BUY_LMT_LINE_NAME = "BUY_LMT_LINE";
-        public const string SELL_LMT_LINE_NAME = "SELL_LMT_LINE";
-        public const string SUPPORT_LINE_NAME = "SUPPORT_LINE";
-        public const string RESISTANCE_LINE_NAME = "RESISTANCE_LINE";
+        //public static readonly string BUY_LINE_NAME = "BUY_LINE";
+        //public static readonly string SELL_LINE_NAME = "SELL_LINE";
+        //public static readonly string BUY_LMT_LINE_NAME = "BUY_LMT_LINE";
+        //public static readonly string SELL_LMT_LINE_NAME = "SELL_LMT_LINE";
+        //public static readonly string SUPPORT_LINE_NAME = "SUPPORT_LINE";
+        //public static readonly string RESISTANCE_LINE_NAME = "RESISTANCE_LINE";
+        //public static readonly string OPEN_LINE_NAME = "OPEN_LINE";
+        //public static readonly string LOW_LINE_NAME = "LOW_LINE";
+        //public static readonly string HIGH_LINE_NAME = "HIGH_LINE";
 
         public ObservableCollection<PriceLine> PriceLines = new ObservableCollection<PriceLine>();
 
@@ -27,14 +31,14 @@ namespace CSharpClientApp.ui
         {
             PriceLine oldLine = null;
 
-            switch (line.Name)
+            switch (line.Type)
             {
-                    
-                case BUY_LINE_NAME:
-                    oldLine = PriceLines.Where(x => x.Name.Equals(BUY_LINE_NAME)).FirstOrDefault();  
+
+                case PriceLineType.BUY_LINE:
+                    oldLine = PriceLines.Where(x => x.Type.Equals(PriceLineType.BUY_LINE)).FirstOrDefault();  
                     break;
-                case SELL_LINE_NAME:
-                    oldLine = PriceLines.Where(x => x.Name.Equals(SELL_LINE_NAME)).FirstOrDefault();
+                case PriceLineType.SELL_LINE:
+                    oldLine = PriceLines.Where(x => x.Type.Equals(PriceLineType.SELL_LINE)).FirstOrDefault();
                     break;
             }
 
@@ -45,11 +49,11 @@ namespace CSharpClientApp.ui
         {
             PriceLine oldLine = null;
 
-            switch (line.Name)
+            switch (line.Type)
             {
-                case BUY_LINE_NAME:
-                case SELL_LINE_NAME:
-                    oldLine = PriceLines.Where(x => x.Name.Equals(line.Name)).FirstOrDefault();
+                case PriceLineType.BUY_LINE:
+                case PriceLineType.SELL_LINE:
+                    oldLine = PriceLines.Where(x => x.Type.Equals(line.Type)).FirstOrDefault();
                     break;                
             }
 
@@ -61,7 +65,7 @@ namespace CSharpClientApp.ui
 
     public class PriceLine
     {
-        public string Name { get; set; }
+        public PriceLineType Type { get; set; }
         public double Price { get; set; }
     }
 }

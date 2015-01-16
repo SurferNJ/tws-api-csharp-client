@@ -15,9 +15,6 @@ namespace CSharpClientApp.usercontrols
 {
     public partial class DataChart : UserControl
     {
-        //const string BUY_LINE_NAME = "BUY_LINE";
-        //const string SELL_LINE_NAME = "SELL_LINE";
-
         public event System.Windows.Forms.MouseEventHandler DataChartDoubleClick;
 
         public event System.Windows.Forms.MouseEventHandler DataChartMouseMove;
@@ -165,11 +162,11 @@ namespace CSharpClientApp.usercontrols
             catch { }
         }
 
-        private void AddHorizontalLineAnnotation(string name, double price, Color color)
+        public void AddHorizontalLineAnnotation(PriceLineType type, double price)
         {
             var a = new HorizontalLineAnnotation()
             {
-                Name = name,
+                Name = Enum.GetName(typeof(PriceLineType), type),
                 AxisX = historicalChart.ChartAreas[0].AxisX,
                 AxisY = historicalChart.ChartAreas[0].AxisY,
                 AnchorY = price,
@@ -178,7 +175,7 @@ namespace CSharpClientApp.usercontrols
                 IsSizeAlwaysRelative = false,
                 IsInfinitive = true,
                 ClipToChartArea = historicalChart.ChartAreas[0].Name,
-                LineColor = color,
+                LineColor = GetAnnotationColor(type),
                 LineWidth = 3,
                 AllowSelecting = true,
                 AllowMoving = true
@@ -187,11 +184,18 @@ namespace CSharpClientApp.usercontrols
             historicalChart.Annotations.Add(a);
         }
 
+        public void RemoveAnnotation(PriceLineType type)
+        {
+            var name = Enum.GetName(typeof(PriceLineType), type);
+            var annotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)).FirstOrDefault();
+            if (annotation != null) historicalChart.Annotations.Remove(annotation);
+        }
+
         private void SetBuyLMTOrder(double price)
         {
             var priceLine = new CSharpClientApp.ui.PriceLine()
             {
-                Name = CSharpClientApp.ui.PriceLineManager.BUY_LINE_NAME,
+                Type = PriceLineType.BUY_LINE,
                 Price = price
             };
 
@@ -209,7 +213,8 @@ namespace CSharpClientApp.usercontrols
                 foreach (var item in e.OldItems)
                 {
                     var priceLine = (CSharpClientApp.ui.PriceLine)item;
-                    var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.Equals(priceLine.Name)
+                    var name = Enum.GetName(typeof(PriceLineType), priceLine.Type);
+                    var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)
                                                                                 && x.AnchorY == priceLine.Price).FirstOrDefault();
 
                     if (existingAnnotation != null)
@@ -222,24 +227,33 @@ namespace CSharpClientApp.usercontrols
                 foreach (var item in e.NewItems)
                 {
                     var priceLine = (CSharpClientApp.ui.PriceLine)item;
-                    AddHorizontalLineAnnotation(priceLine.Name, priceLine.Price, GetAnnotationColor(priceLine.Name));
+                    AddHorizontalLineAnnotation(priceLine.Type, priceLine.Price);
                 }
             }
         } 
 
-        private Color GetAnnotationColor(string lineName)
+        private Color GetAnnotationColor(PriceLineType lineType)
         {
             var result = Color.Yellow;
 
-            switch (lineName)
+            switch (lineType)
             {
-                case CSharpClientApp.ui.PriceLineManager.BUY_LINE_NAME:
-                case CSharpClientApp.ui.PriceLineManager.BUY_LMT_LINE_NAME:
+                case PriceLineType.BUY_LINE:
+                case PriceLineType.BUY_LMT_LINE:
                     result = Color.Green;
                     break;
-                case CSharpClientApp.ui.PriceLineManager.SELL_LINE_NAME:
-                case CSharpClientApp.ui.PriceLineManager.SELL_LMT_LINE_NAME:
+                case PriceLineType.SELL_LINE:
+                case PriceLineType.SELL_LMT_LINE:
                     result = Color.Red;
+                    break;
+                case PriceLineType.OPEN_LINE:
+                    result = Color.LightGreen;
+                    break;
+                case PriceLineType.LOW_LINE:
+                    result = Color.Red;
+                    break;
+                case PriceLineType.HIGH_LINE:
+                    result = Color.WhiteSmoke;
                     break;
             }
 
@@ -250,7 +264,7 @@ namespace CSharpClientApp.usercontrols
         {
             var priceLine = new CSharpClientApp.ui.PriceLine()
             {
-                Name = CSharpClientApp.ui.PriceLineManager.SELL_LINE_NAME,
+                Type = PriceLineType.SELL_LINE,
                 Price = price
             };
 

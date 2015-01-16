@@ -93,6 +93,7 @@ namespace IBSampleApp.ui
                     rtBarsChart.Series[0].Points[index + 1].YValues[2] = rtBar.Open;
                     rtBarsChart.Series[0].Points[index + 1].YValues[3] = rtBar.Close;
 
+                    // TODO - test this with RT data
                     rtBarsChart.ChartAreas[0].AxisX.ScaleView.Scroll(ScrollType.Last);
                     //rtBarsChart.ChartAreas[0].AxisX.ScaleView.Zoom(xMin, xMax);
 

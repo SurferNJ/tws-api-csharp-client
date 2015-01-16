@@ -63,11 +63,13 @@ namespace IBSampleApp
             this.dataChart1M.PriceLineManager = this.priceLineManager;
             this.dataChartDaily.DataChartDoubleClick += this.DataChart_DoubleClick;
             
+            
             ibClient = new IBClient(this);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
             historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily)); // daily chart history manager
             historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M)); // intraday chart history manager
+            this.historicalDataManagers[1].PaintCompleted += DataChart1M_PaintCompleted;
             //realTimeBarManagers.Add(new RealTimeBarsManager(0, ibClient, dataChartDaily)); // Real Time Data manager
             realTimeBarManager = new RealTimeBarsManager(0, ibClient);
             realTimeBarManager.DataCharts.Add(dataChartDaily);
@@ -783,5 +785,52 @@ namespace IBSampleApp
             dataManager.AddRequest(contract, "MIDPOINT", true);
 
         }
+
+        private void DataChart1M_PaintCompleted(object sender, ChartPaintCompletedEventArgs e)
+        {
+            UpdateHighLowStudy();
+        }
+
+        public void RemoveAnnotation(DataChart dataChart, string name)
+        {
+            var annotation = dataChart.Chart.Annotations.Where(x => x.Name.Equals(PriceLineType.OPEN_LINE)).FirstOrDefault();
+            if (annotation!= null) dataChart.Chart.Annotations.Remove(annotation);
+        }
+        
+        private void UpdateHighLowStudy()
+        {
+            // clear
+            dataChart1M.RemoveAnnotation(PriceLineType.OPEN_LINE);
+            dataChart1M.RemoveAnnotation(PriceLineType.HIGH_LINE);
+            dataChart1M.RemoveAnnotation(PriceLineType.LOW_LINE);
+
+            if (!this.checkHighLowStudy.Checked)
+                return;
+
+            var date = Math.Truncate(this.dataChart1M.Chart.Series[0].Points[0].XValue);
+
+            var point = this.dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == date).FirstOrDefault();
+
+            var index = this.dataChartDaily.Chart.Series[0].Points.IndexOf(point);
+
+            if (point != null)
+            {
+                var open = point.YValues[2];
+                var prevHigh = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[0];
+                var prevLow = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[1];
+
+                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.OPEN_LINE, open);
+                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.HIGH_LINE, prevHigh);
+                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.LOW_LINE, prevLow);
+
+            }
+
+        }
+
+        private void checkHighLowStudy_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateHighLowStudy();
+        }
+
     }
 }

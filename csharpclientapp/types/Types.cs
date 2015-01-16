@@ -69,6 +69,25 @@ namespace IBSampleApp.types
         EMA200        
     }
 
+    public enum PriceLineType
+    {
+        BUY_LINE = 1,
+        SELL_LINE,
+        BUY_LMT_LINE,
+        SELL_LMT_LINE,
+        SUPPORT_LINE,
+        RESISTANCE_LINE,
+        OPEN_LINE,
+        LOW_LINE,
+        HIGH_LINE
+    }
+
+    public class ChartPaintCompletedEventArgs : EventArgs
+    {       
+        public DateTime date { get; set; }
+        public double dateOA { get; set; }
+    }
+
 
 
 
