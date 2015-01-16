@@ -432,20 +432,7 @@ namespace IBSampleApp
             this.marketData_MDT.TabPages.Remove(historicalDataTab);
         }
 
-        private void realTime_Button_Click(object sender, EventArgs e)
-        {
-            //if (isConnected)
-            //{
-            //    Contract contract = GetMDContract();
-            //    string whatToShow = hdRequest_WhatToShow.Text.Trim();
-            //    realTimeBarManagers[1].AddRequest(contract, whatToShow, true);
-            //    historicalDataTab.Text = Utils.ContractToString(contract) + " (RT)";
-            //    ShowTab(marketData_MDT, historicalDataTab);
-            //    //rtBarsTab_MDT.Text = Utils.ContractToString(contract) + " (RTB)";
-            //    //ShowTab(marketData_MDT, rtBarsTab_MDT);
-            //}
-        }
-        
+       
         private void rtBarsCloseLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             realTimeBarManager.Clear();
@@ -736,14 +723,14 @@ namespace IBSampleApp
                 var barSizeType = (BarSizeType)Enum.Parse(typeof(BarSizeType), barSize);
                 
                 int useRTH = this.contractMDRTH.Checked ? 1 : 0;
-                
 
-                AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, 1);
-                AddHDRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, useRTH);
+
+                AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, this.hdRequest_WhatToShow.Text, 1);
+                AddHDRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
 
                 if (checkRTData.Checked)
                 {
-                    AddRTRequest(realTimeBarManager, useRTH);
+                    AddRTRequest(realTimeBarManager, this.hdRequest_WhatToShow.Text, useRTH);
                 }
 
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
@@ -765,24 +752,23 @@ namespace IBSampleApp
                     // request historical data for this date
                     var rth = this.contractMDRTH.Checked ? 1 : 0;
 
-                    AddHDRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, rth);
+                    AddHDRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, rth);
                 }
             }
-
         }
 
-        private void AddHDRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, int useRTH)
+        private void AddHDRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, string whatToShow, int useRTH)
         {
             Contract contract = GetMDContract();
             var endDateTime = endDate.ToString("yyyyMMdd") + "  23:59:59 GMT";
-            dataManager.AddRequest(contract, endDateTime, duration, barSizeType, "MIDPOINT", useRTH, 1);
+            dataManager.AddRequest(contract, endDateTime, duration, barSizeType, whatToShow, useRTH, 1);
 
         }
 
-        private void AddRTRequest(RealTimeBarsManager dataManager, int useRTH)
+        private void AddRTRequest(RealTimeBarsManager dataManager, string whatToShow, int useRTH)
         {
             Contract contract = GetMDContract();
-            dataManager.AddRequest(contract, "MIDPOINT", true);
+            dataManager.AddRequest(contract, whatToShow, true);
 
         }
 

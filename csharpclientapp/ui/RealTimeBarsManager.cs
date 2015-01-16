@@ -70,6 +70,9 @@ namespace IBSampleApp.ui
                 Chart rtBarsChart = dataChart.Chart;
                 var index = rtBarsChart.Series[0].Points.Count - 1;
 
+                // check if chart is empty
+                if (index < 0) return;
+
                 // update current price
                 dataChart.CurrentPriceLabel.Text = rtBar.Close.ToString("0.00000");
                 if (rtBar.Close > rtBarsChart.Series[0].Points[index].YValues[3])
@@ -80,10 +83,8 @@ namespace IBSampleApp.ui
                 // check if new bar needs to be created
                 var chartTimeStamp = System.DateTime.FromOADate(rtBarsChart.Series[0].Points[index].XValue);
                 var deltaSeconds = (messageTimestamp - chartTimeStamp).TotalSeconds;
-
-
-                
-                if (deltaSeconds > dataChart.BarSizeInSeconds)
+                                
+                if (deltaSeconds > dataChart.BarSizeInSeconds / 12)
                 {
                     double xMin = rtBarsChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;                    
 
@@ -92,10 +93,10 @@ namespace IBSampleApp.ui
                     rtBarsChart.Series[0].Points[index + 1].YValues[1] = rtBar.Low;
                     rtBarsChart.Series[0].Points[index + 1].YValues[2] = rtBar.Open;
                     rtBarsChart.Series[0].Points[index + 1].YValues[3] = rtBar.Close;
-
-                    // TODO - test this with RT data
-                    rtBarsChart.ChartAreas[0].AxisX.ScaleView.Scroll(ScrollType.Last);
-                    //rtBarsChart.ChartAreas[0].AxisX.ScaleView.Zoom(xMin, xMax);
+                                        
+                    // if you're at the end of the chart make new bar visible
+                    if (index - rtBarsChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum < 5)
+                        rtBarsChart.ChartAreas[0].AxisX.ScaleView.Position += 1;
 
                 }
                 else

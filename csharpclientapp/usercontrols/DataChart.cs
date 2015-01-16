@@ -96,7 +96,8 @@ namespace CSharpClientApp.usercontrols
             this.historicalChart.ChartAreas[0].AxisX.ScrollBar.ButtonColor = Color.Gray;
 
             
-            //this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
+            this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
+            this.Chart.ChartAreas[0].AxisX.IsMarginVisible = true;
 
             //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             

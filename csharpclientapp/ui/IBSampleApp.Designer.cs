@@ -38,10 +38,10 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             CSharpClientApp.ui.PriceLineManager priceLineManager1 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager2 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager3 = new CSharpClientApp.ui.PriceLineManager();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.connectionTab = new System.Windows.Forms.TabPage();
@@ -55,6 +55,7 @@ namespace IBSampleApp
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();
             this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
+            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
             this.cancelMarketDataRequests = new System.Windows.Forms.Button();
             this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
             this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
@@ -69,6 +70,10 @@ namespace IBSampleApp
             this.historicalDataTab = new System.Windows.Forms.TabPage();
             this.checkHighLowStudy = new System.Windows.Forms.CheckBox();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
+            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
+            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
+            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
+            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
             this.deepBookGrid = new System.Windows.Forms.DataGridView();
@@ -132,7 +137,6 @@ namespace IBSampleApp
             this.checkRTData = new System.Windows.Forms.CheckBox();
             this.histData_1M_Button = new System.Windows.Forms.Button();
             this.contractMDRTH = new System.Windows.Forms.CheckBox();
-            this.realTime_Button = new System.Windows.Forms.Button();
             this.histData_Button = new System.Windows.Forms.Button();
             this.hdEndDate_label_HDT = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -379,11 +383,6 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
-            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
-            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
-            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
-            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.TabControl.SuspendLayout();
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
@@ -603,6 +602,21 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
+            // dataChartRT
+            // 
+            this.dataChartRT.BarSizeInSeconds = 0;
+            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
+            this.dataChartRT.Name = "dataChartRT";
+            this.dataChartRT.OrderFormBuy = null;
+            this.dataChartRT.OrderFormSell = null;
+            this.dataChartRT.PriceLineManager = priceLineManager1;
+            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
+            this.dataChartRT.TabIndex = 3;
+            this.dataChartRT.XLabelFormat = null;
+            this.dataChartRT.XValue = 0D;
+            this.dataChartRT.YValue = 0D;
+            // 
             // cancelMarketDataRequests
             // 
             this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
@@ -708,11 +722,11 @@ namespace IBSampleApp
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
             this.historicalDataTab.Controls.Add(this.checkHighLowStudy);
+            this.historicalDataTab.Controls.Add(this.histDataTabClose_MDT);
             this.historicalDataTab.Controls.Add(this.dataChartDaily);
             this.historicalDataTab.Controls.Add(this.dataChart1M);
             this.historicalDataTab.Controls.Add(this.orderFormSell);
             this.historicalDataTab.Controls.Add(this.orderFormBuy);
-            this.historicalDataTab.Controls.Add(this.histDataTabClose_MDT);
             this.historicalDataTab.Location = new System.Drawing.Point(4, 25);
             this.historicalDataTab.Margin = new System.Windows.Forms.Padding(4);
             this.historicalDataTab.Name = "historicalDataTab";
@@ -745,6 +759,52 @@ namespace IBSampleApp
             this.histDataTabClose_MDT.TabStop = true;
             this.histDataTabClose_MDT.Text = "Close";
             this.histDataTabClose_MDT.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.histDataTabClose_MDT_LinkClicked);
+            // 
+            // dataChartDaily
+            // 
+            this.dataChartDaily.BarSizeInSeconds = 0;
+            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
+            this.dataChartDaily.Name = "dataChartDaily";
+            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
+            this.dataChartDaily.OrderFormSell = this.orderFormSell;
+            this.dataChartDaily.PriceLineManager = priceLineManager2;
+            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
+            this.dataChartDaily.TabIndex = 34;
+            this.dataChartDaily.XLabelFormat = null;
+            this.dataChartDaily.XValue = 0D;
+            this.dataChartDaily.YValue = 0D;
+            // 
+            // orderFormBuy
+            // 
+            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
+            this.orderFormBuy.Name = "orderFormBuy";
+            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
+            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
+            this.orderFormBuy.TabIndex = 31;
+            // 
+            // orderFormSell
+            // 
+            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
+            this.orderFormSell.Name = "orderFormSell";
+            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
+            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
+            this.orderFormSell.TabIndex = 32;
+            // 
+            // dataChart1M
+            // 
+            this.dataChart1M.BarSizeInSeconds = 0;
+            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
+            this.dataChart1M.Name = "dataChart1M";
+            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
+            this.dataChart1M.OrderFormSell = this.orderFormSell;
+            this.dataChart1M.PriceLineManager = priceLineManager3;
+            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
+            this.dataChart1M.TabIndex = 33;
+            this.dataChart1M.XLabelFormat = null;
+            this.dataChart1M.XValue = 0D;
+            this.dataChart1M.YValue = 0D;
             // 
             // deepBookTab_MDT
             // 
@@ -1256,7 +1316,7 @@ namespace IBSampleApp
             this.secType_TMD_MDT.Name = "secType_TMD_MDT";
             this.secType_TMD_MDT.Size = new System.Drawing.Size(132, 24);
             this.secType_TMD_MDT.TabIndex = 2;
-            this.secType_TMD_MDT.Text = "STK";
+            this.secType_TMD_MDT.Text = "CASH";
             // 
             // label1
             // 
@@ -1311,7 +1371,7 @@ namespace IBSampleApp
             this.symbol_TMD_MDT.Name = "symbol_TMD_MDT";
             this.symbol_TMD_MDT.Size = new System.Drawing.Size(132, 22);
             this.symbol_TMD_MDT.TabIndex = 0;
-            this.symbol_TMD_MDT.Text = "SPY";
+            this.symbol_TMD_MDT.Text = "EUR";
             // 
             // strike_TMD_MDT
             // 
@@ -1337,7 +1397,7 @@ namespace IBSampleApp
             this.exchange_TMD_MDT.Name = "exchange_TMD_MDT";
             this.exchange_TMD_MDT.Size = new System.Drawing.Size(132, 22);
             this.exchange_TMD_MDT.TabIndex = 11;
-            this.exchange_TMD_MDT.Text = "SMART";
+            this.exchange_TMD_MDT.Text = "IDEALPRO";
             // 
             // localSymbol_label_TMD_MDT
             // 
@@ -1374,7 +1434,6 @@ namespace IBSampleApp
             this.groupBox1.Controls.Add(this.checkRTData);
             this.groupBox1.Controls.Add(this.histData_1M_Button);
             this.groupBox1.Controls.Add(this.contractMDRTH);
-            this.groupBox1.Controls.Add(this.realTime_Button);
             this.groupBox1.Controls.Add(this.histData_Button);
             this.groupBox1.Controls.Add(this.hdEndDate_label_HDT);
             this.groupBox1.Controls.Add(this.label12);
@@ -1408,12 +1467,12 @@ namespace IBSampleApp
             // 
             // histData_1M_Button
             // 
-            this.histData_1M_Button.Location = new System.Drawing.Point(158, 180);
+            this.histData_1M_Button.Location = new System.Drawing.Point(131, 180);
             this.histData_1M_Button.Margin = new System.Windows.Forms.Padding(4);
             this.histData_1M_Button.Name = "histData_1M_Button";
-            this.histData_1M_Button.Size = new System.Drawing.Size(127, 28);
+            this.histData_1M_Button.Size = new System.Drawing.Size(154, 28);
             this.histData_1M_Button.TabIndex = 61;
-            this.histData_1M_Button.Text = "Test 2 Charts";
+            this.histData_1M_Button.Text = "Test HD/RT Charts";
             this.histData_1M_Button.UseVisualStyleBackColor = true;
             this.histData_1M_Button.Click += new System.EventHandler(this.histData_1M_Button_Click);
             // 
@@ -1430,20 +1489,9 @@ namespace IBSampleApp
             this.contractMDRTH.Text = "RTH only";
             this.contractMDRTH.UseVisualStyleBackColor = true;
             // 
-            // realTime_Button
-            // 
-            this.realTime_Button.Location = new System.Drawing.Point(176, 144);
-            this.realTime_Button.Margin = new System.Windows.Forms.Padding(4);
-            this.realTime_Button.Name = "realTime_Button";
-            this.realTime_Button.Size = new System.Drawing.Size(100, 28);
-            this.realTime_Button.TabIndex = 56;
-            this.realTime_Button.Text = "Real Time";
-            this.realTime_Button.UseVisualStyleBackColor = true;
-            this.realTime_Button.Click += new System.EventHandler(this.realTime_Button_Click);
-            // 
             // histData_Button
             // 
-            this.histData_Button.Location = new System.Drawing.Point(50, 180);
+            this.histData_Button.Location = new System.Drawing.Point(12, 180);
             this.histData_Button.Margin = new System.Windows.Forms.Padding(4);
             this.histData_Button.Name = "histData_Button";
             this.histData_Button.Size = new System.Drawing.Size(100, 28);
@@ -1502,7 +1550,7 @@ namespace IBSampleApp
             this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
             this.hdRequest_WhatToShow.Size = new System.Drawing.Size(207, 21);
             this.hdRequest_WhatToShow.TabIndex = 52;
-            this.hdRequest_WhatToShow.Text = "MIDPOINT";
+            this.hdRequest_WhatToShow.Text = "TRADES";
             // 
             // hdRequest_Duration
             // 
@@ -4032,67 +4080,6 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // dataChartRT
-            // 
-            this.dataChartRT.BarSizeInSeconds = 0;
-            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
-            this.dataChartRT.Name = "dataChartRT";
-            this.dataChartRT.OrderFormBuy = null;
-            this.dataChartRT.OrderFormSell = null;
-            this.dataChartRT.PriceLineManager = priceLineManager1;
-            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
-            this.dataChartRT.TabIndex = 3;
-            this.dataChartRT.XLabelFormat = null;
-            this.dataChartRT.XValue = 0D;
-            this.dataChartRT.YValue = 0D;
-            // 
-            // dataChartDaily
-            // 
-            this.dataChartDaily.BarSizeInSeconds = 0;
-            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
-            this.dataChartDaily.Name = "dataChartDaily";
-            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
-            this.dataChartDaily.OrderFormSell = this.orderFormSell;
-            this.dataChartDaily.PriceLineManager = priceLineManager2;
-            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
-            this.dataChartDaily.TabIndex = 34;
-            this.dataChartDaily.XLabelFormat = null;
-            this.dataChartDaily.XValue = 0D;
-            this.dataChartDaily.YValue = 0D;
-            // 
-            // orderFormBuy
-            // 
-            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
-            this.orderFormBuy.Name = "orderFormBuy";
-            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
-            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
-            this.orderFormBuy.TabIndex = 31;
-            // 
-            // orderFormSell
-            // 
-            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
-            this.orderFormSell.Name = "orderFormSell";
-            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
-            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
-            this.orderFormSell.TabIndex = 32;
-            // 
-            // dataChart1M
-            // 
-            this.dataChart1M.BarSizeInSeconds = 0;
-            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
-            this.dataChart1M.Name = "dataChart1M";
-            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
-            this.dataChart1M.OrderFormSell = this.orderFormSell;
-            this.dataChart1M.PriceLineManager = priceLineManager3;
-            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
-            this.dataChart1M.TabIndex = 33;
-            this.dataChart1M.XLabelFormat = null;
-            this.dataChart1M.XValue = 0D;
-            this.dataChart1M.YValue = 0D;
-            // 
             // IBSampleApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -4246,7 +4233,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label expiry_label_TMD_MDT;
         private System.Windows.Forms.Label strike_label_TMD_MDT;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button realTime_Button;
         private System.Windows.Forms.Button histData_Button;
         private System.Windows.Forms.Label hdEndDate_label_HDT;
         private System.Windows.Forms.Label label12;
