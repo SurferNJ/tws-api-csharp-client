@@ -22,6 +22,11 @@ namespace IBSampleApp.ui
             ibClient = client;
             uiControl = grid;
         }
+
+        public DataManager(IBClient client)
+        {
+            ibClient = client;
+        }
         
         public abstract void NotifyError(int requestId);
         

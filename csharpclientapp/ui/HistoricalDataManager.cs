@@ -18,15 +18,16 @@ namespace IBSampleApp.ui
     {
         
         public const int HISTORICAL_ID_BASE = 30000000;
-        
+                        
         protected int seqId; // Sequence id to keep track of multiple HistoricalDataManagers
 
-        private string fullDatePattern = "yyyyMMdd  HH:mm:ss";
+        private string fullDatePattern = "yyyyMMdd  HH:mm:ss GMT";
         private string yearMonthDayPattern = "yyyyMMdd";
+        private string yearMonthDayTimePattern = "yyyyMMdd  HH:mm:ss";
 
         protected int barCounter = -1;
 
-        private DataChart dataChart;
+        protected DataChart dataChart;
 
         public DataChart DataChart { get { return dataChart; } }
 
@@ -53,14 +54,60 @@ namespace IBSampleApp.ui
         {
             Clear();
             var barSizeSetting = Types.GetBarSizeDescription(barSizeType);
-            ibClient.ClientSocket.reqHistoricalData(seqId + HISTORICAL_ID_BASE, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, dateFormat, new List<TagValue>());
+                        
+            DateTime dt;
+            if (ParseEndDate(endDateTime, out dt))
+            {
+                dataChart.ChartEndDate = dt;
 
-            SetXValueType(barSizeType);
+                ibClient.ClientSocket.reqHistoricalData(seqId + HISTORICAL_ID_BASE, contract, endDateTime, durationString, barSizeSetting, whatToShow, useRTH, dateFormat, new List<TagValue>());
+
+                SetBarSize(barSizeType);    
+            }
         }
 
-        public void SetXValueType(BarSizeType barSizeType)
-        {
-            Chart historicalChart = dataChart.Chart;
+        public void SetBarSize(BarSizeType barSizeType)
+        {            
+            switch (barSizeType)
+            {
+                case BarSizeType._1_min:
+                    dataChart.BarSizeInSeconds = 60; //TimeSpan.FromMinutes(1).TotalSeconds;
+                    break;
+                case BarSizeType._1_sec:
+                    dataChart.BarSizeInSeconds = 1; //TimeSpan.FromSeconds(1).TotalSeconds;
+                    break;
+                case BarSizeType._15_mins:
+                    dataChart.BarSizeInSeconds = 900; //TimeSpan.FromMinutes(15).TotalSeconds;
+                    break;
+                case BarSizeType._15_secs:
+                    dataChart.BarSizeInSeconds = 15; //TimeSpan.FromSeconds(15).TotalSeconds;
+                    break;
+                case BarSizeType._2_mins:
+                    dataChart.BarSizeInSeconds = 120; //TimeSpan.FromMinutes(2).TotalSeconds;
+                    break;
+                case BarSizeType._3_mins:
+                    dataChart.BarSizeInSeconds = 180; //TimeSpan.FromMinutes(3).TotalSeconds;
+                    break;
+                case BarSizeType._30_mins:
+                    dataChart.BarSizeInSeconds = 1800; //TimeSpan.FromMinutes(30).TotalSeconds;
+                    break;
+                case BarSizeType._30_secs:
+                    dataChart.BarSizeInSeconds = 30; //TimeSpan.FromSeconds(30).TotalSeconds;
+                    break;
+                case BarSizeType._5_mins:
+                    dataChart.BarSizeInSeconds = 300; //TimeSpan.FromMinutes(5).TotalSeconds;
+                    break;
+                case BarSizeType._5_secs:
+                    dataChart.BarSizeInSeconds = 5; //TimeSpan.FromSeconds(5).TotalSeconds;
+                    break;
+                case BarSizeType._1_day:
+                    dataChart.BarSizeInSeconds = 86400; //TimeSpan.FromSeconds(5).TotalSeconds;
+                    break;
+                 case BarSizeType._1_hour:
+                    dataChart.BarSizeInSeconds = 3600; //TimeSpan.FromSeconds(5).TotalSeconds;
+                    break;
+            }
+
 
             switch (barSizeType)
             {
@@ -73,14 +120,14 @@ namespace IBSampleApp.ui
                 case BarSizeType._30_mins:
                 case BarSizeType._30_secs:
                 case BarSizeType._5_mins:
-                case BarSizeType._5_secs:                
-                    historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-                    historicalChart.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm";
+                case BarSizeType._5_secs:
+                    dataChart.Chart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    dataChart.Chart.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm";
                     dataChart.XLabelFormat = "MM/dd/yyyy hh:mm tt";                  
                     
                     break;
                 default:
-                    historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    dataChart.Chart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
                     dataChart.XLabelFormat = "MM/dd/yyyy";
                     break;
             }
@@ -115,17 +162,30 @@ namespace IBSampleApp.ui
             }
         }
 
+        private bool ParseEndDate(string endDate, out DateTime dt)
+        {
+            dt = DateTime.MinValue; //DateTime.Today.AddDays(1).AddMilliseconds(-1);
+
+            if (endDate.Length == fullDatePattern.Length)
+                DateTime.TryParseExact(endDate, fullDatePattern, null, DateTimeStyles.None, out dt);
+            else if (endDate.Length == yearMonthDayTimePattern.Length)
+                DateTime.TryParseExact(endDate, yearMonthDayTimePattern, null, DateTimeStyles.None, out dt);
+            else if (endDate.Length == yearMonthDayPattern.Length)
+                DateTime.TryParseExact(endDate, yearMonthDayPattern, null, DateTimeStyles.None, out dt);
+            else
+                return false;
+
+            return true;
+        }
+
         private void PaintChart()
         {
             DateTime dt;
+            dataChart.CurrentPriceLabel.Text = "";
             Chart historicalChart = dataChart.Chart;
             for (int i = 0; i < historicalData.Count; i++)
             {
-                if (historicalData[i].Date.Length == fullDatePattern.Length)
-                    DateTime.TryParseExact(historicalData[i].Date, fullDatePattern, null, DateTimeStyles.None, out dt);
-                else if (historicalData[i].Date.Length == yearMonthDayPattern.Length)
-                    DateTime.TryParseExact(historicalData[i].Date, yearMonthDayPattern, null, DateTimeStyles.None, out dt);
-                else
+                if (!ParseEndDate(historicalData[i].Date, out dt))
                     continue;
 
                 // adding date and high
@@ -138,51 +198,9 @@ namespace IBSampleApp.ui
                 historicalChart.Series[0].Points[i].YValues[3] = historicalData[i].Close;
             }
 
-
-            //AddIndicator_EMA(ExpMovAvgType.EMA10);
-            //AddIndicator_EMA(ExpMovAvgType.EMA21);  
-
+            // reset view to no zoom
+            historicalChart.ChartAreas[0].AxisX.ScaleView.ZoomReset(); 
+            historicalChart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
         }
-
-        //private void AddIndicator_EMA(ExpMovAvgType ema)
-        //{
-        //    Chart historicalChart = dataChart.Chart;
-
-        //    var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
-
-        //    var seriesLine = historicalChart.Series.FindByName(seriesName);
-
-        //    if (seriesLine == null)
-        //    {
-        //        historicalChart.Series.Add(new Series(seriesName));
-        //        seriesLine = historicalChart.Series[seriesName];
-
-        //        seriesLine.ChartType = SeriesChartType.Line;
-        //        seriesLine.IsVisibleInLegend = false;
-        //        seriesLine.Color = Types.EMAColors[ema];
-        //        seriesLine.BorderWidth = 3;
-        //        seriesLine.IsXValueIndexed = true;
-        //        seriesLine.XAxisType = AxisType.Primary;
-        //        seriesLine.YAxisType = AxisType.Primary;
-
-        //    }
-
-        //    historicalChart.DataManipulator.IsStartFromFirst = true;
-        //    historicalChart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
-
-        //}
-
-        //protected void PopulateGrid(IBMessage message)
-        //{
-        //    HistoricalDataMessage bar = (HistoricalDataMessage)message;
-        //    gridView.Rows.Add(1);
-        //    gridView[0, gridView.Rows.Count -1].Value = bar.Date;
-        //    gridView[1, gridView.Rows.Count - 1].Value = bar.Open;
-        //    gridView[2, gridView.Rows.Count - 1].Value = bar.High;
-        //    gridView[3, gridView.Rows.Count - 1].Value = bar.Low;
-        //    gridView[4, gridView.Rows.Count - 1].Value = bar.Close;
-        //    gridView[5, gridView.Rows.Count - 1].Value = bar.Volume;
-        //    gridView[6, gridView.Rows.Count - 1].Value = bar.Wap;
-        //}
     }
 }

@@ -55,6 +55,7 @@
             this.checkEMA100 = new System.Windows.Forms.CheckBox();
             this.checkEMA150 = new System.Windows.Forms.CheckBox();
             this.checkEMA200 = new System.Windows.Forms.CheckBox();
+            this.labelCurrentPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -318,10 +319,21 @@
             this.checkEMA200.UseVisualStyleBackColor = true;
             this.checkEMA200.CheckedChanged += new System.EventHandler(this.checkEMA200_CheckedChanged);
             // 
+            // labelCurrentPrice
+            // 
+            this.labelCurrentPrice.AutoSize = true;
+            this.labelCurrentPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCurrentPrice.Location = new System.Drawing.Point(552, 7);
+            this.labelCurrentPrice.Name = "labelCurrentPrice";
+            this.labelCurrentPrice.Size = new System.Drawing.Size(34, 20);
+            this.labelCurrentPrice.TabIndex = 35;
+            this.labelCurrentPrice.Text = "0.0";
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelCurrentPrice);
             this.Controls.Add(this.checkEMA200);
             this.Controls.Add(this.checkEMA150);
             this.Controls.Add(this.checkEMA100);
@@ -376,5 +388,6 @@
         private System.Windows.Forms.CheckBox checkEMA100;
         private System.Windows.Forms.CheckBox checkEMA150;
         private System.Windows.Forms.CheckBox checkEMA200;
+        private System.Windows.Forms.Label labelCurrentPrice;
     }
 }

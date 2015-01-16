@@ -28,6 +28,10 @@ namespace CSharpClientApp.usercontrols
 
         public double XValue { get; set; }
         public double YValue { get; set; }
+
+        public int BarSizeInSeconds { get; set; }
+
+        public DateTime ChartEndDate { get; set; }
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -48,6 +52,12 @@ namespace CSharpClientApp.usercontrols
 
         [Browsable(false)]
         public string XLabelText { get { return lblX.Text; } }
+
+        [Browsable(false)]
+        public Label CurrentPriceLabel
+        {
+            get { return labelCurrentPrice; }            
+        }
 
         public Chart Chart { get { return this.historicalChart; } }
 
@@ -88,6 +98,7 @@ namespace CSharpClientApp.usercontrols
             this.Chart.ChartAreas[0].BackColor = Color.Black;
             this.historicalChart.ChartAreas[0].AxisX.ScrollBar.ButtonColor = Color.Gray;
 
+            
             //this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
 
             //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
@@ -120,13 +131,6 @@ namespace CSharpClientApp.usercontrols
                         double posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
 
                         historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
-
-                        //double yMax = historicalChart.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
-                        //double yMin = historicalChart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
-                        
-
-                        //double posYStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                        //double posYFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
 
                         //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
                     }
@@ -296,29 +300,10 @@ namespace CSharpClientApp.usercontrols
         {
             var newEvent = DataChartDoubleClick;
 
-            newEvent(this, e);
+            if (newEvent != null)
+                newEvent(this, e);
         }
 
-        // TODO: use this for plotting Technical Indicators 
-        //private void DrawPriceLineSeries(double price)
-        //{
-        //    var seriesLine = new Series(BUY_LINE_SERIES);
-
-        //    foreach (var point in historicalChart.Series[0].Points)
-        //    {
-        //        seriesLine.Points.AddXY(System.DateTime.FromOADate(point.XValue), price);
-        //    }
-
-        //    seriesLine.ChartType = SeriesChartType.Line;
-        //    seriesLine.IsVisibleInLegend = false;
-        //    seriesLine.Color = Color.Green;
-        //    seriesLine.BorderWidth = 3;
-        //    seriesLine.IsXValueIndexed = true;
-        //    seriesLine.XAxisType = AxisType.Primary;
-        //    seriesLine.YAxisType = AxisType.Primary;
-
-        //    historicalChart.Series.Add(seriesLine);    
-        //}
 
         internal void UpdateControls(DataPoint xPoint, double yValue)
         {
@@ -463,25 +448,21 @@ namespace CSharpClientApp.usercontrols
         {
             int start = (int)this.Chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
             int end = (int)this.Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
-
+                        
             double[] highs = this.Chart.Series[0].Points.Where((x, i) => i >= start && i <= end).Select(x => x.YValues[0]).ToArray();
             double[] lows = this.Chart.Series[0].Points.Where((x, i) => i >= start && i <= end).Select(x => x.YValues[1]).ToArray();
-            double ymax = highs.Max();
-            double ymin = lows.Min();
 
-            var margin = (ymax - ymin) / 10;
+            if (highs.Length > 0)
+            {
+                double ymax = highs.Max();
+                double ymin = lows.Min();
 
-            this.Chart.ChartAreas[0].AxisY.ScaleView.Position = ymin - margin;
-            this.Chart.ChartAreas[0].AxisY.ScaleView.Size = ymax - ymin + margin * 2;
+                var margin = (ymax - ymin) / 10;
 
+                this.Chart.ChartAreas[0].AxisY.ScaleView.Position = ymin - margin;
+                this.Chart.ChartAreas[0].AxisY.ScaleView.Size = ymax - ymin + margin * 2;
+            }
 
-
-            //this.Chart.ChartAreas[0].AxisY.LabelStyle.IsStaggered = false;
-            //this.Chart.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
-
-
-            //this.Chart.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.WordWrap;
-            //this.Chart.ChartAreas[0].AxisX.IsLabelAutoFit = true;
         }
     }
 }

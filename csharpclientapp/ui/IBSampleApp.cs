@@ -31,6 +31,8 @@ namespace IBSampleApp
 
         // manages multuple charts
         private List<HistoricalDataManager> historicalDataManagers = new List<HistoricalDataManager>();
+        //private List<RealTimeBarsManager> realTimeBarManagers = new List<RealTimeBarsManager>();
+        
 
         // manages multiple chart annotations, eg buy/sell lines, support/resistance lines, etc
         public PriceLineManager priceLineManager; 
@@ -64,9 +66,13 @@ namespace IBSampleApp
             ibClient = new IBClient(this);
             marketDataManager = new MarketDataManager(ibClient, marketDataGrid_MDT);
             deepBookManager = new DeepBookManager(ibClient, deepBookGrid);
-            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily)); // Daily histoy
-            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M)); // Intraday (1min) history
-            realTimeBarManager = new RealTimeBarsManager(0, ibClient, dataChartDaily, rtBarsGrid);
+            historicalDataManagers.Add(new HistoricalDataManager(0, ibClient, dataChartDaily)); // daily chart history manager
+            historicalDataManagers.Add(new HistoricalDataManager(1, ibClient, dataChart1M)); // intraday chart history manager
+            //realTimeBarManagers.Add(new RealTimeBarsManager(0, ibClient, dataChartDaily)); // Real Time Data manager
+            realTimeBarManager = new RealTimeBarsManager(0, ibClient);
+            realTimeBarManager.DataCharts.Add(dataChartDaily);
+            realTimeBarManager.DataCharts.Add(dataChart1M);
+
             scannerManager = new ScannerManager(ibClient, scannerGrid);
             orderManager = new OrderManager(ibClient, liveOrdersGrid, tradeLogGrid);
             accountManager = new AccountManager(ibClient, accountSelector, accSummaryGrid, accountValuesGrid, accountPortfolioGrid, positionsGrid);
@@ -190,7 +196,8 @@ namespace IBSampleApp
                     }
                 case MessageType.RealTimeBars:
                     {
-                        realTimeBarManager.UpdateUI(message);
+                        var msg = (RealTimeBarMessage)message;
+                        realTimeBarManager.UpdateUI(message);                        
                         break;
                     }
                 case MessageType.ScannerData:
@@ -425,14 +432,16 @@ namespace IBSampleApp
 
         private void realTime_Button_Click(object sender, EventArgs e)
         {
-            if (isConnected)
-            {
-                Contract contract = GetMDContract();
-                string whatToShow = hdRequest_WhatToShow.Text.Trim();
-                realTimeBarManager.AddRequest(contract, whatToShow, true);
-                rtBarsTab_MDT.Text = Utils.ContractToString(contract) + " (RTB)";
-                ShowTab(marketData_MDT, rtBarsTab_MDT);
-            }
+            //if (isConnected)
+            //{
+            //    Contract contract = GetMDContract();
+            //    string whatToShow = hdRequest_WhatToShow.Text.Trim();
+            //    realTimeBarManagers[1].AddRequest(contract, whatToShow, true);
+            //    historicalDataTab.Text = Utils.ContractToString(contract) + " (RT)";
+            //    ShowTab(marketData_MDT, historicalDataTab);
+            //    //rtBarsTab_MDT.Text = Utils.ContractToString(contract) + " (RTB)";
+            //    //ShowTab(marketData_MDT, rtBarsTab_MDT);
+            //}
         }
         
         private void rtBarsCloseLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -727,8 +736,13 @@ namespace IBSampleApp
                 int useRTH = this.contractMDRTH.Checked ? 1 : 0;
                 
 
-                AddRequest(historicalDataManagers[0], endDate, duration, barSizeType, 1);
-                AddRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, useRTH);
+                AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, 1);
+                AddHDRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, useRTH);
+
+                if (checkRTData.Checked)
+                {
+                    AddRTRequest(realTimeBarManager, useRTH);
+                }
 
                 historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
                 ShowTab(marketData_MDT, historicalDataTab);
@@ -739,25 +753,35 @@ namespace IBSampleApp
         {
             var dataChart = (DataChart)sender;
 
-            DateTime date;
-            var dateText = dataChart.XLabelText;
+            if (dataChart.Name.Equals("dataChartDaily"))
+            {                                
+                DateTime date;
+                var dateText = dataChart.XLabelText;
 
-            if (DateTime.TryParse(dateText, out date))
-            {
-                var rth = this.contractMDRTH.Checked ? 1 : 0;
-                AddRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, rth);
+                if (DateTime.TryParse(dateText, out date))
+                {
+                    // request historical data for this date
+                    var rth = this.contractMDRTH.Checked ? 1 : 0;
+
+                    AddHDRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, rth);
+                }
             }
+
         }
 
-        private void AddRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, int useRTH)
+        private void AddHDRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, int useRTH)
         {
             Contract contract = GetMDContract();
-            var endDateTime = endDate.ToString("yyyyMMdd") + " 23:59:59 GMT";
+            var endDateTime = endDate.ToString("yyyyMMdd") + "  23:59:59 GMT";
             dataManager.AddRequest(contract, endDateTime, duration, barSizeType, "MIDPOINT", useRTH, 1);
 
         }
 
+        private void AddRTRequest(RealTimeBarsManager dataManager, int useRTH)
+        {
+            Contract contract = GetMDContract();
+            dataManager.AddRequest(contract, "MIDPOINT", true);
 
-
+        }
     }
 }
