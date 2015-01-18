@@ -4050,29 +4050,31 @@ namespace IBSampleApp
             "15 mins",
             "30 mins",
             "1 hour"});
-            this.comboIDBarSize.Location = new System.Drawing.Point(1420, 24);
+            this.comboIDBarSize.Location = new System.Drawing.Point(1396, 23);
             this.comboIDBarSize.Margin = new System.Windows.Forms.Padding(4);
             this.comboIDBarSize.Name = "comboIDBarSize";
-            this.comboIDBarSize.Size = new System.Drawing.Size(73, 25);
+            this.comboIDBarSize.Size = new System.Drawing.Size(71, 25);
             this.comboIDBarSize.TabIndex = 63;
             this.comboIDBarSize.Text = "1 min";
+            this.comboIDBarSize.SelectedIndexChanged += new System.EventHandler(this.comboIDBarSize_SelectedIndexChanged);
             // 
             // comboDuration
             // 
             this.comboDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboDuration.FormattingEnabled = true;
             this.comboDuration.Items.AddRange(new object[] {
-            "1 day",
-            "2 days",
-            "3 days",
-            "5 days",
-            "10 days"});
+            "1 D",
+            "2 D",
+            "3 D",
+            "5 D",
+            "10 D"});
             this.comboDuration.Location = new System.Drawing.Point(1324, 23);
             this.comboDuration.Margin = new System.Windows.Forms.Padding(4);
             this.comboDuration.Name = "comboDuration";
-            this.comboDuration.Size = new System.Drawing.Size(73, 25);
+            this.comboDuration.Size = new System.Drawing.Size(62, 25);
             this.comboDuration.TabIndex = 64;
-            this.comboDuration.Text = "1 day";
+            this.comboDuration.Text = "2 D";
+            this.comboDuration.SelectedIndexChanged += new System.EventHandler(this.comboDuration_SelectedIndexChanged);
             // 
             // dataChartRT
             // 

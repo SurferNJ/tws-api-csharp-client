@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
@@ -63,118 +63,118 @@
             // lblLow
             // 
             this.lblLow.AutoSize = true;
-            this.lblLow.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLow.Location = new System.Drawing.Point(553, 303);
+            this.lblLow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLow.Location = new System.Drawing.Point(560, 303);
             this.lblLow.Name = "lblLow";
-            this.lblLow.Size = new System.Drawing.Size(13, 13);
+            this.lblLow.Size = new System.Drawing.Size(16, 17);
             this.lblLow.TabIndex = 27;
             this.lblLow.Text = "0";
             // 
             // lblLowLabel
             // 
             this.lblLowLabel.AutoSize = true;
-            this.lblLowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLowLabel.Location = new System.Drawing.Point(506, 303);
+            this.lblLowLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLowLabel.Location = new System.Drawing.Point(513, 303);
             this.lblLowLabel.Name = "lblLowLabel";
-            this.lblLowLabel.Size = new System.Drawing.Size(30, 13);
+            this.lblLowLabel.Size = new System.Drawing.Size(37, 17);
             this.lblLowLabel.TabIndex = 26;
             this.lblLowLabel.Text = "Low:";
             // 
             // lblClose
             // 
             this.lblClose.AutoSize = true;
-            this.lblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClose.Location = new System.Drawing.Point(347, 303);
+            this.lblClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClose.Location = new System.Drawing.Point(354, 303);
             this.lblClose.Name = "lblClose";
-            this.lblClose.Size = new System.Drawing.Size(13, 13);
+            this.lblClose.Size = new System.Drawing.Size(16, 17);
             this.lblClose.TabIndex = 25;
             this.lblClose.Text = "0";
             // 
             // lblCloseLabel
             // 
             this.lblCloseLabel.AutoSize = true;
-            this.lblCloseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCloseLabel.Location = new System.Drawing.Point(300, 303);
+            this.lblCloseLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCloseLabel.Location = new System.Drawing.Point(307, 303);
             this.lblCloseLabel.Name = "lblCloseLabel";
-            this.lblCloseLabel.Size = new System.Drawing.Size(36, 13);
+            this.lblCloseLabel.Size = new System.Drawing.Size(47, 17);
             this.lblCloseLabel.TabIndex = 24;
             this.lblCloseLabel.Text = "Close:";
             // 
             // lblOpen
             // 
             this.lblOpen.AutoSize = true;
-            this.lblOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpen.Location = new System.Drawing.Point(258, 303);
             this.lblOpen.Name = "lblOpen";
-            this.lblOpen.Size = new System.Drawing.Size(13, 13);
+            this.lblOpen.Size = new System.Drawing.Size(16, 17);
             this.lblOpen.TabIndex = 23;
             this.lblOpen.Text = "0";
             // 
             // lblOpenLabel
             // 
             this.lblOpenLabel.AutoSize = true;
-            this.lblOpenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOpenLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblOpenLabel.Location = new System.Drawing.Point(211, 303);
             this.lblOpenLabel.Name = "lblOpenLabel";
-            this.lblOpenLabel.Size = new System.Drawing.Size(36, 13);
+            this.lblOpenLabel.Size = new System.Drawing.Size(47, 17);
             this.lblOpenLabel.TabIndex = 22;
             this.lblOpenLabel.Text = "Open:";
             // 
             // lblHigh
             // 
             this.lblHigh.AutoSize = true;
-            this.lblHigh.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHigh.Location = new System.Drawing.Point(450, 303);
+            this.lblHigh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHigh.Location = new System.Drawing.Point(457, 303);
             this.lblHigh.Name = "lblHigh";
-            this.lblHigh.Size = new System.Drawing.Size(13, 13);
+            this.lblHigh.Size = new System.Drawing.Size(16, 17);
             this.lblHigh.TabIndex = 21;
             this.lblHigh.Text = "0";
             // 
             // lblHighLabel
             // 
             this.lblHighLabel.AutoSize = true;
-            this.lblHighLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHighLabel.Location = new System.Drawing.Point(403, 303);
+            this.lblHighLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHighLabel.Location = new System.Drawing.Point(410, 303);
             this.lblHighLabel.Name = "lblHighLabel";
-            this.lblHighLabel.Size = new System.Drawing.Size(31, 13);
+            this.lblHighLabel.Size = new System.Drawing.Size(41, 17);
             this.lblHighLabel.TabIndex = 20;
             this.lblHighLabel.Text = "High:";
             // 
             // lblY
             // 
             this.lblY.AutoSize = true;
-            this.lblY.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblY.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblY.Location = new System.Drawing.Point(160, 303);
             this.lblY.Name = "lblY";
-            this.lblY.Size = new System.Drawing.Size(0, 13);
+            this.lblY.Size = new System.Drawing.Size(0, 17);
             this.lblY.TabIndex = 19;
             // 
             // lblYLabel
             // 
             this.lblYLabel.AutoSize = true;
-            this.lblYLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblYLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblYLabel.Location = new System.Drawing.Point(139, 303);
             this.lblYLabel.Name = "lblYLabel";
-            this.lblYLabel.Size = new System.Drawing.Size(17, 13);
+            this.lblYLabel.Size = new System.Drawing.Size(21, 17);
             this.lblYLabel.TabIndex = 18;
             this.lblYLabel.Text = "Y:";
             // 
             // lblX
             // 
             this.lblX.AutoSize = true;
-            this.lblX.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblX.Location = new System.Drawing.Point(24, 303);
             this.lblX.Name = "lblX";
-            this.lblX.Size = new System.Drawing.Size(0, 13);
+            this.lblX.Size = new System.Drawing.Size(0, 17);
             this.lblX.TabIndex = 17;
             // 
             // lblXLabel
             // 
             this.lblXLabel.AutoSize = true;
-            this.lblXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblXLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblXLabel.Location = new System.Drawing.Point(3, 303);
             this.lblXLabel.Name = "lblXLabel";
-            this.lblXLabel.Size = new System.Drawing.Size(17, 13);
+            this.lblXLabel.Size = new System.Drawing.Size(21, 17);
             this.lblXLabel.TabIndex = 16;
             this.lblXLabel.Text = "X:";
             // 
@@ -187,29 +187,29 @@
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
+            chartArea2.AxisX.MajorGrid.Enabled = false;
+            chartArea2.AxisX.MajorTickMark.Enabled = false;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.Name = "ChartArea1";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 100F;
+            chartArea2.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea2);
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend2);
             this.historicalChart.Location = new System.Drawing.Point(4, 31);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.IsVisibleInLegend = false;
+            series2.IsXValueIndexed = true;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series2.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series2);
             this.historicalChart.Size = new System.Drawing.Size(612, 268);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";

@@ -723,7 +723,9 @@ namespace IBSampleApp
 
 
                 AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, this.hdRequest_WhatToShow.Text, 1);
-                AddHDRequest(historicalDataManagers[1], endDate, "2 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
+
+                Update1MChart(endDate);
+                //AddHDRequest(historicalDataManagers[1], endDate, comboDuration.Text, BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
 
                 if (checkRTData.Checked)
                 {
@@ -747,28 +749,40 @@ namespace IBSampleApp
                 var dateText = dataChart.XLabelText;
 
                 if (DateTime.TryParse(dateText, out date))
-                {
-                    
-                    // request historical data for this date
-                    var rth = this.contractMDRTH.Checked ? 1 : 0;
-
-                    AddHDRequest(historicalDataManagers[1], date, "2 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, rth);
-
-                    UpdateDailyLine(date);
+                {                    
+                    UpdateDailyMarker(date);
+                    Update1MChart(date);
                 }
             }
         }
 
-        private void UpdateDailyLine(DateTime date)
+        private void Update1MChart(DateTime date)
         {
-            dataChartDaily.RemoveAnnotation(PriceLineType.DAILY_LINE);
+            // request historical data for this date
+            var rth = this.contractMDRTH.Checked ? 1 : 0;
+
+            var barSizeType = (BarSizeType)Enum.Parse(typeof(BarSizeType), String.Concat("_", comboIDBarSize.Text.Replace(" ", "_")));
+
+            AddHDRequest(historicalDataManagers[1], date, comboDuration.Text, barSizeType, this.hdRequest_WhatToShow.Text, rth);
+
+        }
+
+        
+
+        private void UpdateDailyMarker(DateTime date)
+        {
+            dataChartDaily.RemoveAnnotation(PriceLineType.DAILY_MARKER);
 
             var dateOA = date.ToOADate();
 
             var pointD = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == dateOA).FirstOrDefault();
 
-            dataChartDaily.AddTwoHalfVerticalAnnotaion(PriceLineType.DAILY_LINE, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
-            //dataChartDaily.AddVerticalLineAnnotation(PriceLineType.DAILY_LINE, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
+            // dont draw marker for last data point, only for historical bars
+            if (pointD == dataChartDaily.Chart.Series[0].Points.Last())
+                return;
+
+            dataChartDaily.AddTwoHalfVerticalAnnotaion(PriceLineType.DAILY_MARKER, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
+            
         }
 
         private void AddHDRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, string whatToShow, int useRTH)
@@ -859,8 +873,10 @@ namespace IBSampleApp
                 if (date != Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue))
                 {
                     // next date
+                    if (date > 0) dataChart1M.AddVerticalLineAnnotation(PriceLineType.DAILY_1M_LINE, i);                        
+                                        
                     date = Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue);                    
-                    dataChart1M.AddVerticalLineAnnotation(PriceLineType.DAILY_1M_LINE, i);                        
+                    
                 }
             }            
         }
@@ -874,6 +890,16 @@ namespace IBSampleApp
         private void checkDailyLinesStudy_CheckedChanged(object sender, EventArgs e)
         {
             UpdateDailyDividersStudy();
+        }
+
+        private void comboDuration_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Update1MChart(dataChart1M.ChartEndDate);
+        }
+
+        private void comboIDBarSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Update1MChart(dataChart1M.ChartEndDate);
         }
 
     }

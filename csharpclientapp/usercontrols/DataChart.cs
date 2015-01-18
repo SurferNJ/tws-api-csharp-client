@@ -233,7 +233,7 @@ namespace CSharpClientApp.usercontrols
                 Name = String.Concat(Enum.GetName(typeof(PriceLineType), type),"_",position.ToString()),
                 AxisX = historicalChart.ChartAreas[0].AxisX,
                 AxisY = historicalChart.ChartAreas[0].AxisY,
-                AnchorX = position + 1,                
+                AnchorX = position,                
                 Width = 0, //historicalChart.ChartAreas[0].AxisY.Maximum,
                 IsSizeAlwaysRelative = false,
                 IsInfinitive = true,
@@ -361,7 +361,7 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.HIGH_LINE:
                     result = Color.WhiteSmoke;
                     break;
-                case PriceLineType.DAILY_LINE:                    
+                case PriceLineType.DAILY_MARKER:                    
                     //result = Color.FromArgb(60, Color.WhiteSmoke);
                     result = Color.WhiteSmoke;
                     break;

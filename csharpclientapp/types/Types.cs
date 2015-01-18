@@ -80,7 +80,7 @@ namespace IBSampleApp.types
         OPEN_LINE,
         LOW_LINE,
         HIGH_LINE,
-        DAILY_LINE,
+        DAILY_MARKER,
         DAILY_1M_LINE
     }
 
