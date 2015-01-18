@@ -137,6 +137,7 @@
     <Compile Include="usercontrols\OrderForm.Designer.cs">
       <DependentUpon>OrderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="util\UrlLauncher.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />
     <EmbeddedResource Include="ui\ComboContractResults.resx">

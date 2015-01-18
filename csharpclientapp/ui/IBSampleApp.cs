@@ -765,6 +765,10 @@ namespace IBSampleApp
                 var finishIndex = (int)Math.Min(Math.Truncate(dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum) - 1, dataChart1M.Chart.Series[0].Points.Count - 1);
                 dataChart1M.KeepZoomStartDate = dataChart1M.Chart.Series[0].Points[startIndex].XValue;
                 dataChart1M.KeepZoomFinishDate = dataChart1M.Chart.Series[0].Points[finishIndex].XValue;
+                dataChart1M.KeepZoomMinY = dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
+                dataChart1M.KeepZoomMaxY = dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
+
+
             }
             
             // request historical data for this date
@@ -818,15 +822,25 @@ namespace IBSampleApp
 
             if (dataChart1M.KeepZoom)
             {
-                //reset to the last zoom state
+                
 
+                //reset to the last zoom state
                 var pointStart = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomStartDate).FirstOrDefault();
                 double posXStart = (pointStart == null) ? 0 : dataChart1M.Chart.Series[0].Points.IndexOf(pointStart);
 
                 var pointFinish = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomFinishDate).FirstOrDefault();
                 double posXFinish = (pointFinish == null) ? dataChart1M.Chart.Series[0].Points.Count - 1 : dataChart1M.Chart.Series[0].Points.IndexOf(pointFinish);
 
-                dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                if (dataChart1M.KeepZoomStartDate < dataChart1M.Chart.Series[0].Points[0].XValue)
+                {
+                    dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.Zoom(0.0, posXFinish);
+                    dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+                }
+                else
+                {
+                    dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                    dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.Zoom(dataChart1M.KeepZoomMinY, dataChart1M.KeepZoomMaxY);
+                }
                 
                 dataChart1M.KeepZoom = false;
             }
@@ -920,7 +934,7 @@ namespace IBSampleApp
 
         private void comboDuration_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Update1MChart(dataChart1M.ChartEndDate, false);
+            Update1MChart(dataChart1M.ChartEndDate, true);
         }
 
         private void comboIDBarSize_SelectedIndexChanged(object sender, EventArgs e)

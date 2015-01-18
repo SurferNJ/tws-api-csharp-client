@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
@@ -48,6 +48,8 @@
             this.contextMenuOrder = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextMenuItemEconomicCalendar = new System.Windows.Forms.ToolStripMenuItem();
             this.checkEMA10 = new System.Windows.Forms.CheckBox();
             this.checkEMA21 = new System.Windows.Forms.CheckBox();
             this.checkEMA30 = new System.Windows.Forms.CheckBox();
@@ -56,6 +58,7 @@
             this.checkEMA150 = new System.Windows.Forms.CheckBox();
             this.checkEMA200 = new System.Windows.Forms.CheckBox();
             this.labelCurrentPrice = new System.Windows.Forms.Label();
+            this.toolStripMenuItemDailyBattlePlan = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -187,29 +190,29 @@
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.IsStartedFromZero = false;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.historicalChart.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
-            legend2.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(4, 31);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.IsVisibleInLegend = false;
-            series2.IsXValueIndexed = true;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series2.YValuesPerPoint = 4;
-            this.historicalChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.historicalChart.Series.Add(series1);
             this.historicalChart.Size = new System.Drawing.Size(612, 268);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
@@ -224,23 +227,38 @@
             // 
             this.contextMenuOrder.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.contextMenuItemBuyLMT,
-            this.contextMenuItemSellLMT});
+            this.contextMenuItemSellLMT,
+            this.toolStripSeparator1,
+            this.contextMenuItemEconomicCalendar,
+            this.toolStripMenuItemDailyBattlePlan});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(135, 52);
+            this.contextMenuOrder.Size = new System.Drawing.Size(207, 134);
             // 
             // contextMenuItemBuyLMT
             // 
             this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
-            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(206, 24);
             this.contextMenuItemBuyLMT.Text = "Buy LMT";
             this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
             // 
             // contextMenuItemSellLMT
             // 
             this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
-            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(134, 24);
+            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(206, 24);
             this.contextMenuItemSellLMT.Text = "Sell LMT";
             this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(203, 6);
+            // 
+            // contextMenuItemEconomicCalendar
+            // 
+            this.contextMenuItemEconomicCalendar.Name = "contextMenuItemEconomicCalendar";
+            this.contextMenuItemEconomicCalendar.Size = new System.Drawing.Size(206, 24);
+            this.contextMenuItemEconomicCalendar.Text = "Economic Calendar";
+            this.contextMenuItemEconomicCalendar.Click += new System.EventHandler(this.contextMenuItemEconomicCalendar_Click);
             // 
             // checkEMA10
             // 
@@ -329,6 +347,13 @@
             this.labelCurrentPrice.TabIndex = 35;
             this.labelCurrentPrice.Text = "0.0";
             // 
+            // toolStripMenuItemDailyBattlePlan
+            // 
+            this.toolStripMenuItemDailyBattlePlan.Name = "toolStripMenuItemDailyBattlePlan";
+            this.toolStripMenuItemDailyBattlePlan.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemDailyBattlePlan.Text = "Daily Battle Plan";
+            this.toolStripMenuItemDailyBattlePlan.Click += new System.EventHandler(this.toolStripMenuItemDailyBattlePlan_Click);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -389,5 +414,8 @@
         private System.Windows.Forms.CheckBox checkEMA150;
         private System.Windows.Forms.CheckBox checkEMA200;
         private System.Windows.Forms.Label labelCurrentPrice;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuItemEconomicCalendar;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDailyBattlePlan;
     }
 }

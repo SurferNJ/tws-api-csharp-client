@@ -32,6 +32,8 @@ namespace CSharpClientApp.usercontrols
 
         public double KeepZoomStartDate;
         public double KeepZoomFinishDate;
+        public double KeepZoomMinY;
+        public double KeepZoomMaxY;
         public bool KeepZoom = false;
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
@@ -103,17 +105,14 @@ namespace CSharpClientApp.usercontrols
             this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
             this.Chart.ChartAreas[0].AxisX.IsMarginVisible = true;
 
-            //this.Chart.ChartAreas[0].CursorX.LineColor = Color.White;
-            //this.Chart.ChartAreas[0].CursorY.LineColor = Color.White;
 
+            // cursor settings
             this.Chart.ChartAreas[0].CursorX.LineWidth = 2;
             this.Chart.ChartAreas[0].CursorY.LineWidth = 2;
 
             this.Chart.ChartAreas[0].CursorX.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
             this.Chart.ChartAreas[0].CursorY.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
-
-
-            //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+                       
             
         }
 
@@ -592,6 +591,30 @@ namespace CSharpClientApp.usercontrols
                 this.Chart.ChartAreas[0].AxisY.ScaleView.Size = ymax - ymin + margin * 2;
             }
 
+        }
+
+        private void contextMenuItemEconomicCalendar_Click(object sender, EventArgs e)
+        {
+            DateTime date;
+
+            var dateText = this.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                IBSampleApp.util.UrlLauncher.EconomicCalendarShow(date);
+            }
+        }
+
+        private void toolStripMenuItemDailyBattlePlan_Click(object sender, EventArgs e)
+        {
+            DateTime date;
+
+            var dateText = this.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                IBSampleApp.util.UrlLauncher.DailyBattlePlanShow(date);
+            }
         }
     }
 }

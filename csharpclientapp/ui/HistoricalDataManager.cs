@@ -131,7 +131,7 @@ namespace IBSampleApp.ui
                     break;
                 default:
                     dataChart.Chart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-                    dataChart.XLabelFormat = "MM/dd/yyyy";
+                    dataChart.XLabelFormat = "MM/dd/yyyy ddd";
                     break;
             }
         }
