@@ -724,7 +724,7 @@ namespace IBSampleApp
 
                 AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, this.hdRequest_WhatToShow.Text, 1);
 
-                Update1MChart(endDate);
+                Update1MChart(endDate, false);
                 //AddHDRequest(historicalDataManagers[1], endDate, comboDuration.Text, BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
 
                 if (checkRTData.Checked)
@@ -751,13 +751,22 @@ namespace IBSampleApp
                 if (DateTime.TryParse(dateText, out date))
                 {                    
                     UpdateDailyMarker(date);
-                    Update1MChart(date);
+                    Update1MChart(date, false);
                 }
             }
         }
 
-        private void Update1MChart(DateTime date)
+        private void Update1MChart(DateTime date, bool keepZoom = false)
         {
+            if (keepZoom && dataChart1M.Chart.Series[0].Points.Count > 0)
+            {
+                dataChart1M.KeepZoom = true;
+                var startIndex = (int)Math.Max(Math.Truncate(dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum) - 1, 0);
+                var finishIndex = (int)Math.Min(Math.Truncate(dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum) - 1, dataChart1M.Chart.Series[0].Points.Count - 1);
+                dataChart1M.KeepZoomStartDate = dataChart1M.Chart.Series[0].Points[startIndex].XValue;
+                dataChart1M.KeepZoomFinishDate = dataChart1M.Chart.Series[0].Points[finishIndex].XValue;
+            }
+            
             // request historical data for this date
             var rth = this.contractMDRTH.Checked ? 1 : 0;
 
@@ -802,8 +811,25 @@ namespace IBSampleApp
 
         private void DataChart1M_PaintCompleted(object sender, ChartPaintCompletedEventArgs e)
         {
+            dataChart1M.UpdateEMAs();
+
             UpdateHighLowStudy();
             UpdateDailyDividersStudy();
+
+            if (dataChart1M.KeepZoom)
+            {
+                //reset to the last zoom state
+
+                var pointStart = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomStartDate).FirstOrDefault();
+                double posXStart = (pointStart == null) ? 0 : dataChart1M.Chart.Series[0].Points.IndexOf(pointStart);
+
+                var pointFinish = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomFinishDate).FirstOrDefault();
+                double posXFinish = (pointFinish == null) ? dataChart1M.Chart.Series[0].Points.Count - 1 : dataChart1M.Chart.Series[0].Points.IndexOf(pointFinish);
+
+                dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                
+                dataChart1M.KeepZoom = false;
+            }
         }
 
         private void UpdateHighLowStudy()
@@ -860,7 +886,7 @@ namespace IBSampleApp
         private void UpdateDailyDividersStudy()
         {
             // clear
-            dataChart1M.RemoveAnnotation(PriceLineType.DAILY_1M_LINE);
+            dataChart1M.RemoveAnnotation(PriceLineType.DAILY_MARKER_1M);
 
             if (!this.checkDailyLinesStudy.Checked)
                 return;
@@ -873,7 +899,7 @@ namespace IBSampleApp
                 if (date != Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue))
                 {
                     // next date
-                    if (date > 0) dataChart1M.AddVerticalLineAnnotation(PriceLineType.DAILY_1M_LINE, i);                        
+                    if (date > 0) dataChart1M.AddVerticalLineAnnotation(PriceLineType.DAILY_MARKER_1M, i);                        
                                         
                     date = Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue);                    
                     
@@ -894,12 +920,12 @@ namespace IBSampleApp
 
         private void comboDuration_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Update1MChart(dataChart1M.ChartEndDate);
+            Update1MChart(dataChart1M.ChartEndDate, false);
         }
 
         private void comboIDBarSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Update1MChart(dataChart1M.ChartEndDate);
+            Update1MChart(dataChart1M.ChartEndDate, true);
         }
 
     }

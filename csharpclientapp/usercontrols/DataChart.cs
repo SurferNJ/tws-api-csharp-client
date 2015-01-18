@@ -29,6 +29,10 @@ namespace CSharpClientApp.usercontrols
         public int BarSizeInSeconds { get; set; }
 
         public DateTime ChartEndDate { get; set; }
+
+        public double KeepZoomStartDate;
+        public double KeepZoomFinishDate;
+        public bool KeepZoom = false;
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -135,10 +139,11 @@ namespace CSharpClientApp.usercontrols
                         double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
                         double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
 
-                        double posXStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
-                        double posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
+                        var posXStart = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) - (xMax - xMin) / 4;
+                        var posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
 
                         historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                        //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish, DateTimeIntervalType.Auto, true);
 
                         //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
                     }
@@ -148,10 +153,11 @@ namespace CSharpClientApp.usercontrols
                         double xMin = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;
                         double xMax = historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum;
 
-                        double posXStart = xMin - (xMax - xMin) / 4;
-                        double posXFinish = xMax + (xMax - xMin) / 4;
+                        var posXStart = xMin - (xMax - xMin) / 4;
+                        var posXFinish = xMax + (xMax - xMin) / 4;
 
                         historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
+                        //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish, DateTimeIntervalType.Auto, true);
                     }
                 }
                 else
@@ -165,7 +171,6 @@ namespace CSharpClientApp.usercontrols
 
                     historicalChart.ChartAreas[0].AxisX.ScaleView.Scroll(posXStart);
 
-                    
                 }
 
                 ScaleYAxis();
@@ -353,20 +358,19 @@ namespace CSharpClientApp.usercontrols
                     result = Color.Red;
                     break;
                 case PriceLineType.OPEN_LINE:
-                    result = Color.LightGreen;
+                    result = Color.FromArgb(200, Color.LightGreen);
                     break;
                 case PriceLineType.LOW_LINE:
-                    result = Color.Red;
+                    result = Color.FromArgb(200, Color.Red);
                     break;
                 case PriceLineType.HIGH_LINE:
-                    result = Color.WhiteSmoke;
+                    result = Color.FromArgb(220, Color.WhiteSmoke);
                     break;
                 case PriceLineType.DAILY_MARKER:                    
-                    //result = Color.FromArgb(60, Color.WhiteSmoke);
                     result = Color.WhiteSmoke;
                     break;
-                case PriceLineType.DAILY_1M_LINE:
-                    result = Color.WhiteSmoke;
+                case PriceLineType.DAILY_MARKER_1M:
+                    result = Color.FromArgb(120, Color.WhiteSmoke);
                     break;
             }
 
@@ -458,12 +462,28 @@ namespace CSharpClientApp.usercontrols
             }
         }
 
+        public void UpdateEMAs()
+        {
+            UpdateEMA(ExpMovAvgType.EMA10, checkEMA10.Checked);
+            UpdateEMA(ExpMovAvgType.EMA21, checkEMA21.Checked);
+            UpdateEMA(ExpMovAvgType.EMA30, checkEMA30.Checked);
+            UpdateEMA(ExpMovAvgType.EMA50, checkEMA50.Checked);
+            UpdateEMA(ExpMovAvgType.EMA100, checkEMA100.Checked);
+            UpdateEMA(ExpMovAvgType.EMA150, checkEMA150.Checked);
+            UpdateEMA(ExpMovAvgType.EMA200, checkEMA200.Checked);
+        }
+
+        private void UpdateEMA(ExpMovAvgType type, bool enable)
+        {
+            if (enable)
+                AddIndicator_EMA(type);
+            else
+                RemoveIndicator_EMA(type);
+        }
+        
         private void checkEMA10_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA10.Checked)
-                checkEMA10.Checked = AddIndicator_EMA(ExpMovAvgType.EMA10);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA10);
+            UpdateEMA(ExpMovAvgType.EMA10, checkEMA10.Checked);
         }
 
         private bool AddIndicator_EMA(ExpMovAvgType ema)
@@ -517,50 +537,32 @@ namespace CSharpClientApp.usercontrols
 
         private void checkEMA21_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA21.Checked)
-                checkEMA21.Checked = AddIndicator_EMA(ExpMovAvgType.EMA21);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA21);
+            UpdateEMA(ExpMovAvgType.EMA21, checkEMA21.Checked);
         }
 
         private void checkEMA30_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA30.Checked)
-                checkEMA30.Checked = AddIndicator_EMA(ExpMovAvgType.EMA30);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA30);
+            UpdateEMA(ExpMovAvgType.EMA30, checkEMA30.Checked);
         }
 
         private void checkEMA50_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA50.Checked)
-                checkEMA50.Checked = AddIndicator_EMA(ExpMovAvgType.EMA50);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA50);
+            UpdateEMA(ExpMovAvgType.EMA50, checkEMA50.Checked);
         }
 
         private void checkEMA100_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA100.Checked)
-                checkEMA100.Checked = AddIndicator_EMA(ExpMovAvgType.EMA100);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA100);
+            UpdateEMA(ExpMovAvgType.EMA100, checkEMA100.Checked);
         }
 
         private void checkEMA150_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA150.Checked)
-                checkEMA150.Checked = AddIndicator_EMA(ExpMovAvgType.EMA150);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA150);
+            UpdateEMA(ExpMovAvgType.EMA150, checkEMA150.Checked);
         }
 
         private void checkEMA200_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkEMA200.Checked)
-                checkEMA200.Checked = AddIndicator_EMA(ExpMovAvgType.EMA200);
-            else
-                RemoveIndicator_EMA(ExpMovAvgType.EMA200);
+            UpdateEMA(ExpMovAvgType.EMA200, checkEMA200.Checked);
         }
 
         private void historicalChart_AxisViewChanged(object sender, ViewEventArgs e)

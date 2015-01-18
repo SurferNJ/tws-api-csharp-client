@@ -81,7 +81,7 @@ namespace IBSampleApp.types
         LOW_LINE,
         HIGH_LINE,
         DAILY_MARKER,
-        DAILY_1M_LINE
+        DAILY_MARKER_1M
     }
 
     public class ChartPaintCompletedEventArgs : EventArgs
