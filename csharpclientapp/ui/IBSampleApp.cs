@@ -55,9 +55,6 @@ namespace IBSampleApp
         {
             InitializeComponent();
 
-            //this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
-            //this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
-            //this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
             this.priceLineManager = new PriceLineManager();
             this.dataChartDaily.PriceLineManager = this.priceLineManager;
             this.dataChart1M.PriceLineManager = this.priceLineManager;
@@ -726,7 +723,7 @@ namespace IBSampleApp
 
 
                 AddHDRequest(historicalDataManagers[0], endDate, duration, barSizeType, this.hdRequest_WhatToShow.Text, 1);
-                AddHDRequest(historicalDataManagers[1], endDate, "1 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
+                AddHDRequest(historicalDataManagers[1], endDate, "2 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, useRTH);
 
                 if (checkRTData.Checked)
                 {
@@ -743,18 +740,35 @@ namespace IBSampleApp
             var dataChart = (DataChart)sender;
 
             if (dataChart.Name.Equals("dataChartDaily"))
-            {                                
+            {
+                
+
                 DateTime date;
                 var dateText = dataChart.XLabelText;
 
                 if (DateTime.TryParse(dateText, out date))
                 {
+                    
                     // request historical data for this date
                     var rth = this.contractMDRTH.Checked ? 1 : 0;
 
-                    AddHDRequest(historicalDataManagers[1], date, "1 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, rth);
+                    AddHDRequest(historicalDataManagers[1], date, "2 D", BarSizeType._1_min, this.hdRequest_WhatToShow.Text, rth);
+
+                    UpdateDailyLine(date);
                 }
             }
+        }
+
+        private void UpdateDailyLine(DateTime date)
+        {
+            dataChartDaily.RemoveAnnotation(PriceLineType.DAILY_LINE);
+
+            var dateOA = date.ToOADate();
+
+            var pointD = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == dateOA).FirstOrDefault();
+
+            dataChartDaily.AddTwoHalfVerticalAnnotaion(PriceLineType.DAILY_LINE, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
+            //dataChartDaily.AddVerticalLineAnnotation(PriceLineType.DAILY_LINE, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
         }
 
         private void AddHDRequest(HistoricalDataManager dataManager, DateTime endDate, string duration, BarSizeType barSizeType, string whatToShow, int useRTH)
@@ -775,14 +789,9 @@ namespace IBSampleApp
         private void DataChart1M_PaintCompleted(object sender, ChartPaintCompletedEventArgs e)
         {
             UpdateHighLowStudy();
+            UpdateDailyDividersStudy();
         }
 
-        public void RemoveAnnotation(DataChart dataChart, string name)
-        {
-            var annotation = dataChart.Chart.Annotations.Where(x => x.Name.Equals(PriceLineType.OPEN_LINE)).FirstOrDefault();
-            if (annotation!= null) dataChart.Chart.Annotations.Remove(annotation);
-        }
-        
         private void UpdateHighLowStudy()
         {
             // clear
@@ -793,29 +802,78 @@ namespace IBSampleApp
             if (!this.checkHighLowStudy.Checked)
                 return;
 
-            var date = Math.Truncate(this.dataChart1M.Chart.Series[0].Points[0].XValue);
+            double date = 0;
+            double prevHigh = 0;
+            double prevLow = 0;
+            double open = 0;
+            double startX = -1;
 
-            var point = this.dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == date).FirstOrDefault();
-
-            var index = this.dataChartDaily.Chart.Series[0].Points.IndexOf(point);
-
-            if (point != null)
+            for (var i = 0; i < dataChart1M.Chart.Series[0].Points.Count; i++ )
             {
-                var open = point.YValues[2];
-                var prevHigh = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[0];
-                var prevLow = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[1];
 
-                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.OPEN_LINE, open);
-                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.HIGH_LINE, prevHigh);
-                dataChart1M.AddHorizontalLineAnnotation(PriceLineType.LOW_LINE, prevLow);
+                if (date != Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue))
+                {
+                    // next date
+                    date = Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue);
 
+                    if (startX > -1)
+                    {
+                        dataChart1M.AddHorizontalLineAnnotation(PriceLineType.OPEN_LINE, open, startX, i);
+                        dataChart1M.AddHorizontalLineAnnotation(PriceLineType.HIGH_LINE, prevHigh, startX, i);
+                        dataChart1M.AddHorizontalLineAnnotation(PriceLineType.LOW_LINE, prevLow, startX, i);
+                    }
+
+                    var pointD = this.dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == date).FirstOrDefault();
+                    var index = this.dataChartDaily.Chart.Series[0].Points.IndexOf(pointD);
+
+                    if (pointD != null)
+                    {
+                        open = pointD.YValues[2];
+                        prevHigh = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[0];
+                        prevLow = this.dataChartDaily.Chart.Series[0].Points[index - 1].YValues[1];
+                    }
+
+                    startX = i;
+                }
             }
 
+            // draw last day annotations
+            dataChart1M.AddHorizontalLineAnnotation(PriceLineType.OPEN_LINE, open, startX, null);
+            dataChart1M.AddHorizontalLineAnnotation(PriceLineType.HIGH_LINE, prevHigh, startX, null);
+            dataChart1M.AddHorizontalLineAnnotation(PriceLineType.LOW_LINE, prevLow, startX, null);
         }
 
+        private void UpdateDailyDividersStudy()
+        {
+            // clear
+            dataChart1M.RemoveAnnotation(PriceLineType.DAILY_1M_LINE);
+
+            if (!this.checkDailyLinesStudy.Checked)
+                return;
+
+            double date = 0;
+
+            for (var i = 0; i < dataChart1M.Chart.Series[0].Points.Count; i++)
+            {
+
+                if (date != Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue))
+                {
+                    // next date
+                    date = Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue);                    
+                    dataChart1M.AddVerticalLineAnnotation(PriceLineType.DAILY_1M_LINE, i);                        
+                }
+            }            
+        }
+        
         private void checkHighLowStudy_CheckedChanged(object sender, EventArgs e)
         {
             UpdateHighLowStudy();
+            
+        }
+
+        private void checkDailyLinesStudy_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateDailyDividersStudy();
         }
 
     }

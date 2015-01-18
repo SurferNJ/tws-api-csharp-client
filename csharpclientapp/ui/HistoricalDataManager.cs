@@ -42,6 +42,7 @@ namespace IBSampleApp.ui
             this.dataChart = dataChart;
             dataChart.Chart.Series[0]["PriceUpColor"] = "Green";
             dataChart.Chart.Series[0]["PriceDownColor"] = "Red";
+                        
         }
 
         // do not use this method... use BarSizeType parameter

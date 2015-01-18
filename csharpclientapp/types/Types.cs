@@ -79,7 +79,9 @@ namespace IBSampleApp.types
         RESISTANCE_LINE,
         OPEN_LINE,
         LOW_LINE,
-        HIGH_LINE
+        HIGH_LINE,
+        DAILY_LINE,
+        DAILY_1M_LINE
     }
 
     public class ChartPaintCompletedEventArgs : EventArgs

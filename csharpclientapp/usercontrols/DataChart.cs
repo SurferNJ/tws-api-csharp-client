@@ -99,6 +99,16 @@ namespace CSharpClientApp.usercontrols
             this.Chart.ChartAreas[0].AxisY.IsMarginVisible = true;
             this.Chart.ChartAreas[0].AxisX.IsMarginVisible = true;
 
+            //this.Chart.ChartAreas[0].CursorX.LineColor = Color.White;
+            //this.Chart.ChartAreas[0].CursorY.LineColor = Color.White;
+
+            this.Chart.ChartAreas[0].CursorX.LineWidth = 2;
+            this.Chart.ChartAreas[0].CursorY.LineWidth = 2;
+
+            this.Chart.ChartAreas[0].CursorX.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
+            this.Chart.ChartAreas[0].CursorY.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
+
+
             //historicalChart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             
         }
@@ -185,11 +195,106 @@ namespace CSharpClientApp.usercontrols
             historicalChart.Annotations.Add(a);
         }
 
+        public void AddHorizontalLineAnnotation(PriceLineType type, double price, double start, double? end)
+        {
+            var a = new HorizontalLineAnnotation()
+            {
+                Name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_", start.ToString()),
+                AxisX = historicalChart.ChartAreas[0].AxisX,
+                AxisY = historicalChart.ChartAreas[0].AxisY,
+                AnchorY = price,
+                X = start,
+                //Width = historicalChart.ChartAreas[0].AxisX.Maximum,
+                //IsInfinitive = true,
+                IsSizeAlwaysRelative = false,
+                ClipToChartArea = historicalChart.ChartAreas[0].Name,
+                LineColor = GetAnnotationColor(type),
+                LineWidth = 3,
+                AllowSelecting = true,
+                AllowMoving = false
+            };
+
+            if (end != null)
+            {
+                a.Width = end.Value - start;
+            }
+            else
+            {
+                a.Width = historicalChart.ChartAreas[0].AxisX.Maximum - start;                
+            }
+
+            historicalChart.Annotations.Add(a);
+        }
+
+        public void AddVerticalLineAnnotation(PriceLineType type, double position)
+        {
+            var a = new VerticalLineAnnotation()
+            {
+                Name = String.Concat(Enum.GetName(typeof(PriceLineType), type),"_",position.ToString()),
+                AxisX = historicalChart.ChartAreas[0].AxisX,
+                AxisY = historicalChart.ChartAreas[0].AxisY,
+                AnchorX = position + 1,                
+                Width = 0, //historicalChart.ChartAreas[0].AxisY.Maximum,
+                IsSizeAlwaysRelative = false,
+                IsInfinitive = true,
+                ClipToChartArea = historicalChart.ChartAreas[0].Name,
+                LineColor = GetAnnotationColor(type),
+                LineWidth = 3,
+                AllowSelecting = true,
+                AllowMoving = false
+            };
+
+            historicalChart.Annotations.Add(a);
+        }
+
+        public void AddTwoHalfVerticalAnnotaion(PriceLineType type, int position)
+        {
+            var upperHalf = new VerticalLineAnnotation()
+            {
+                Name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_UPPERHALF_", position.ToString()),
+                AxisX = historicalChart.ChartAreas[0].AxisX,
+                AxisY = historicalChart.ChartAreas[0].AxisY,
+                AnchorX = position + 1,
+                AnchorY = historicalChart.Series[0].Points[position].YValues[0] * 1.001,
+                Height = historicalChart.ChartAreas[0].AxisY.Maximum -  historicalChart.Series[0].Points[position].YValues[0] ,
+                Width = 0, 
+                IsSizeAlwaysRelative = false,
+                ClipToChartArea = historicalChart.ChartAreas[0].Name,
+                LineColor = GetAnnotationColor(type),
+                LineWidth = 3,
+                AllowSelecting = true,
+                AllowMoving = false
+            };
+
+            var lowerHalf = new VerticalLineAnnotation()
+            {
+                Name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_LOWERHALF_", position.ToString()),
+                AxisX = historicalChart.ChartAreas[0].AxisX,
+                AxisY = historicalChart.ChartAreas[0].AxisY,
+                AnchorX = position + 1,
+                AnchorY = historicalChart.Series[0].Points[position].YValues[1] * 0.999,
+                Height = -1 * (historicalChart.Series[0].Points[position].YValues[1] - historicalChart.ChartAreas[0].AxisY.Minimum),
+                Width = 0,
+                IsSizeAlwaysRelative = false,
+                ClipToChartArea = historicalChart.ChartAreas[0].Name,
+                LineColor = GetAnnotationColor(type),
+                LineWidth = 3,
+                AllowSelecting = true,
+                AllowMoving = false
+            };
+                        
+            historicalChart.Annotations.Add(upperHalf);
+            historicalChart.Annotations.Add(lowerHalf);
+        }
+
         public void RemoveAnnotation(PriceLineType type)
         {
             var name = Enum.GetName(typeof(PriceLineType), type);
-            var annotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)).FirstOrDefault();
-            if (annotation != null) historicalChart.Annotations.Remove(annotation);
+            var annotations = historicalChart.Annotations.Where(x => x.Name.StartsWith(name)).ToList();
+
+            //if (annotations.Any())
+                foreach(var annotation in annotations)
+                    historicalChart.Annotations.Remove(annotation);
         }
 
         private void SetBuyLMTOrder(double price)
@@ -215,7 +320,7 @@ namespace CSharpClientApp.usercontrols
                 {
                     var priceLine = (CSharpClientApp.ui.PriceLine)item;
                     var name = Enum.GetName(typeof(PriceLineType), priceLine.Type);
-                    var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.Equals(name)
+                    var existingAnnotation = historicalChart.Annotations.Where(x => x.Name.StartsWith(name)
                                                                                 && x.AnchorY == priceLine.Price).FirstOrDefault();
 
                     if (existingAnnotation != null)
@@ -254,6 +359,13 @@ namespace CSharpClientApp.usercontrols
                     result = Color.Red;
                     break;
                 case PriceLineType.HIGH_LINE:
+                    result = Color.WhiteSmoke;
+                    break;
+                case PriceLineType.DAILY_LINE:                    
+                    //result = Color.FromArgb(60, Color.WhiteSmoke);
+                    result = Color.WhiteSmoke;
+                    break;
+                case PriceLineType.DAILY_1M_LINE:
                     result = Color.WhiteSmoke;
                     break;
             }
