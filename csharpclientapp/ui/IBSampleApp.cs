@@ -45,7 +45,7 @@ namespace IBSampleApp
         private AdvisorManager advisorManager;
         private OptionsManager optionsManager;
 
-        private ChartsSyncManager chartsSyncManager;
+        //private ChartsSyncManager chartsSyncManager;
 
         protected IBClient ibClient;
 
@@ -59,6 +59,8 @@ namespace IBSampleApp
             this.dataChartDaily.PriceLineManager = this.priceLineManager;
             this.dataChart1M.PriceLineManager = this.priceLineManager;
             this.dataChartDaily.DataChartDoubleClick += this.DataChart_DoubleClick;
+            this.dataChartDaily.ScopeChange += this.DataChart_ScopeChange;
+            this.dataChart1M.ScopeChange += this.DataChart_ScopeChange;
             
             
             ibClient = new IBClient(this);
@@ -136,6 +138,8 @@ namespace IBSampleApp
                         {
                             status_CT.Text = "Connected! Your client Id: "+ibClient.ClientId;
                             connectButton.Text = "Disconnect";
+
+                            
                         }
                         else
                         {
@@ -358,6 +362,8 @@ namespace IBSampleApp
                     port = Int32.Parse(this.port_CT.Text);
                     ibClient.ClientId = Int32.Parse(this.clientid_CT.Text);
                     ibClient.ClientSocket.eConnect(host, port, ibClient.ClientId);
+
+                    Load();
                 }
                 catch (Exception)
                 {
@@ -700,25 +706,30 @@ namespace IBSampleApp
             optionsManager.ExerciseOptions(ovrd, Int32.Parse(optionExerciseQuan.Text), exchange, 2);
         }
 
-        private void optionsTab_Click(object sender, EventArgs e)
-        {
-
-        }
-
- 
         private void histData_1M_Button_Click(object sender, EventArgs e)
         {
+            Load();
+        }
+
+        public void Load()
+        {
+            // wait for active connection
+            while(!isConnected)
+            {
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+
             if (isConnected)
             {
                 Contract contract = GetMDContract();
                 var endDate = DateTime.Now;
 
                 string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
-                
+
                 string barSize = hdRequest_BarSize.Text.Trim();
                 barSize = String.Concat("_", barSize.Replace(" ", "_"));
                 var barSizeType = (BarSizeType)Enum.Parse(typeof(BarSizeType), barSize);
-                
+
                 int useRTH = this.contractMDRTH.Checked ? 1 : 0;
 
 
@@ -737,38 +748,105 @@ namespace IBSampleApp
             }
         }
 
+        private void DataChart_ScopeChange(object sender, ChangeScopeEventArgs e)
+        {
+            var dataChart = (DataChart)sender;
+
+            double dt;
+
+            if (dataChart.Name.Equals("dataChart1M"))
+                // grab first or latest day for dataChart1M depending of direction of scope change
+                //dt = e.delta > 0 ? Math.Truncate(dataChart.Chart.Series[0].Points.Last().XValue)
+                //                    : Math.Truncate(dataChart.Chart.Series[0].Points.First().XValue);
+
+                //dt = dataChart.ChartEndDate.Date.ToOADate();
+                dt = Math.Truncate(dataChart.Chart.Series[0].Points.Last().XValue);
+            else
+                // TODO - grab currently selected date, not date under cursor
+                // grab current day for dataChartDaily
+                dt = DateTime.Parse(dataChartDaily.XLabelText).Date.ToOADate();                
+
+            // next date
+            dt += e.delta;
+
+            var pointNext = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue >= dt).FirstOrDefault();
+            if (pointNext != null)
+            {
+                var date = DateTime.FromOADate(pointNext.XValue);
+                UpdateDailyChart(date, true, e.delta);
+            }
+                
+            
+        }
+
         private void DataChart_DoubleClick(object sender, MouseEventArgs e)
         {
             var dataChart = (DataChart)sender;
 
             if (dataChart.Name.Equals("dataChartDaily"))
-            {
-                
-
+            {               
                 DateTime date;
                 var dateText = dataChart.XLabelText;
 
                 if (DateTime.TryParse(dateText, out date))
                 {                    
-                    UpdateDailyMarker(date);
-                    Update1MChart(date, false);
+                    UpdateDailyChart(date, false);
                 }
             }
         }
 
-        private void Update1MChart(DateTime date, bool keepZoom = false)
+        private void UpdateDailyChart(DateTime date, bool keepZoom, int scrollDays = 0)
+        {
+            UpdateDailyMarker(date);
+            Update1MChart(date, keepZoom, scrollDays);
+        }
+
+        private void Update1MChart(DateTime date, bool keepZoom = false, int scrollDays = 0)
         {
             if (keepZoom && dataChart1M.Chart.Series[0].Points.Count > 0)
             {
-                dataChart1M.KeepZoom = true;
+                dataChart1M.KeepXZoom = true;
+                dataChart1M.KeepYZoom = true;
+
                 var startIndex = (int)Math.Max(Math.Truncate(dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.ViewMinimum) - 1, 0);
                 var finishIndex = (int)Math.Min(Math.Truncate(dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.ViewMaximum) - 1, dataChart1M.Chart.Series[0].Points.Count - 1);
+
                 dataChart1M.KeepZoomStartDate = dataChart1M.Chart.Series[0].Points[startIndex].XValue;
                 dataChart1M.KeepZoomFinishDate = dataChart1M.Chart.Series[0].Points[finishIndex].XValue;
+
                 dataChart1M.KeepZoomMinY = dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ViewMinimum;
                 dataChart1M.KeepZoomMaxY = dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ViewMaximum;
 
 
+                if (scrollDays != 0)
+                {
+                    // don't change intraday view
+                    if (dataChart1M.KeepZoomFinishDate - dataChart1M.KeepZoomStartDate < 1)
+                    {
+                        dataChart1M.KeepYZoom = true;
+                    }
+                    else
+                    {
+                        // scroll current view by scrollDays number, and reset Y Zoom
+                        dataChart1M.KeepYZoom = false;
+
+                        var dailyStartPoint = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue >= Math.Truncate(dataChart1M.KeepZoomStartDate)).FirstOrDefault();
+                        var dailyFinishPoint = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue >= Math.Truncate(dataChart1M.KeepZoomFinishDate)).FirstOrDefault();
+                        if (dailyStartPoint != null && dailyStartPoint != null) // && (dailyFinishPoint.XValue - dailyStartPoint.XValue >= 1))
+                        {
+
+                            var newStartIndex = dataChartDaily.Chart.Series[0].Points.IndexOf(dailyStartPoint) + scrollDays;
+                            var newFinishIndex = dataChartDaily.Chart.Series[0].Points.IndexOf(dailyFinishPoint) + scrollDays;
+
+                            if (newStartIndex > 0 && newFinishIndex < dataChartDaily.Chart.Series[0].Points.Count)
+                            {
+                                dataChart1M.KeepZoomStartDate += dataChartDaily.Chart.Series[0].Points[newStartIndex].XValue - Math.Truncate(dataChart1M.KeepZoomStartDate);
+                                dataChart1M.KeepZoomFinishDate += dataChartDaily.Chart.Series[0].Points[newFinishIndex].XValue - Math.Truncate(dataChart1M.KeepZoomFinishDate);
+                            }
+                        }
+                    }
+                }
+                
             }
             
             // request historical data for this date
@@ -788,10 +866,10 @@ namespace IBSampleApp
 
             var dateOA = date.ToOADate();
 
-            var pointD = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue == dateOA).FirstOrDefault();
+            var pointD = dataChartDaily.Chart.Series[0].Points.Where(x => x.XValue >= Math.Truncate(dateOA)).FirstOrDefault();
 
             // dont draw marker for last data point, only for historical bars
-            if (pointD == dataChartDaily.Chart.Series[0].Points.Last())
+            if (pointD == null || pointD == dataChartDaily.Chart.Series[0].Points.Last())
                 return;
 
             dataChartDaily.AddTwoHalfVerticalAnnotaion(PriceLineType.DAILY_MARKER, dataChartDaily.Chart.Series[0].Points.IndexOf(pointD));
@@ -820,14 +898,14 @@ namespace IBSampleApp
             UpdateHighLowStudy();
             UpdateDailyDividersStudy();
 
-            if (dataChart1M.KeepZoom)
+            if (dataChart1M.KeepXZoom)
             {
                 
-
                 //reset to the last zoom state
                 var pointStart = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomStartDate).FirstOrDefault();
                 double posXStart = (pointStart == null) ? 0 : dataChart1M.Chart.Series[0].Points.IndexOf(pointStart);
 
+                //var keepZoomFinishDate = dataChart1M.Chart.Series[0].Points[(int)posXStart].XValue + (dataChart1M.KeepZoomFinishDate - dataChart1M.KeepZoomStartDate);
                 var pointFinish = dataChart1M.Chart.Series[0].Points.Where(x => x.XValue >= dataChart1M.KeepZoomFinishDate).FirstOrDefault();
                 double posXFinish = (pointFinish == null) ? dataChart1M.Chart.Series[0].Points.Count - 1 : dataChart1M.Chart.Series[0].Points.IndexOf(pointFinish);
 
@@ -839,10 +917,14 @@ namespace IBSampleApp
                 else
                 {
                     dataChart1M.Chart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
-                    dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.Zoom(dataChart1M.KeepZoomMinY, dataChart1M.KeepZoomMaxY);
+                    if (dataChart1M.KeepYZoom)
+                        dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.Zoom(dataChart1M.KeepZoomMinY, dataChart1M.KeepZoomMaxY);
+                    else
+                        dataChart1M.Chart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
                 }
                 
-                dataChart1M.KeepZoom = false;
+                dataChart1M.KeepXZoom = false;
+                dataChart1M.KeepYZoom = false;
             }
         }
 

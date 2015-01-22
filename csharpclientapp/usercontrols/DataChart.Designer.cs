@@ -50,6 +50,10 @@
             this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuItemEconomicCalendar = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDailyBattlePlan = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemScopePrevious = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemScopeNext = new System.Windows.Forms.ToolStripMenuItem();
             this.checkEMA10 = new System.Windows.Forms.CheckBox();
             this.checkEMA21 = new System.Windows.Forms.CheckBox();
             this.checkEMA30 = new System.Windows.Forms.CheckBox();
@@ -58,7 +62,6 @@
             this.checkEMA150 = new System.Windows.Forms.CheckBox();
             this.checkEMA200 = new System.Windows.Forms.CheckBox();
             this.labelCurrentPrice = new System.Windows.Forms.Label();
-            this.toolStripMenuItemDailyBattlePlan = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -230,9 +233,12 @@
             this.contextMenuItemSellLMT,
             this.toolStripSeparator1,
             this.contextMenuItemEconomicCalendar,
-            this.toolStripMenuItemDailyBattlePlan});
+            this.toolStripMenuItemDailyBattlePlan,
+            this.toolStripSeparator2,
+            this.toolStripMenuItemScopePrevious,
+            this.toolStripMenuItemScopeNext});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(207, 134);
+            this.contextMenuOrder.Size = new System.Drawing.Size(207, 160);
             // 
             // contextMenuItemBuyLMT
             // 
@@ -259,6 +265,32 @@
             this.contextMenuItemEconomicCalendar.Size = new System.Drawing.Size(206, 24);
             this.contextMenuItemEconomicCalendar.Text = "Economic Calendar";
             this.contextMenuItemEconomicCalendar.Click += new System.EventHandler(this.contextMenuItemEconomicCalendar_Click);
+            // 
+            // toolStripMenuItemDailyBattlePlan
+            // 
+            this.toolStripMenuItemDailyBattlePlan.Name = "toolStripMenuItemDailyBattlePlan";
+            this.toolStripMenuItemDailyBattlePlan.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemDailyBattlePlan.Text = "Daily Battle Plan";
+            this.toolStripMenuItemDailyBattlePlan.Click += new System.EventHandler(this.toolStripMenuItemDailyBattlePlan_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(203, 6);
+            // 
+            // toolStripMenuItemScopePrevious
+            // 
+            this.toolStripMenuItemScopePrevious.Name = "toolStripMenuItemScopePrevious";
+            this.toolStripMenuItemScopePrevious.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemScopePrevious.Text = "Scope Previous";
+            this.toolStripMenuItemScopePrevious.Click += new System.EventHandler(this.toolStripMenuItemScopePrevious_Click);
+            // 
+            // toolStripMenuItemScopeNext
+            // 
+            this.toolStripMenuItemScopeNext.Name = "toolStripMenuItemScopeNext";
+            this.toolStripMenuItemScopeNext.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemScopeNext.Text = "Scope Next";
+            this.toolStripMenuItemScopeNext.Click += new System.EventHandler(this.toolStripMenuItemScopeNext_Click);
             // 
             // checkEMA10
             // 
@@ -347,13 +379,6 @@
             this.labelCurrentPrice.TabIndex = 35;
             this.labelCurrentPrice.Text = "0.0";
             // 
-            // toolStripMenuItemDailyBattlePlan
-            // 
-            this.toolStripMenuItemDailyBattlePlan.Name = "toolStripMenuItemDailyBattlePlan";
-            this.toolStripMenuItemDailyBattlePlan.Size = new System.Drawing.Size(206, 24);
-            this.toolStripMenuItemDailyBattlePlan.Text = "Daily Battle Plan";
-            this.toolStripMenuItemDailyBattlePlan.Click += new System.EventHandler(this.toolStripMenuItemDailyBattlePlan_Click);
-            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -417,5 +442,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem contextMenuItemEconomicCalendar;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDailyBattlePlan;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopeNext;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopePrevious;
     }
 }

@@ -3296,7 +3296,6 @@ namespace IBSampleApp
             this.optionsTab.Size = new System.Drawing.Size(1667, 656);
             this.optionsTab.TabIndex = 7;
             this.optionsTab.Text = "Option exercising";
-            this.optionsTab.Click += new System.EventHandler(this.optionsTab_Click);
             // 
             // optionExchange
             // 

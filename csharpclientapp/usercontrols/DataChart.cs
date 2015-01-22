@@ -19,6 +19,8 @@ namespace CSharpClientApp.usercontrols
 
         public event System.Windows.Forms.MouseEventHandler DataChartMouseMove;
 
+        public event EventHandler<ChangeScopeEventArgs> ScopeChange;
+
         // DataChart user control communicates with OrderFormBuy and OrderFormSell controls. They need to be assigned by parent control.
         public  CSharpClientApp.usercontrols.OrderForm OrderFormBuy { get; set; } 
         public CSharpClientApp.usercontrols.OrderForm OrderFormSell { get; set; }
@@ -34,7 +36,8 @@ namespace CSharpClientApp.usercontrols
         public double KeepZoomFinishDate;
         public double KeepZoomMinY;
         public double KeepZoomMaxY;
-        public bool KeepZoom = false;
+        public bool KeepXZoom = false;
+        public bool KeepYZoom = false;
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -616,5 +619,28 @@ namespace CSharpClientApp.usercontrols
                 IBSampleApp.util.UrlLauncher.DailyBattlePlanShow(date);
             }
         }
+
+        private void toolStripMenuItemScopeNext_Click(object sender, EventArgs e)
+        {
+            // check if any subscibers raise event
+            if (ScopeChange != null)
+            {
+                var args = new ChangeScopeEventArgs() { delta = 1 };
+                ScopeChange(this, args);
+            }   
+        }
+
+        private void toolStripMenuItemScopePrevious_Click(object sender, EventArgs e)
+        {
+            // check if any subscibers raise event
+            if (ScopeChange != null)
+            {
+                var args = new ChangeScopeEventArgs() { delta = -1 };
+                ScopeChange(this, args);
+             }            
+        }
+
+
+
     }
 }

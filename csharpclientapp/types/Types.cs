@@ -90,6 +90,11 @@ namespace IBSampleApp.types
         public double dateOA { get; set; }
     }
 
+    public class ChangeScopeEventArgs : EventArgs
+    {
+        public int delta { get; set; }
+    }
+
 
 
 
