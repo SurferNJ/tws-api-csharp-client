@@ -67,7 +67,18 @@ namespace IBSampleApp
             this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.comboDuration = new System.Windows.Forms.ComboBox();
+            this.comboIDBarSize = new System.Windows.Forms.ComboBox();
+            this.contractMDRTH = new System.Windows.Forms.CheckBox();
+            this.hdRequest_WhatToShow = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.hdEndDate_label_HDT = new System.Windows.Forms.Label();
+            this.checkDailyLinesStudy = new System.Windows.Forms.CheckBox();
+            this.hdRequest_Duration = new System.Windows.Forms.TextBox();
             this.checkHighLowStudy = new System.Windows.Forms.CheckBox();
+            this.hdRequest_TimeUnit = new System.Windows.Forms.ComboBox();
+            this.hdRequest_EndTime = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
@@ -131,17 +142,9 @@ namespace IBSampleApp
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkRTData = new System.Windows.Forms.CheckBox();
             this.histData_1M_Button = new System.Windows.Forms.Button();
-            this.contractMDRTH = new System.Windows.Forms.CheckBox();
             this.histData_Button = new System.Windows.Forms.Button();
-            this.hdEndDate_label_HDT = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.hdRequest_EndTime = new System.Windows.Forms.TextBox();
-            this.hdRequest_WhatToShow = new System.Windows.Forms.ComboBox();
-            this.hdRequest_Duration = new System.Windows.Forms.TextBox();
             this.hdRequest_BarSize = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.hdRequest_TimeUnit = new System.Windows.Forms.ComboBox();
             this.marketScanner_MDT = new System.Windows.Forms.TabPage();
             this.scanLocation = new System.Windows.Forms.ComboBox();
             this.scannerRequest_Button = new System.Windows.Forms.Button();
@@ -378,9 +381,6 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkDailyLinesStudy = new System.Windows.Forms.CheckBox();
-            this.comboIDBarSize = new System.Windows.Forms.ComboBox();
-            this.comboDuration = new System.Windows.Forms.ComboBox();
             this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
             this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
             this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
@@ -734,6 +734,122 @@ namespace IBSampleApp
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
             // 
+            // comboDuration
+            // 
+            this.comboDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboDuration.FormattingEnabled = true;
+            this.comboDuration.Items.AddRange(new object[] {
+            "1 D",
+            "2 D",
+            "3 D",
+            "5 D",
+            "10 D"});
+            this.comboDuration.Location = new System.Drawing.Point(1399, 4);
+            this.comboDuration.Margin = new System.Windows.Forms.Padding(4);
+            this.comboDuration.Name = "comboDuration";
+            this.comboDuration.Size = new System.Drawing.Size(62, 25);
+            this.comboDuration.TabIndex = 64;
+            this.comboDuration.Text = "2 D";
+            this.comboDuration.SelectedIndexChanged += new System.EventHandler(this.comboDuration_SelectedIndexChanged);
+            // 
+            // comboIDBarSize
+            // 
+            this.comboIDBarSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboIDBarSize.FormattingEnabled = true;
+            this.comboIDBarSize.Items.AddRange(new object[] {
+            "1 min",
+            "2 mins",
+            "3 mins",
+            "5 mins",
+            "15 mins",
+            "30 mins",
+            "1 hour"});
+            this.comboIDBarSize.Location = new System.Drawing.Point(1469, 4);
+            this.comboIDBarSize.Margin = new System.Windows.Forms.Padding(4);
+            this.comboIDBarSize.Name = "comboIDBarSize";
+            this.comboIDBarSize.Size = new System.Drawing.Size(71, 25);
+            this.comboIDBarSize.TabIndex = 63;
+            this.comboIDBarSize.Text = "1 min";
+            this.comboIDBarSize.SelectedIndexChanged += new System.EventHandler(this.comboIDBarSize_SelectedIndexChanged);
+            // 
+            // contractMDRTH
+            // 
+            this.contractMDRTH.AutoSize = true;
+            this.contractMDRTH.Checked = true;
+            this.contractMDRTH.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.contractMDRTH.Location = new System.Drawing.Point(1157, 6);
+            this.contractMDRTH.Margin = new System.Windows.Forms.Padding(4);
+            this.contractMDRTH.Name = "contractMDRTH";
+            this.contractMDRTH.Size = new System.Drawing.Size(89, 21);
+            this.contractMDRTH.TabIndex = 60;
+            this.contractMDRTH.Text = "RTH only";
+            this.contractMDRTH.UseVisualStyleBackColor = true;
+            // 
+            // hdRequest_WhatToShow
+            // 
+            this.hdRequest_WhatToShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hdRequest_WhatToShow.FormattingEnabled = true;
+            this.hdRequest_WhatToShow.Items.AddRange(new object[] {
+            "TRADES",
+            "MIDPOINT",
+            "BID",
+            "ASK",
+            "BID_ASK",
+            "HISTORICAL_VOLATILITY",
+            "OPTION_IMPLIED_VOLATILITY",
+            "YIELD_BID",
+            "YIELD_ASK",
+            "YIELD_BID_ASK",
+            "YIELD_LAST"});
+            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(511, 6);
+            this.hdRequest_WhatToShow.Margin = new System.Windows.Forms.Padding(4);
+            this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
+            this.hdRequest_WhatToShow.Size = new System.Drawing.Size(97, 21);
+            this.hdRequest_WhatToShow.TabIndex = 52;
+            this.hdRequest_WhatToShow.Text = "TRADES";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(467, 7);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(42, 17);
+            this.label12.TabIndex = 53;
+            this.label12.Text = "Show";
+            // 
+            // hdEndDate_label_HDT
+            // 
+            this.hdEndDate_label_HDT.AutoSize = true;
+            this.hdEndDate_label_HDT.Location = new System.Drawing.Point(106, 7);
+            this.hdEndDate_label_HDT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.hdEndDate_label_HDT.Name = "hdEndDate_label_HDT";
+            this.hdEndDate_label_HDT.Size = new System.Drawing.Size(33, 17);
+            this.hdEndDate_label_HDT.TabIndex = 46;
+            this.hdEndDate_label_HDT.Text = "End";
+            // 
+            // checkDailyLinesStudy
+            // 
+            this.checkDailyLinesStudy.AutoSize = true;
+            this.checkDailyLinesStudy.Checked = true;
+            this.checkDailyLinesStudy.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkDailyLinesStudy.Location = new System.Drawing.Point(1051, 6);
+            this.checkDailyLinesStudy.Name = "checkDailyLinesStudy";
+            this.checkDailyLinesStudy.Size = new System.Drawing.Size(99, 21);
+            this.checkDailyLinesStudy.TabIndex = 63;
+            this.checkDailyLinesStudy.Text = "Daily Lines";
+            this.checkDailyLinesStudy.UseVisualStyleBackColor = true;
+            this.checkDailyLinesStudy.CheckedChanged += new System.EventHandler(this.checkDailyLinesStudy_CheckedChanged);
+            // 
+            // hdRequest_Duration
+            // 
+            this.hdRequest_Duration.Location = new System.Drawing.Point(366, 4);
+            this.hdRequest_Duration.Margin = new System.Windows.Forms.Padding(4);
+            this.hdRequest_Duration.Name = "hdRequest_Duration";
+            this.hdRequest_Duration.Size = new System.Drawing.Size(42, 22);
+            this.hdRequest_Duration.TabIndex = 47;
+            this.hdRequest_Duration.Text = "3";
+            // 
             // checkHighLowStudy
             // 
             this.checkHighLowStudy.AutoSize = true;
@@ -746,6 +862,41 @@ namespace IBSampleApp
             this.checkHighLowStudy.Text = "High/Low";
             this.checkHighLowStudy.UseVisualStyleBackColor = true;
             this.checkHighLowStudy.CheckedChanged += new System.EventHandler(this.checkHighLowStudy_CheckedChanged);
+            // 
+            // hdRequest_TimeUnit
+            // 
+            this.hdRequest_TimeUnit.FormattingEnabled = true;
+            this.hdRequest_TimeUnit.Items.AddRange(new object[] {
+            "S",
+            "D",
+            "W",
+            "M",
+            "Y"});
+            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(416, 3);
+            this.hdRequest_TimeUnit.Margin = new System.Windows.Forms.Padding(4);
+            this.hdRequest_TimeUnit.Name = "hdRequest_TimeUnit";
+            this.hdRequest_TimeUnit.Size = new System.Drawing.Size(47, 24);
+            this.hdRequest_TimeUnit.TabIndex = 49;
+            this.hdRequest_TimeUnit.Text = "Y";
+            // 
+            // hdRequest_EndTime
+            // 
+            this.hdRequest_EndTime.Location = new System.Drawing.Point(142, 4);
+            this.hdRequest_EndTime.Margin = new System.Windows.Forms.Padding(4);
+            this.hdRequest_EndTime.Name = "hdRequest_EndTime";
+            this.hdRequest_EndTime.Size = new System.Drawing.Size(149, 22);
+            this.hdRequest_EndTime.TabIndex = 45;
+            this.hdRequest_EndTime.Text = "20130808 23:59:59 GMT";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(308, 7);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(62, 17);
+            this.label10.TabIndex = 48;
+            this.label10.Text = "Duration";
             // 
             // histDataTabClose_MDT
             // 
@@ -1421,19 +1572,6 @@ namespace IBSampleApp
             this.histData_1M_Button.UseVisualStyleBackColor = true;
             this.histData_1M_Button.Click += new System.EventHandler(this.histData_1M_Button_Click);
             // 
-            // contractMDRTH
-            // 
-            this.contractMDRTH.AutoSize = true;
-            this.contractMDRTH.Checked = true;
-            this.contractMDRTH.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.contractMDRTH.Location = new System.Drawing.Point(1157, 6);
-            this.contractMDRTH.Margin = new System.Windows.Forms.Padding(4);
-            this.contractMDRTH.Name = "contractMDRTH";
-            this.contractMDRTH.Size = new System.Drawing.Size(89, 21);
-            this.contractMDRTH.TabIndex = 60;
-            this.contractMDRTH.Text = "RTH only";
-            this.contractMDRTH.UseVisualStyleBackColor = true;
-            // 
             // histData_Button
             // 
             this.histData_Button.Location = new System.Drawing.Point(12, 180);
@@ -1444,67 +1582,6 @@ namespace IBSampleApp
             this.histData_Button.Text = "Historical";
             this.histData_Button.UseVisualStyleBackColor = true;
             this.histData_Button.Click += new System.EventHandler(this.histDataButton_Click);
-            // 
-            // hdEndDate_label_HDT
-            // 
-            this.hdEndDate_label_HDT.AutoSize = true;
-            this.hdEndDate_label_HDT.Location = new System.Drawing.Point(106, 7);
-            this.hdEndDate_label_HDT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.hdEndDate_label_HDT.Name = "hdEndDate_label_HDT";
-            this.hdEndDate_label_HDT.Size = new System.Drawing.Size(33, 17);
-            this.hdEndDate_label_HDT.TabIndex = 46;
-            this.hdEndDate_label_HDT.Text = "End";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(388, 31);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(42, 17);
-            this.label12.TabIndex = 53;
-            this.label12.Text = "Show";
-            // 
-            // hdRequest_EndTime
-            // 
-            this.hdRequest_EndTime.Location = new System.Drawing.Point(142, 4);
-            this.hdRequest_EndTime.Margin = new System.Windows.Forms.Padding(4);
-            this.hdRequest_EndTime.Name = "hdRequest_EndTime";
-            this.hdRequest_EndTime.Size = new System.Drawing.Size(149, 22);
-            this.hdRequest_EndTime.TabIndex = 45;
-            this.hdRequest_EndTime.Text = "20130808 23:59:59 GMT";
-            // 
-            // hdRequest_WhatToShow
-            // 
-            this.hdRequest_WhatToShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hdRequest_WhatToShow.FormattingEnabled = true;
-            this.hdRequest_WhatToShow.Items.AddRange(new object[] {
-            "TRADES",
-            "MIDPOINT",
-            "BID",
-            "ASK",
-            "BID_ASK",
-            "HISTORICAL_VOLATILITY",
-            "OPTION_IMPLIED_VOLATILITY",
-            "YIELD_BID",
-            "YIELD_ASK",
-            "YIELD_BID_ASK",
-            "YIELD_LAST"});
-            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(438, 31);
-            this.hdRequest_WhatToShow.Margin = new System.Windows.Forms.Padding(4);
-            this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
-            this.hdRequest_WhatToShow.Size = new System.Drawing.Size(97, 21);
-            this.hdRequest_WhatToShow.TabIndex = 52;
-            this.hdRequest_WhatToShow.Text = "TRADES";
-            // 
-            // hdRequest_Duration
-            // 
-            this.hdRequest_Duration.Location = new System.Drawing.Point(366, 4);
-            this.hdRequest_Duration.Margin = new System.Windows.Forms.Padding(4);
-            this.hdRequest_Duration.Name = "hdRequest_Duration";
-            this.hdRequest_Duration.Size = new System.Drawing.Size(88, 22);
-            this.hdRequest_Duration.TabIndex = 47;
-            this.hdRequest_Duration.Text = "52";
             // 
             // hdRequest_BarSize
             // 
@@ -1530,16 +1607,6 @@ namespace IBSampleApp
             this.hdRequest_BarSize.TabIndex = 51;
             this.hdRequest_BarSize.Text = "1 day";
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(308, 7);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(62, 17);
-            this.label10.TabIndex = 48;
-            this.label10.Text = "Duration";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -1549,22 +1616,6 @@ namespace IBSampleApp
             this.label11.Size = new System.Drawing.Size(61, 17);
             this.label11.TabIndex = 50;
             this.label11.Text = "Bar Size";
-            // 
-            // hdRequest_TimeUnit
-            // 
-            this.hdRequest_TimeUnit.FormattingEnabled = true;
-            this.hdRequest_TimeUnit.Items.AddRange(new object[] {
-            "S",
-            "D",
-            "W",
-            "M",
-            "Y"});
-            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(462, 4);
-            this.hdRequest_TimeUnit.Margin = new System.Windows.Forms.Padding(4);
-            this.hdRequest_TimeUnit.Name = "hdRequest_TimeUnit";
-            this.hdRequest_TimeUnit.Size = new System.Drawing.Size(109, 24);
-            this.hdRequest_TimeUnit.TabIndex = 49;
-            this.hdRequest_TimeUnit.Text = "W";
             // 
             // marketScanner_MDT
             // 
@@ -4023,57 +4074,6 @@ namespace IBSampleApp
             // informationTooltip
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            // 
-            // checkDailyLinesStudy
-            // 
-            this.checkDailyLinesStudy.AutoSize = true;
-            this.checkDailyLinesStudy.Checked = true;
-            this.checkDailyLinesStudy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDailyLinesStudy.Location = new System.Drawing.Point(1051, 6);
-            this.checkDailyLinesStudy.Name = "checkDailyLinesStudy";
-            this.checkDailyLinesStudy.Size = new System.Drawing.Size(99, 21);
-            this.checkDailyLinesStudy.TabIndex = 63;
-            this.checkDailyLinesStudy.Text = "Daily Lines";
-            this.checkDailyLinesStudy.UseVisualStyleBackColor = true;
-            this.checkDailyLinesStudy.CheckedChanged += new System.EventHandler(this.checkDailyLinesStudy_CheckedChanged);
-            // 
-            // comboIDBarSize
-            // 
-            this.comboIDBarSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboIDBarSize.FormattingEnabled = true;
-            this.comboIDBarSize.Items.AddRange(new object[] {
-            "1 min",
-            "2 mins",
-            "3 mins",
-            "5 mins",
-            "15 mins",
-            "30 mins",
-            "1 hour"});
-            this.comboIDBarSize.Location = new System.Drawing.Point(1396, 23);
-            this.comboIDBarSize.Margin = new System.Windows.Forms.Padding(4);
-            this.comboIDBarSize.Name = "comboIDBarSize";
-            this.comboIDBarSize.Size = new System.Drawing.Size(71, 25);
-            this.comboIDBarSize.TabIndex = 63;
-            this.comboIDBarSize.Text = "1 min";
-            this.comboIDBarSize.SelectedIndexChanged += new System.EventHandler(this.comboIDBarSize_SelectedIndexChanged);
-            // 
-            // comboDuration
-            // 
-            this.comboDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboDuration.FormattingEnabled = true;
-            this.comboDuration.Items.AddRange(new object[] {
-            "1 D",
-            "2 D",
-            "3 D",
-            "5 D",
-            "10 D"});
-            this.comboDuration.Location = new System.Drawing.Point(1324, 23);
-            this.comboDuration.Margin = new System.Windows.Forms.Padding(4);
-            this.comboDuration.Name = "comboDuration";
-            this.comboDuration.Size = new System.Drawing.Size(62, 25);
-            this.comboDuration.TabIndex = 64;
-            this.comboDuration.Text = "2 D";
-            this.comboDuration.SelectedIndexChanged += new System.EventHandler(this.comboDuration_SelectedIndexChanged);
             // 
             // dataChartRT
             // 

@@ -893,7 +893,7 @@ namespace IBSampleApp
 
         private void DataChart1M_PaintCompleted(object sender, ChartPaintCompletedEventArgs e)
         {
-            dataChart1M.UpdateEMAs();
+            dataChart1M.UpdateIndicators();
 
             UpdateHighLowStudy();
             UpdateDailyDividersStudy();

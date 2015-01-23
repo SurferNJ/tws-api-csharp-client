@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections.Specialized;
 using IBSampleApp.types;
+using IBSampleApp.util;
 
 
 namespace CSharpClientApp.usercontrols
@@ -38,6 +39,16 @@ namespace CSharpClientApp.usercontrols
         public double KeepZoomMaxY;
         public bool KeepXZoom = false;
         public bool KeepYZoom = false;
+
+        private bool MouseDownDrawing = false;
+        private double MouseDownDrawingStartX;
+        private double MouseDownDrawingStartY;
+        private LineAnnotation MouseDownLineAnnotation;
+        private TextAnnotation MouseDownTextAnnotation;
+
+        private const int MouseDownTextAnnotationOffset = -10;
+
+        private List<IIndicator> chartIndicators = new List<IIndicator>();
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -115,6 +126,9 @@ namespace CSharpClientApp.usercontrols
 
             this.Chart.ChartAreas[0].CursorX.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
             this.Chart.ChartAreas[0].CursorY.LineColor = Color.FromArgb(120, Color.WhiteSmoke);
+
+            // setting tooltip
+            //this.Chart.Series[0].ToolTip = "Data Value: #VALY{C0}";
                        
             
         }
@@ -128,6 +142,8 @@ namespace CSharpClientApp.usercontrols
         {
             this.historicalChart.Parent.Focus();
         }
+
+
 
         private void historicalChart_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -374,6 +390,12 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.DAILY_MARKER_1M:
                     result = Color.FromArgb(120, Color.WhiteSmoke);
                     break;
+                case PriceLineType.PERCENTAGE_LINE:
+                    result = Color.WhiteSmoke;
+                    break;
+                default:
+                    result = Color.Red;
+                    break;
             }
 
             return result;
@@ -393,6 +415,84 @@ namespace CSharpClientApp.usercontrols
             //TODO: implement sell order
         }
 
+
+        private void historicalChart_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (checkDraw.Checked)
+            {
+                if (MouseDownDrawing == false)
+                {
+                    // start drawing
+                    MouseDownDrawing = true;
+
+                    // disable chart selections by user
+                    //this.historicalChart.ChartAreas[0].CursorX.IsUserEnabled = true;
+                    //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
+                    //this.historicalChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
+
+                    Point mousePoint = new Point(e.X, e.Y);
+
+                    double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+
+                    double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+
+                    MouseDownDrawingStartX = e.X;
+                    MouseDownDrawingStartY = e.Y;
+
+                    MouseDownLineAnnotation = new LineAnnotation();
+                    MouseDownLineAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE), "_", e.X.ToString(), "_", e.Y.ToString());
+                    MouseDownLineAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
+                    MouseDownLineAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
+                    MouseDownLineAnnotation.AnchorX = x;
+                    MouseDownLineAnnotation.AnchorY = y;
+                    MouseDownLineAnnotation.IsSizeAlwaysRelative = false;
+                    MouseDownLineAnnotation.AllowResizing = false;
+                    MouseDownLineAnnotation.AllowMoving = false;
+                    MouseDownLineAnnotation.LineColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
+                    MouseDownLineAnnotation.LineWidth = 2;
+                    MouseDownLineAnnotation.AllowSelecting = false;
+                    MouseDownLineAnnotation.AllowMoving = false;
+                    this.Chart.Annotations.Add(MouseDownLineAnnotation);
+
+                    MouseDownTextAnnotation = new TextAnnotation();
+                    MouseDownTextAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE_TEXT), "_", e.X.ToString(), "_", e.Y.ToString());
+                    MouseDownTextAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
+                    MouseDownTextAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
+                    MouseDownTextAnnotation.AnchorX = x - GetTextOffsetX();  //+ MouseDownTextAnnotationOffset;
+                    MouseDownTextAnnotation.AnchorY = y;
+                    MouseDownTextAnnotation.IsSizeAlwaysRelative = true;
+                    MouseDownTextAnnotation.AllowResizing = false;
+                    MouseDownTextAnnotation.AllowMoving = false;
+                    MouseDownTextAnnotation.AllowSelecting = false;
+                    MouseDownTextAnnotation.AllowMoving = false;
+                    MouseDownTextAnnotation.ForeColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
+                    MouseDownTextAnnotation.Width = 20;
+                    MouseDownTextAnnotation.Height = -6;
+
+                    MouseDownTextAnnotation.Text = "12%";
+                    MouseDownTextAnnotation.IsMultiline = false;
+
+                    // add the annotation to the chart annotations list
+                    this.Chart.Annotations.Add(MouseDownTextAnnotation);
+
+
+                    //historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
+                    //historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+
+                }
+                else
+                {
+                    // stop drawing
+                    MouseDownDrawing = false;
+
+                    //// enable chart selections by user
+                    //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+                }
+
+
+            }
+        }
+
         private void historicalChart_MouseMove(object sender, MouseEventArgs e)
         {
             try
@@ -404,13 +504,29 @@ namespace CSharpClientApp.usercontrols
 
                 historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
                 historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
-                
-                int xValue = Convert.ToInt32(historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X)) - 1;
+
+                double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+                double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+
+                int xValue = Convert.ToInt32(x) - 1;
                 var xPoint = (xValue > -1) ? historicalChart.Series[0].Points[xValue] : null;
 
-                var yValue = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);                
+                var yValue = y;                
 
                 UpdateControls(xPoint, yValue);
+
+                if (MouseDownDrawing)
+                {
+                    MouseDownLineAnnotation.Width = x - MouseDownLineAnnotation.AnchorX;
+                    MouseDownLineAnnotation.Height = y - MouseDownLineAnnotation.AnchorY;                                        
+                    MouseDownTextAnnotation.AnchorX = x - GetTextOffsetX(); //+ MouseDownTextAnnotationOffset;
+                    MouseDownTextAnnotation.AnchorY = y;
+                    double percentage = y / MouseDownLineAnnotation.AnchorY - 1;
+                    MouseDownTextAnnotation.Text = percentage.ToString("0.00%");
+
+                    
+                                                                                
+                }
 
                 // notify listeners, so all charts can stay in sync
                 var newEvent = DataChartMouseMove;
@@ -418,6 +534,23 @@ namespace CSharpClientApp.usercontrols
             }
             catch { } // do nothing as exceptions can occur during graph resizing            
         }
+
+        private double GetTextOffsetX()
+        {
+            var offsetX = 5 * (this.historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum - this.historicalChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum) / 100;
+            return offsetX;
+        }
+
+        private void historicalChart_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {            
+            //// stop drawing
+            //MouseDownDrawing = false;
+
+            //// enable chart selections by user
+            //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+        }
+
+
 
         private void contextMenuItemBuyLMT_Click(object sender, EventArgs e)
         {
@@ -464,107 +597,144 @@ namespace CSharpClientApp.usercontrols
             }
         }
 
-        public void UpdateEMAs()
+        public void UpdateIndicators()
         {
-            UpdateEMA(ExpMovAvgType.EMA10, checkEMA10.Checked);
-            UpdateEMA(ExpMovAvgType.EMA21, checkEMA21.Checked);
-            UpdateEMA(ExpMovAvgType.EMA30, checkEMA30.Checked);
-            UpdateEMA(ExpMovAvgType.EMA50, checkEMA50.Checked);
-            UpdateEMA(ExpMovAvgType.EMA100, checkEMA100.Checked);
-            UpdateEMA(ExpMovAvgType.EMA150, checkEMA150.Checked);
-            UpdateEMA(ExpMovAvgType.EMA200, checkEMA200.Checked);
+            foreach (var indicator in chartIndicators)
+            {
+                indicator.Update();
+            }
+
+            //UpdateEMA(IndicatorType.EMA10, checkEMA10.Checked);
+            //UpdateEMA(IndicatorType.EMA21, checkEMA21.Checked);
+            //UpdateEMA(IndicatorType.EMA30, checkEMA30.Checked);
+            //UpdateEMA(IndicatorType.EMA50, checkEMA50.Checked);
+            //UpdateEMA(IndicatorType.EMA100, checkEMA100.Checked);
+            //UpdateEMA(IndicatorType.EMA150, checkEMA150.Checked);
+            //UpdateEMA(IndicatorType.EMA200, checkEMA200.Checked);
         }
 
-        private void UpdateEMA(ExpMovAvgType type, bool enable)
+        private void UpdateEMA(IndicatorType type, bool enable)
         {
             if (enable)
-                AddIndicator_EMA(type);
+                AddIndicatorEMA(type);
             else
-                RemoveIndicator_EMA(type);
+                RemoveIndicatorEMA(type);
         }
         
         private void checkEMA10_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA10, checkEMA10.Checked);
+            UpdateEMA(IndicatorType.EMA10, checkEMA10.Checked);
         }
 
-        private bool AddIndicator_EMA(ExpMovAvgType ema)
+        private void AddIndicatorEMA(IndicatorType ema)
         {
-            if (this.Chart.Series[0].Points.Count <= 0) return false;
-
-            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
-
-            var series = this.Chart.Series.FindByName(seriesName);
-
-            if (series == null)
-            {
-                historicalChart.Series.Add(new Series(seriesName));
-                series = this.Chart.Series[seriesName];
-
-                series.ChartType = SeriesChartType.Line;
-                series.IsVisibleInLegend = false;
-                series.Color = Types.EMAColors[ema];
-                series.BorderWidth = 2;
-                series.IsXValueIndexed = true;
-                series.XAxisType = AxisType.Primary;
-                series.YAxisType = AxisType.Primary;
-
-            }
-
-
             try
             {
-                this.Chart.DataManipulator.IsStartFromFirst = true;
-                this.Chart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y2", seriesName);
+                var indicator = new IndicatorEMA(this.Chart, ema);
+
+                indicator.Create();
+
+                chartIndicators.Add(indicator);
+
+                //if (this.Chart.Series[0].Points.Count <= 0) return false;
+
+                //var seriesName = Enum.GetName(typeof(IndicatorType), ema);
+
+                //var series = this.Chart.Series.FindByName(seriesName);
+
+                //if (series == null)
+                //{
+                //    // create new indicator series
+                //    historicalChart.Series.Add(new Series(seriesName));
+                //    series = this.Chart.Series[seriesName];
+
+                //    series.ChartType = SeriesChartType.Line;
+                //    series.IsVisibleInLegend = false;
+                //    series.Color = Types.IndicatorColors[ema];
+                //    series.BorderWidth = 2;
+                //    series.IsXValueIndexed = true;
+                //    series.XAxisType = AxisType.Primary;
+                //    series.YAxisType = AxisType.Primary;
+                            
+                //    //this.Chart.DataManipulator.FinancialFormula.IsStartFromFirst = true;
+                //    //this.Chart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y4", seriesName);
+
+                //    var length = int.Parse(Types.GetEMADuration(ema));
+
+                //    for (var i = 0; i < Chart.Series[0].Points.Count; i++)
+                //    {
+                //        AddDataPointEMA(series, i, ema);
+                //    }
+                //}
+                //    // update last bar
+                //    AddDataPointEMA(series, series.Points.Count - 1, ema);
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                return false;
+                MessageBox.Show(ex.Message);                
             }
-
-            return true;
-
         }
 
-        private void RemoveIndicator_EMA(ExpMovAvgType ema)
+        //public void AddDataPointEMA(Series series, int index, IndicatorType ema)
+        //{
+        //    var length = int.Parse(Types.GetEMADuration(ema));
+
+        //    double EMAYesterday = series.Points.Count > 0 ? series.Points.Last().YValues[0] : 0.0;
+
+        //    series.Points.AddXY(Chart.Series[0].Points[index].XValue, IBSampleApp.util.FinancialFormulas.CalculateEMA(index, Chart.Series[0].Points[index].YValues[3], length, EMAYesterday));
+        //}
+
+
+
+        private void RemoveIndicatorEMA(IndicatorType ema)
         {
-            var seriesName = Enum.GetName(typeof(ExpMovAvgType), ema);
+            var indicator = chartIndicators.Where(x => x.Type == ema).FirstOrDefault();
 
-            var series = this.Chart.Series.FindByName(seriesName);
+            if (indicator != null)
+            {
+                indicator.Clear();
+                chartIndicators.Remove(indicator);
+            }
 
-            if (series != null)
-                series.Points.Clear();
+        //    var seriesName = Enum.GetName(typeof(IndicatorType), ema);
+
+        //    var series = this.Chart.Series.FindByName(seriesName);
+
+        //    if (series != null)
+        //    {
+        //        series.Points.Clear();
+        //        Chart.Series.Remove(series);
+        //    }
         }
 
         private void checkEMA21_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA21, checkEMA21.Checked);
+            UpdateEMA(IndicatorType.EMA21, checkEMA21.Checked);
         }
 
         private void checkEMA30_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA30, checkEMA30.Checked);
+            UpdateEMA(IndicatorType.EMA30, checkEMA30.Checked);
         }
 
         private void checkEMA50_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA50, checkEMA50.Checked);
+            UpdateEMA(IndicatorType.EMA50, checkEMA50.Checked);
         }
 
         private void checkEMA100_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA100, checkEMA100.Checked);
+            UpdateEMA(IndicatorType.EMA100, checkEMA100.Checked);
         }
 
         private void checkEMA150_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA150, checkEMA150.Checked);
+            UpdateEMA(IndicatorType.EMA150, checkEMA150.Checked);
         }
 
         private void checkEMA200_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateEMA(ExpMovAvgType.EMA200, checkEMA200.Checked);
+            UpdateEMA(IndicatorType.EMA200, checkEMA200.Checked);
         }
 
         private void historicalChart_AxisViewChanged(object sender, ViewEventArgs e)
@@ -638,6 +808,18 @@ namespace CSharpClientApp.usercontrols
                 var args = new ChangeScopeEventArgs() { delta = -1 };
                 ScopeChange(this, args);
              }            
+        }
+
+        private void checkDraw_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkDraw.Checked)
+                // disable chart selections by user
+                this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
+            else
+                // enable chart selections by user
+                this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+
+            this.RemoveAnnotation(PriceLineType.PERCENTAGE_LINE);
         }
 
 

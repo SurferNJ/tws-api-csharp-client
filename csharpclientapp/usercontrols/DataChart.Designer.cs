@@ -62,6 +62,7 @@
             this.checkEMA150 = new System.Windows.Forms.CheckBox();
             this.checkEMA200 = new System.Windows.Forms.CheckBox();
             this.labelCurrentPrice = new System.Windows.Forms.Label();
+            this.checkDraw = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -221,9 +222,12 @@
             this.historicalChart.Text = "Historical Data";
             this.historicalChart.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.historicalChart_AxisViewChanged);
             this.historicalChart.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseDoubleClick);
+            this.historicalChart.MouseClick += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseClick);
+            //this.historicalChart.MouseDown += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseDown);
             this.historicalChart.MouseEnter += new System.EventHandler(this.historicalChart_MouseEnter);
             this.historicalChart.MouseLeave += new System.EventHandler(this.historicalChart_MouseLeave);
             this.historicalChart.MouseMove += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseMove);
+            this.historicalChart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseUp);
             this.historicalChart.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.historicalChart_MouseWheel);
             // 
             // contextMenuOrder
@@ -379,10 +383,22 @@
             this.labelCurrentPrice.TabIndex = 35;
             this.labelCurrentPrice.Text = "0.0";
             // 
+            // checkDraw
+            // 
+            this.checkDraw.AutoSize = true;
+            this.checkDraw.Location = new System.Drawing.Point(370, 3);
+            this.checkDraw.Name = "checkDraw";
+            this.checkDraw.Size = new System.Drawing.Size(62, 21);
+            this.checkDraw.TabIndex = 36;
+            this.checkDraw.Text = "Draw";
+            this.checkDraw.UseVisualStyleBackColor = true;
+            this.checkDraw.CheckedChanged += new System.EventHandler(this.checkDraw_CheckedChanged);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkDraw);
             this.Controls.Add(this.labelCurrentPrice);
             this.Controls.Add(this.checkEMA200);
             this.Controls.Add(this.checkEMA150);
@@ -445,5 +461,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopeNext;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopePrevious;
+        private System.Windows.Forms.CheckBox checkDraw;
     }
 }

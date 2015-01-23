@@ -84,7 +84,7 @@ namespace IBSampleApp.ui
                 var chartTimeStamp = System.DateTime.FromOADate(rtBarsChart.Series[0].Points[index].XValue);
                 var deltaSeconds = (messageTimestamp - chartTimeStamp).TotalSeconds;
                                 
-                if (deltaSeconds > dataChart.BarSizeInSeconds / 12)
+                if (deltaSeconds > dataChart.BarSizeInSeconds)
                 {
                     double xMin = rtBarsChart.ChartAreas[0].AxisX.ScaleView.ViewMinimum;                    
 
@@ -98,10 +98,12 @@ namespace IBSampleApp.ui
                     if (index - rtBarsChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum < 5)
                         rtBarsChart.ChartAreas[0].AxisX.ScaleView.Position += 1;
 
+                    dataChart.UpdateIndicators();
+
                 }
                 else
                 {
-                    // reloading (updating) last bar
+                    // updating last bar
                     var timestamp = rtBarsChart.Series[0].Points[index].XValue;
                     var open = rtBarsChart.Series[0].Points[index].YValues[2];
                     var close = rtBar.Close;

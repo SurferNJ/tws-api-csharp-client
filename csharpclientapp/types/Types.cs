@@ -10,19 +10,19 @@ namespace IBSampleApp.types
     public static class Types
     {
         // TODO: move these settings to config file
-        public static Dictionary<ExpMovAvgType, Color> EMAColors = new Dictionary<ExpMovAvgType, Color>() { 
-                                    {ExpMovAvgType.EMA10, Color.Green },
-                                    {ExpMovAvgType.EMA21, Color.Blue },
-                                    {ExpMovAvgType.EMA30, Color.Yellow },
-                                    {ExpMovAvgType.EMA50, Color.Red },
-                                    {ExpMovAvgType.EMA100, Color.White },
-                                    {ExpMovAvgType.EMA150, Color.LightBlue },
-                                    {ExpMovAvgType.EMA200, Color.Purple }
+        public static Dictionary<IndicatorType, Color> IndicatorColors = new Dictionary<IndicatorType, Color>() { 
+                                    {IndicatorType.EMA10, Color.Green },
+                                    {IndicatorType.EMA21, Color.Blue },
+                                    {IndicatorType.EMA30, Color.Yellow },
+                                    {IndicatorType.EMA50, Color.Red },
+                                    {IndicatorType.EMA100, Color.White },
+                                    {IndicatorType.EMA150, Color.LightBlue },
+                                    {IndicatorType.EMA200, Color.Purple }
         };
         
-        public static string GetEMADuration(ExpMovAvgType ema)
+        public static string GetEMADuration(IndicatorType ema)
         {
-            var name = Enum.GetName(typeof(ExpMovAvgType), ema);
+            var name = Enum.GetName(typeof(IndicatorType), ema);
 
             var result = name.Remove(0, 3);
 
@@ -58,7 +58,7 @@ namespace IBSampleApp.types
         _1_day
     }
 
-    public enum ExpMovAvgType
+    public enum IndicatorType
     {
         EMA10 = 1,
         EMA21,
@@ -81,7 +81,9 @@ namespace IBSampleApp.types
         LOW_LINE,
         HIGH_LINE,
         DAILY_MARKER,
-        DAILY_MARKER_1M
+        DAILY_MARKER_1M,
+        PERCENTAGE_LINE,
+        PERCENTAGE_LINE_TEXT
     }
 
     public class ChartPaintCompletedEventArgs : EventArgs
