@@ -65,6 +65,7 @@
             this.checkEMA200 = new System.Windows.Forms.CheckBox();
             this.labelCurrentPrice = new System.Windows.Forms.Label();
             this.checkDraw = new System.Windows.Forms.CheckBox();
+            this.checkVolumeOnOff = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -203,15 +204,15 @@
             chartArea1.BackColor = System.Drawing.Color.Black;
             chartArea1.Name = "ChartArea1";
             chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 70F;
+            chartArea1.Position.Height = 100F;
             chartArea1.Position.Width = 100F;
             chartArea2.AlignWithChartArea = "ChartArea1";
-            chartArea2.BackColor = System.Drawing.Color.MistyRose;
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.Name = "ChartArea2";
             chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 30F;
+            chartArea2.Position.Height = 50F;
             chartArea2.Position.Width = 100F;
-            chartArea2.Position.Y = 70F;
+            chartArea2.Position.Y = 50F;
             this.historicalChart.ChartAreas.Add(chartArea1);
             this.historicalChart.ChartAreas.Add(chartArea2);
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
@@ -406,7 +407,7 @@
             // checkDraw
             // 
             this.checkDraw.AutoSize = true;
-            this.checkDraw.Location = new System.Drawing.Point(370, 3);
+            this.checkDraw.Location = new System.Drawing.Point(425, 3);
             this.checkDraw.Name = "checkDraw";
             this.checkDraw.Size = new System.Drawing.Size(62, 21);
             this.checkDraw.TabIndex = 36;
@@ -414,10 +415,22 @@
             this.checkDraw.UseVisualStyleBackColor = true;
             this.checkDraw.CheckedChanged += new System.EventHandler(this.checkDraw_CheckedChanged);
             // 
+            // checkVolumeOnOff
+            // 
+            this.checkVolumeOnOff.AutoSize = true;
+            this.checkVolumeOnOff.Location = new System.Drawing.Point(369, 3);
+            this.checkVolumeOnOff.Name = "checkVolumeOnOff";
+            this.checkVolumeOnOff.Size = new System.Drawing.Size(50, 21);
+            this.checkVolumeOnOff.TabIndex = 38;
+            this.checkVolumeOnOff.Text = "Vol";
+            this.checkVolumeOnOff.UseVisualStyleBackColor = true;
+            this.checkVolumeOnOff.CheckedChanged += new System.EventHandler(this.checkVolumeOnOff_CheckedChanged);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkVolumeOnOff);
             this.Controls.Add(this.checkDraw);
             this.Controls.Add(this.labelCurrentPrice);
             this.Controls.Add(this.checkEMA200);
@@ -482,5 +495,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopeNext;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopePrevious;
         private System.Windows.Forms.CheckBox checkDraw;
+        private System.Windows.Forms.CheckBox checkVolumeOnOff;
     }
 }

@@ -126,11 +126,14 @@ namespace IBSampleApp.ui
                 case BarSizeType._5_secs:
                     dataChart.Chart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
                     dataChart.Chart.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm";
+                    dataChart.Chart.ChartAreas[1].AxisX.LabelStyle.Format = "HH:mm";
                     dataChart.XLabelFormat = "MM/dd/yyyy hh:mm tt";                  
                     
                     break;
                 default:
                     dataChart.Chart.Series[0].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                    dataChart.Chart.ChartAreas[0].AxisX.LabelStyle.Format = "MM/dd/yyyy";
+                    dataChart.Chart.ChartAreas[1].AxisX.LabelStyle.Format = "MM/dd/yyyy";
                     dataChart.XLabelFormat = "MM/dd/yyyy ddd";
                     break;
             }

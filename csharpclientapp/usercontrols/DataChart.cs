@@ -131,73 +131,8 @@ namespace CSharpClientApp.usercontrols
             // setting tooltip
             //this.Chart.Series[0].ToolTip = "Data Value: #VALY{C0}";
 
-            // volume chart settings
-            //Chart.ChartAreas[1].AxisY.LabelStyle.Enabled = false; 
-            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisX2.MajorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY2.MajorGrid.Enabled = false;
-
-            //Chart.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[0].AxisX2.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[0].AxisY2.LabelStyle.Enabled = true;
-
-            //Chart.ChartAreas[1].AxisX.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[1].AxisY.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[1].AxisX2.LabelStyle.Enabled = true;
-            //Chart.ChartAreas[1].AxisY2.LabelStyle.Enabled = true;
-
-            //Chart.ChartAreas[1].AxisY.IsLabelAutoFit = true;
-            //Chart.ChartAreas[1].AxisY2.IsLabelAutoFit = true;
-            ////Chart.ChartAreas[1].AxisY.Interval = 1;
-            //Chart.ChartAreas[1].AxisY.LabelAutoFitStyle= LabelAutoFitStyles.IncreaseFont;
-            //Chart.ChartAreas[1].AxisY2.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
-
-            //this.Chart.ChartAreas[1].AxisY.IsLabelAutoFit = true;
-            //this.Chart.ChartAreas[1].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
-            //this.Chart.ChartAreas[1].AxisY.LabelStyle.Format = "0.000";
-            //this.Chart.ChartAreas[1].AxisY2.IsLabelAutoFit = true;
-            //this.Chart.ChartAreas[1].AxisY2.LabelAutoFitStyle = LabelAutoFitStyles.None;
-            //this.Chart.ChartAreas[1].AxisY2.LabelStyle.Format = "0.000";
-
-
-            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
-
-            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.Enabled = false;
-
-            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.LineWidth = 0;
-            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.LineWidth = 0;
-            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.LineWidth = 0;
-            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.LineWidth = 0;
-
-            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
-            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
-            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.NotSet;
-            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.NotSet;
-
-            //this.historicalChart.ChartAreas[1].AxisX.Interval = 0;
-            //this.historicalChart.ChartAreas[1].AxisY.Interval = 0;
-
-            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.Enabled = false;
-
-            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.IntervalType = DateTimeIntervalType.NotSet;
-            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.IntervalType = DateTimeIntervalType.NotSet;
-
-            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.Interval = 0;
-            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.Interval = 0;
-
-            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY2.MajorGrid.Enabled = false;
-
-            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.Enabled = false;
-            //this.historicalChart.ChartAreas[1].AxisY2.MinorGrid.Enabled = false;
-
-            this.historicalChart.ChartAreas[1].AxisY.Enabled = AxisEnabled.False;
-            //this.historicalChart.ChartAreas[1].AxisY2.Enabled = AxisEnabled.False;
+            // volume chart settings   
+            this.historicalChart.ChartAreas[1].AxisY.Enabled = AxisEnabled.False;          
 
             this.Chart.ChartAreas[1].AxisX.IsLabelAutoFit = true;
             this.Chart.ChartAreas[1].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
@@ -205,9 +140,17 @@ namespace CSharpClientApp.usercontrols
             this.historicalChart.ChartAreas[1].AxisX.LabelStyle.IsEndLabelVisible = false;
             this.historicalChart.ChartAreas[1].AxisY.LabelStyle.IsEndLabelVisible = false;
 
-            this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
+            this.historicalChart.ChartAreas[1].CursorX.SelectionColor = Color.Transparent;
 
-            
+            this.historicalChart.ChartAreas[1].Visible = false;
+
+            this.historicalChart.ChartAreas[1].CursorX.LineColor = Color.Transparent; //this.historicalChart.ChartAreas[0].CursorX.LineColor;
+            this.historicalChart.ChartAreas[1].CursorY.LineColor = Color.Transparent; // this.historicalChart.ChartAreas[0].CursorY.LineColor;
+
+            this.historicalChart.Series[1].Color = Color.FromArgb(100, Color.LightGoldenrodYellow);
+
+            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;                       
+
         }
 
         private void historicalChart_MouseEnter(object sender, EventArgs e)
@@ -238,9 +181,6 @@ namespace CSharpClientApp.usercontrols
                         var posXFinish = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.Location.X) + (xMax - xMin) / 4;
 
                         historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
-                        //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish, DateTimeIntervalType.Auto, true);
-
-                        //historicalChart.ChartAreas[0].AxisX.ScaleView.Zoom(posXStart, posXFinish);
                     }
                     else
                     {
@@ -902,6 +842,22 @@ namespace CSharpClientApp.usercontrols
                 this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
 
             this.RemoveAnnotation(PriceLineType.PERCENTAGE_LINE);
+        }
+
+
+
+        private void checkVolumeOnOff_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkVolumeOnOff.Checked)
+            {
+                // make sure Volume ScaleView is same as Chart ScaleView
+                if (!Double.IsNaN(historicalChart.ChartAreas[0].AxisX.ScaleView.Size))
+                    this.historicalChart.ChartAreas[1].AxisX.ScaleView = historicalChart.ChartAreas[0].AxisX.ScaleView;
+
+                this.historicalChart.ChartAreas[1].Visible = true;               
+            }
+
+            this.historicalChart.ChartAreas[1].Visible = checkVolumeOnOff.Checked; 
         }
 
 
