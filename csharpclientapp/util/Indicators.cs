@@ -84,7 +84,7 @@ namespace IBSampleApp.util
         public void Update()
         {
             // update last bar
-            AddDataPointEMA(Series.Points.Count - 1);
+            AddDataPointEMA(Series.Points.Count);
         }
 
         public void Clear()

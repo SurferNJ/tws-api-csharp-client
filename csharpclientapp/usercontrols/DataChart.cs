@@ -87,6 +87,7 @@ namespace CSharpClientApp.usercontrols
             // move x scroll bar outside
             this.historicalChart.ChartAreas[0].AxisX.ScrollBar.IsPositionedInside = true;
             
+            
             // disable y scroll bar
             this.historicalChart.ChartAreas[0].AxisY.ScrollBar.Enabled = false;
             
@@ -129,7 +130,83 @@ namespace CSharpClientApp.usercontrols
 
             // setting tooltip
             //this.Chart.Series[0].ToolTip = "Data Value: #VALY{C0}";
-                       
+
+            // volume chart settings
+            //Chart.ChartAreas[1].AxisY.LabelStyle.Enabled = false; 
+            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisX2.MajorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY2.MajorGrid.Enabled = false;
+
+            //Chart.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[0].AxisY.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[0].AxisX2.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[0].AxisY2.LabelStyle.Enabled = true;
+
+            //Chart.ChartAreas[1].AxisX.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[1].AxisY.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[1].AxisX2.LabelStyle.Enabled = true;
+            //Chart.ChartAreas[1].AxisY2.LabelStyle.Enabled = true;
+
+            //Chart.ChartAreas[1].AxisY.IsLabelAutoFit = true;
+            //Chart.ChartAreas[1].AxisY2.IsLabelAutoFit = true;
+            ////Chart.ChartAreas[1].AxisY.Interval = 1;
+            //Chart.ChartAreas[1].AxisY.LabelAutoFitStyle= LabelAutoFitStyles.IncreaseFont;
+            //Chart.ChartAreas[1].AxisY2.LabelAutoFitStyle = LabelAutoFitStyles.IncreaseFont;
+
+            //this.Chart.ChartAreas[1].AxisY.IsLabelAutoFit = true;
+            //this.Chart.ChartAreas[1].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            //this.Chart.ChartAreas[1].AxisY.LabelStyle.Format = "0.000";
+            //this.Chart.ChartAreas[1].AxisY2.IsLabelAutoFit = true;
+            //this.Chart.ChartAreas[1].AxisY2.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            //this.Chart.ChartAreas[1].AxisY2.LabelStyle.Format = "0.000";
+
+
+            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
+
+            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.Enabled = false;
+
+            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.LineWidth = 0;
+            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.LineWidth = 0;
+            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.LineWidth = 0;
+            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.LineWidth = 0;
+
+            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
+            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.LineDashStyle = ChartDashStyle.NotSet;
+            //this.historicalChart.ChartAreas[1].AxisX.MinorGrid.LineDashStyle = ChartDashStyle.NotSet;
+            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.LineDashStyle = ChartDashStyle.NotSet;
+
+            //this.historicalChart.ChartAreas[1].AxisX.Interval = 0;
+            //this.historicalChart.ChartAreas[1].AxisY.Interval = 0;
+
+            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.Enabled = false;
+
+            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.IntervalType = DateTimeIntervalType.NotSet;
+            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.IntervalType = DateTimeIntervalType.NotSet;
+
+            //this.historicalChart.ChartAreas[1].AxisY.LabelStyle.Interval = 0;
+            //this.historicalChart.ChartAreas[1].AxisY2.LabelStyle.Interval = 0;
+
+            //this.historicalChart.ChartAreas[1].AxisY.MajorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY2.MajorGrid.Enabled = false;
+
+            //this.historicalChart.ChartAreas[1].AxisY.MinorGrid.Enabled = false;
+            //this.historicalChart.ChartAreas[1].AxisY2.MinorGrid.Enabled = false;
+
+            this.historicalChart.ChartAreas[1].AxisY.Enabled = AxisEnabled.False;
+            //this.historicalChart.ChartAreas[1].AxisY2.Enabled = AxisEnabled.False;
+
+            this.Chart.ChartAreas[1].AxisX.IsLabelAutoFit = true;
+            this.Chart.ChartAreas[1].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.DecreaseFont;
+
+            this.historicalChart.ChartAreas[1].AxisX.LabelStyle.IsEndLabelVisible = false;
+            this.historicalChart.ChartAreas[1].AxisY.LabelStyle.IsEndLabelVisible = false;
+
+            this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;
+
             
         }
 
@@ -189,6 +266,8 @@ namespace CSharpClientApp.usercontrols
 
                     historicalChart.ChartAreas[0].AxisX.ScaleView.Scroll(posXStart);
 
+                    historicalChart.ChartAreas[1].AxisX.ScaleView.Scroll(posXStart);
+
                 }
 
                 ScaleYAxis();
@@ -234,7 +313,7 @@ namespace CSharpClientApp.usercontrols
                 LineColor = GetAnnotationColor(type),
                 LineWidth = 3,
                 AllowSelecting = true,
-                AllowMoving = false
+                AllowMoving = false                
             };
 
             if (end != null)
@@ -243,7 +322,8 @@ namespace CSharpClientApp.usercontrols
             }
             else
             {
-                a.Width = historicalChart.ChartAreas[0].AxisX.Maximum - start;                
+                a.Width = historicalChart.ChartAreas[0].AxisX.Maximum - start;
+                a.IsSizeAlwaysRelative = true;
             }
 
             historicalChart.Annotations.Add(a);
@@ -601,7 +681,7 @@ namespace CSharpClientApp.usercontrols
         {
             foreach (var indicator in chartIndicators)
             {
-                indicator.Update();
+                indicator.Update(); 
             }
 
             //UpdateEMA(IndicatorType.EMA10, checkEMA10.Checked);
@@ -631,6 +711,8 @@ namespace CSharpClientApp.usercontrols
             try
             {
                 var indicator = new IndicatorEMA(this.Chart, ema);
+                
+                indicator.ToolTip = String.Concat(indicator.Name, ": #VALY{C0}");
 
                 indicator.Create();
 

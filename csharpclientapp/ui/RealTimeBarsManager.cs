@@ -93,12 +93,16 @@ namespace IBSampleApp.ui
                     rtBarsChart.Series[0].Points[index + 1].YValues[1] = rtBar.Low;
                     rtBarsChart.Series[0].Points[index + 1].YValues[2] = rtBar.Open;
                     rtBarsChart.Series[0].Points[index + 1].YValues[3] = rtBar.Close;
+
+                    rtBarsChart.Series[1].Points.AddXY(messageTimestamp, rtBar.Volume);
+
+                    dataChart.UpdateIndicators();
                                         
                     // if you're at the end of the chart make new bar visible
                     if (index - rtBarsChart.ChartAreas[0].AxisX.ScaleView.ViewMaximum < 5)
                         rtBarsChart.ChartAreas[0].AxisX.ScaleView.Position += 1;
 
-                    dataChart.UpdateIndicators();
+                    
 
                 }
                 else
@@ -109,6 +113,7 @@ namespace IBSampleApp.ui
                     var close = rtBar.Close;
                     var high = Math.Max(rtBar.High, rtBarsChart.Series[0].Points[index].YValues[0]);
                     var low = Math.Min(rtBar.Low, rtBarsChart.Series[0].Points[index].YValues[1]);
+                    var volume = rtBar.Volume;
 
                     rtBarsChart.Series[0].Points.Remove(rtBarsChart.Series[0].Points[index]);
 
@@ -116,6 +121,8 @@ namespace IBSampleApp.ui
                     rtBarsChart.Series[0].Points[index].YValues[1] = low;
                     rtBarsChart.Series[0].Points[index].YValues[2] = open;
                     rtBarsChart.Series[0].Points[index].YValues[3] = close;
+
+                    rtBarsChart.Series[1].Points[index].YValues[0] += volume;
                 }
 
 

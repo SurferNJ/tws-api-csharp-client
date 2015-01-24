@@ -199,11 +199,15 @@ namespace IBSampleApp.ui
                 historicalChart.Series[0].Points[i].YValues[2] = historicalData[i].Open;
                 // adding close
                 historicalChart.Series[0].Points[i].YValues[3] = historicalData[i].Close;
+
+                // adding date and high
+                historicalChart.Series[1].Points.AddXY(dt, historicalData[i].Volume);
             }
 
             // reset view to no zoom
             historicalChart.ChartAreas[0].AxisX.ScaleView.ZoomReset(); 
             historicalChart.ChartAreas[0].AxisY.ScaleView.ZoomReset();
+                        
 
             // check if any subscibers raise event
             if (PaintCompleted != null)
