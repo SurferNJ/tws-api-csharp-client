@@ -59,7 +59,7 @@ namespace IBSampleApp.util
 
                 for (var i = 0; i < chart.Series[0].Points.Count; i++)
                 {
-                    AddDataPointEMA(i);
+                    AddDataPoint(i);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace IBSampleApp.util
         public void Update()
         {
             // update last bar
-            AddDataPointEMA(Series.Points.Count);
+            AddDataPoint(Series.Points.Count);
         }
 
         public void Clear()
@@ -80,7 +80,7 @@ namespace IBSampleApp.util
         }
 
 
-        public void AddDataPointEMA(int index)
+        public void AddDataPoint(int index)
         {
 
             double EMAYesterday = Series.Points.Count > 0 ? Series.Points.Last().YValues[0] : 0.0;

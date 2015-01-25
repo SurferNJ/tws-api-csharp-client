@@ -831,11 +831,13 @@ namespace CSharpClientApp.usercontrols
         {
             try
             {
-                var indicator = new IndicatorTopBottom(this.Chart, 2);
+                var indicatorTop = new IndicatorTop(this.Chart, 2);
+                indicatorTop.Create();
+                chartIndicators.Add(indicatorTop);
 
-                indicator.Create();
-
-                chartIndicators.Add(indicator);
+                var indicatorBottom = new IndicatorBottom(this.Chart, 2);
+                indicatorBottom.Create();
+                chartIndicators.Add(indicatorBottom);
             }
             catch (Exception ex)
             {
@@ -845,12 +847,20 @@ namespace CSharpClientApp.usercontrols
 
         private void RemoveIndicatorTopBottom()
         {
-            var indicator = chartIndicators.Where(x => x.Type == IndicatorType.TopBottom).FirstOrDefault();
+            var indicatorTop = chartIndicators.Where(x => x.Type == IndicatorType.Tops).FirstOrDefault();
 
-            if (indicator != null)
+            if (indicatorTop != null)
             {
-                indicator.Clear();
-                chartIndicators.Remove(indicator);
+                indicatorTop.Clear();
+                chartIndicators.Remove(indicatorTop);
+            }
+
+            var indicatorBottom = chartIndicators.Where(x => x.Type == IndicatorType.Bottoms).FirstOrDefault();
+
+            if (indicatorBottom != null)
+            {
+                indicatorBottom.Clear();
+                chartIndicators.Remove(indicatorBottom);
             }
         }
     }

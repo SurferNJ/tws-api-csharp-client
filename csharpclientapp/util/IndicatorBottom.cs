@@ -7,7 +7,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace IBSampleApp.util
 {
-    public class IndicatorTopBottom : IIndicator
+    public class IndicatorBottom : IIndicator
     {
         private Chart chart;
 
@@ -21,25 +21,28 @@ namespace IBSampleApp.util
 
         public string ToolTip { get; set; }
 
-        public List<DataPoint> Tops = new List<DataPoint>();
-
         public List<DataPoint> Bottoms = new List<DataPoint>();
 
-        public bool BottomSearchActive { get; set; }
+        public bool SearchActive { get; set; }
 
         public int LastCheckedIndex { get; set; }
 
         public DataPoint LastBottom { get; set; }
 
-        public IndicatorTopBottom(Chart chart, int length)
+        private int priceType { get; set; }
+
+        public double ApproximationRange = 0.0001;
+
+        public IndicatorBottom(Chart chart, int length, PriceType priceType = PriceType.Low)
         {
             this.chart = chart;
-            this.Type = IndicatorType.TopBottom;
+            this.Type = IndicatorType.Bottoms;
             this.Name = Enum.GetName(typeof(IndicatorType), Type);
-            this.Length = length;
+            this.Length = length;            
             this.ToolTip = String.Empty;
+            this.priceType = (int)priceType;
 
-            BottomSearchActive = true;
+            SearchActive = true;
         }
 
         public void Create()
@@ -71,51 +74,41 @@ namespace IBSampleApp.util
             Series.Points.Clear();
             Bottoms.Clear();
 
-            // prefill Series with empty datapoints 
-            for (var i = 0; i < chart.Series[0].Points.Count; i++)
-            {
-                var emptyDataPoint = new DataPoint()
-                    {
-                        XValue = chart.Series[0].Points[i].XValue,
-                        IsEmpty = true
-                    };
-
-                Series.Points.Add(emptyDataPoint);
-            }
-
             LastCheckedIndex = 0;
             LastBottom = chart.Series[0].Points[LastCheckedIndex];
 
-            BottomSearchActive = true;
+            SearchActive = true;
 
             // calculate bottoms
-            for (var i = 0; i < chart.Series[0].Points.Count; i = i + Length)
+            for (var i = 0; i < chart.Series[0].Points.Count; i++)
             {
-                CheckNewTopBottom();
+                AddDataPoint(i);
             }
         }
-
-        private void CheckNewTopBottom()
+                
+        private void AddDataPoint(int index)
         {
-            if (LastCheckedIndex + Length > chart.Series[0].Points.Count)
+            AddEmptyDataPoint(index);
+
+            if (index < LastCheckedIndex + Length)
                 return;
 
             var newBottom = GetBottom(LastCheckedIndex + 1);
 
-            if (BottomSearchActive && newBottom.YValues[1] > LastBottom.YValues[1])
+            if (SearchActive && newBottom.YValues[priceType] > LastBottom.YValues[priceType])
             {
                 AddNewBottom(LastBottom);
-                BottomSearchActive = false;
+                SearchActive = false;
             }
             //TODO - check for double bottom
-            //if (newBottom.YValues[1] >= lastBottom.YValues[1] * (1 - Approximation) && newBottom.YValues[1] >= lastBottom.YValues[1] * (1 + Approximation))
-            //{
-            //    Bottoms.Add(lastBottom);
-            //    BottomSearchActive = false;
-            //}
-            else if (newBottom.YValues[1] < LastBottom.YValues[1])
+            if (newBottom.YValues[priceType] >= LastBottom.YValues[priceType] * (1 - ApproximationRange) && newBottom.YValues[priceType] <= LastBottom.YValues[priceType] * (1 + ApproximationRange))
             {
-                BottomSearchActive = true;
+                AddNewBottom(LastBottom);
+                AddNewBottom(newBottom);
+            }
+            else if (newBottom.YValues[priceType] < LastBottom.YValues[priceType])
+            {
+                SearchActive = true;
             }
 
             LastBottom = newBottom;
@@ -123,35 +116,29 @@ namespace IBSampleApp.util
             LastCheckedIndex += Length;
         }
 
+        private void AddEmptyDataPoint(int index)
+        {
+            var emptyDataPoint = new DataPoint()
+            {
+                XValue = chart.Series[0].Points[index].XValue,
+                IsEmpty = true
+            };
+
+            Series.Points.Add(emptyDataPoint);
+        }
+
         private void AddNewBottom(DataPoint bottom)
         {
-            Bottoms.Add(bottom);
+            if (!Bottoms.Contains(bottom))
+                Bottoms.Add(bottom);
 
             // replace empty point in Series
             var point = Series.Points.Where(x => x.XValue == bottom.XValue).First();
 
-            point.YValues[0] = LastBottom.YValues[1];
+            point.YValues[0] = LastBottom.YValues[priceType];
             point.MarkerStyle = MarkerStyle.Circle;
             point.IsEmpty = false;            
         }
-
-        //private void FillGaps(DataPoint newDataPoint)
-        //{
-        //    var lastDataPointIndex = Series.Points.Count;
-        //    var newDataPointIndex = chart.Series[0].Points.IndexOf(newDataPoint);
-
-        //    for (var i = lastDataPointIndex; i < newDataPointIndex - 1; i++ )
-        //    {
-        //        var newEmptyDataPoint = new DataPoint()
-        //            {
-        //                XValue = chart.Series[0].Points[i].XValue,
-        //                IsEmpty = true
-        //            };
-
-        //        Series.Points.Add(newEmptyDataPoint);
-        //    }
-
-        //}
 
         private DataPoint GetBottom(int index)
         {            
@@ -162,7 +149,7 @@ namespace IBSampleApp.util
                 var date = DateTime.FromOADate(chart.Series[0].Points[index].XValue).Date;
                 if (i < chart.Series[0].Points.Count)
                 {
-                    if (chart.Series[0].Points[i].YValues[1] < bottom.YValues[1]) //Compare Lows
+                    if (chart.Series[0].Points[i].YValues[priceType] < bottom.YValues[priceType]) //Compare Lows
                     {
                         bottom = chart.Series[0].Points[i]; 
                     }
@@ -175,7 +162,7 @@ namespace IBSampleApp.util
         public void Update()
         {
             // update last bar
-            CheckNewTopBottom();
+            AddDataPoint(Series.Points.Count);
         }
 
         public void Clear()
@@ -186,15 +173,6 @@ namespace IBSampleApp.util
                 Series.Points.Clear();
                 chart.Series.Remove(Series);
             }
-        }
-
-
-        public void AddDataPointEMA(int index)
-        {
-            //throw new NotImplementedException();
-            //double EMAYesterday = Series.Points.Count > 0 ? Series.Points.Last().YValues[0] : 0.0;
-
-            //Series.Points.AddXY(chart.Series[0].Points[index].XValue, FinancialFormulas.CalculateEMA(index, chart.Series[0].Points[index].YValues[3], Length, EMAYesterday));
         }
 
     }
