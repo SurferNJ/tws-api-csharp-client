@@ -138,7 +138,9 @@
       <DependentUpon>OrderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="util\FinancialFormulas.cs" />
+    <Compile Include="util\IndicatorEMA.cs" />
     <Compile Include="util\Indicators.cs" />
+    <Compile Include="util\IndicatorTopBottom.cs" />
     <Compile Include="util\UrlLauncher.cs" />
     <Compile Include="util\Utils.cs" />
     <Compile Include="util\XmlHelper.cs" />

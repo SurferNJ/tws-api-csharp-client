@@ -17,7 +17,8 @@ namespace IBSampleApp.types
                                     {IndicatorType.EMA50, Color.Red },
                                     {IndicatorType.EMA100, Color.White },
                                     {IndicatorType.EMA150, Color.LightBlue },
-                                    {IndicatorType.EMA200, Color.Purple }
+                                    {IndicatorType.EMA200, Color.Purple },
+                                    {IndicatorType.TopBottom, Color.White }
         };
         
         public static string GetEMADuration(IndicatorType ema)
@@ -66,7 +67,8 @@ namespace IBSampleApp.types
         EMA50,
         EMA100,
         EMA150,
-        EMA200        
+        EMA200,
+        TopBottom
     }
 
     public enum PriceLineType

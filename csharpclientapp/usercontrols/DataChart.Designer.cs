@@ -66,6 +66,7 @@
             this.labelCurrentPrice = new System.Windows.Forms.Label();
             this.checkDraw = new System.Windows.Forms.CheckBox();
             this.checkVolumeOnOff = new System.Windows.Forms.CheckBox();
+            this.checkTops = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -407,7 +408,7 @@
             // checkDraw
             // 
             this.checkDraw.AutoSize = true;
-            this.checkDraw.Location = new System.Drawing.Point(425, 3);
+            this.checkDraw.Location = new System.Drawing.Point(488, 3);
             this.checkDraw.Name = "checkDraw";
             this.checkDraw.Size = new System.Drawing.Size(62, 21);
             this.checkDraw.TabIndex = 36;
@@ -418,7 +419,7 @@
             // checkVolumeOnOff
             // 
             this.checkVolumeOnOff.AutoSize = true;
-            this.checkVolumeOnOff.Location = new System.Drawing.Point(369, 3);
+            this.checkVolumeOnOff.Location = new System.Drawing.Point(437, 3);
             this.checkVolumeOnOff.Name = "checkVolumeOnOff";
             this.checkVolumeOnOff.Size = new System.Drawing.Size(50, 21);
             this.checkVolumeOnOff.TabIndex = 38;
@@ -426,10 +427,22 @@
             this.checkVolumeOnOff.UseVisualStyleBackColor = true;
             this.checkVolumeOnOff.CheckedChanged += new System.EventHandler(this.checkVolumeOnOff_CheckedChanged);
             // 
+            // checkTops
+            // 
+            this.checkTops.AutoSize = true;
+            this.checkTops.Location = new System.Drawing.Point(369, 3);
+            this.checkTops.Name = "checkTops";
+            this.checkTops.Size = new System.Drawing.Size(62, 21);
+            this.checkTops.TabIndex = 39;
+            this.checkTops.Text = "Tops";
+            this.checkTops.UseVisualStyleBackColor = true;
+            this.checkTops.CheckedChanged += new System.EventHandler(this.checkTops_CheckedChanged);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkTops);
             this.Controls.Add(this.checkVolumeOnOff);
             this.Controls.Add(this.checkDraw);
             this.Controls.Add(this.labelCurrentPrice);
@@ -496,5 +509,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemScopePrevious;
         private System.Windows.Forms.CheckBox checkDraw;
         private System.Windows.Forms.CheckBox checkVolumeOnOff;
+        private System.Windows.Forms.CheckBox checkTops;
     }
 }

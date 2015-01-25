@@ -141,16 +141,16 @@ namespace CSharpClientApp.usercontrols
             this.historicalChart.ChartAreas[1].AxisY.LabelStyle.IsEndLabelVisible = false;
 
             this.historicalChart.ChartAreas[1].CursorX.SelectionColor = Color.Transparent;
+            this.historicalChart.ChartAreas[1].CursorX.LineColor = Color.Transparent;
+            this.historicalChart.ChartAreas[1].CursorY.LineColor = Color.Transparent;
+                        
+            // make volume semi-transparent
+            this.historicalChart.Series[1].Color = Color.FromArgb(100, Color.LightGoldenrodYellow);
 
             this.historicalChart.ChartAreas[1].Visible = false;
 
-            this.historicalChart.ChartAreas[1].CursorX.LineColor = Color.Transparent; //this.historicalChart.ChartAreas[0].CursorX.LineColor;
-            this.historicalChart.ChartAreas[1].CursorY.LineColor = Color.Transparent; // this.historicalChart.ChartAreas[0].CursorY.LineColor;
-
-            this.historicalChart.Series[1].Color = Color.FromArgb(100, Color.LightGoldenrodYellow);
-
-            //this.historicalChart.ChartAreas[1].AxisX.MajorGrid.Enabled = false;                       
-
+            // setting volume tooltip
+            this.Chart.Series[1].ToolTip = "Vol: #VALY{N0}";
         }
 
         private void historicalChart_MouseEnter(object sender, EventArgs e)
@@ -617,6 +617,14 @@ namespace CSharpClientApp.usercontrols
             }
         }
 
+        public void CreateIndicators()
+        {
+            foreach (var indicator in chartIndicators)
+            {
+                indicator.Create();
+            }
+        }
+
         public void UpdateIndicators()
         {
             foreach (var indicator in chartIndicators)
@@ -657,56 +665,12 @@ namespace CSharpClientApp.usercontrols
                 indicator.Create();
 
                 chartIndicators.Add(indicator);
-
-                //if (this.Chart.Series[0].Points.Count <= 0) return false;
-
-                //var seriesName = Enum.GetName(typeof(IndicatorType), ema);
-
-                //var series = this.Chart.Series.FindByName(seriesName);
-
-                //if (series == null)
-                //{
-                //    // create new indicator series
-                //    historicalChart.Series.Add(new Series(seriesName));
-                //    series = this.Chart.Series[seriesName];
-
-                //    series.ChartType = SeriesChartType.Line;
-                //    series.IsVisibleInLegend = false;
-                //    series.Color = Types.IndicatorColors[ema];
-                //    series.BorderWidth = 2;
-                //    series.IsXValueIndexed = true;
-                //    series.XAxisType = AxisType.Primary;
-                //    series.YAxisType = AxisType.Primary;
-                            
-                //    //this.Chart.DataManipulator.FinancialFormula.IsStartFromFirst = true;
-                //    //this.Chart.DataManipulator.FinancialFormula(FinancialFormula.ExponentialMovingAverage, Types.GetEMADuration(ema), "Series1:Y4", seriesName);
-
-                //    var length = int.Parse(Types.GetEMADuration(ema));
-
-                //    for (var i = 0; i < Chart.Series[0].Points.Count; i++)
-                //    {
-                //        AddDataPointEMA(series, i, ema);
-                //    }
-                //}
-                //    // update last bar
-                //    AddDataPointEMA(series, series.Points.Count - 1, ema);
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);                
             }
         }
-
-        //public void AddDataPointEMA(Series series, int index, IndicatorType ema)
-        //{
-        //    var length = int.Parse(Types.GetEMADuration(ema));
-
-        //    double EMAYesterday = series.Points.Count > 0 ? series.Points.Last().YValues[0] : 0.0;
-
-        //    series.Points.AddXY(Chart.Series[0].Points[index].XValue, IBSampleApp.util.FinancialFormulas.CalculateEMA(index, Chart.Series[0].Points[index].YValues[3], length, EMAYesterday));
-        //}
-
-
 
         private void RemoveIndicatorEMA(IndicatorType ema)
         {
@@ -717,16 +681,6 @@ namespace CSharpClientApp.usercontrols
                 indicator.Clear();
                 chartIndicators.Remove(indicator);
             }
-
-        //    var seriesName = Enum.GetName(typeof(IndicatorType), ema);
-
-        //    var series = this.Chart.Series.FindByName(seriesName);
-
-        //    if (series != null)
-        //    {
-        //        series.Points.Clear();
-        //        Chart.Series.Remove(series);
-        //    }
         }
 
         private void checkEMA21_CheckedChanged(object sender, EventArgs e)
@@ -860,7 +814,44 @@ namespace CSharpClientApp.usercontrols
             this.historicalChart.ChartAreas[1].Visible = checkVolumeOnOff.Checked; 
         }
 
+        private void checkTops_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTopBottom(checkTops.Checked);
+        }
 
+        private void UpdateTopBottom(bool enable)
+        {
+            if (enable)
+                AddIndicatorTopBottom();
+            else
+                RemoveIndicatorTopBottom();
+        }
 
+        private void AddIndicatorTopBottom()
+        {
+            try
+            {
+                var indicator = new IndicatorTopBottom(this.Chart, 2);
+
+                indicator.Create();
+
+                chartIndicators.Add(indicator);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void RemoveIndicatorTopBottom()
+        {
+            var indicator = chartIndicators.Where(x => x.Type == IndicatorType.TopBottom).FirstOrDefault();
+
+            if (indicator != null)
+            {
+                indicator.Clear();
+                chartIndicators.Remove(indicator);
+            }
+        }
     }
 }
