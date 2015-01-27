@@ -66,6 +66,8 @@ namespace IBSampleApp.util
                 Series.XAxisType = AxisType.Primary;
                 Series.YAxisType = AxisType.Primary;
 
+                //Series.ChartType = SeriesChartType.Line;
+
                 if (ToolTip.Length > 0)
                     Series.ToolTip = ToolTip;
 
@@ -100,12 +102,12 @@ namespace IBSampleApp.util
                 AddNewBottom(LastBottom);
                 SearchActive = false;
             }
-            //TODO - check for double bottom
-            if (newBottom.YValues[priceType] >= LastBottom.YValues[priceType] * (1 - ApproximationRange) && newBottom.YValues[priceType] <= LastBottom.YValues[priceType] * (1 + ApproximationRange))
-            {
-                AddNewBottom(LastBottom);
-                AddNewBottom(newBottom);
-            }
+            //TODO - check for double bottom. Don't do it here, create a new study
+            //if (newBottom.YValues[priceType] >= LastBottom.YValues[priceType] * (1 - ApproximationRange) && newBottom.YValues[priceType] <= LastBottom.YValues[priceType] * (1 + ApproximationRange))
+            //{
+            //    AddNewBottom(LastBottom);
+            //    AddNewBottom(newBottom);                
+            //}
             else if (newBottom.YValues[priceType] < LastBottom.YValues[priceType])
             {
                 SearchActive = true;
@@ -132,12 +134,15 @@ namespace IBSampleApp.util
             if (!Bottoms.Contains(bottom))
                 Bottoms.Add(bottom);
 
+            
             // replace empty point in Series
             var point = Series.Points.Where(x => x.XValue == bottom.XValue).First();
 
-            point.YValues[0] = LastBottom.YValues[priceType];
+            point.YValues[0] = bottom.YValues[priceType];
             point.MarkerStyle = MarkerStyle.Circle;
-            point.IsEmpty = false;            
+            point.IsEmpty = false;
+
+            point.ToolTip = point.YValues[0].ToString();
         }
 
         private DataPoint GetBottom(int index)

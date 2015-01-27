@@ -100,12 +100,12 @@ namespace IBSampleApp.util
                 AddNewTop(LastTop);
                 SearchActive = false;
             }
-            //TODO - check for double top
-            if (newTop.YValues[priceType] >= LastTop.YValues[priceType] * (1 - ApproximationRange) && newTop.YValues[priceType] <= LastTop.YValues[priceType] * (1 + ApproximationRange))
-            {
-                AddNewTop(LastTop);
-                AddNewTop(newTop);
-            }
+            //TODO - check for double top. Don't do it here create a new indicator
+            //if (newTop.YValues[priceType] >= LastTop.YValues[priceType] * (1 - ApproximationRange) && newTop.YValues[priceType] <= LastTop.YValues[priceType] * (1 + ApproximationRange))
+            //{
+            //    AddNewTop(LastTop);
+            //    AddNewTop(newTop);
+            //}
             else if (newTop.YValues[priceType] > LastTop.YValues[priceType])
             {
                 SearchActive = true;
@@ -135,9 +135,11 @@ namespace IBSampleApp.util
             // replace empty point in Series
             var point = Series.Points.Where(x => x.XValue == top.XValue).First();
 
-            point.YValues[0] = LastTop.YValues[priceType];
+            point.YValues[0] = top.YValues[priceType];
             point.MarkerStyle = MarkerStyle.Circle;
             point.IsEmpty = false;
+
+            point.ToolTip = point.YValues[0].ToString();
         }
 
         private DataPoint GetTop(int index)

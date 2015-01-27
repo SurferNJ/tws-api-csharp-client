@@ -897,6 +897,7 @@ namespace IBSampleApp
 
             UpdateHighLowStudy();
             UpdateDailyDividersStudy();
+            UpdateTopBottomLevels();
 
             if (dataChart1M.KeepXZoom)
             {
@@ -1002,6 +1003,70 @@ namespace IBSampleApp
                 }
             }            
         }
+
+        private void UpdateTopBottomLevels()
+        {
+            // clear
+            dataChart1M.RemoveAnnotation(PriceLineType.TOP_LINE);
+            dataChart1M.RemoveAnnotation(PriceLineType.BOTTOM_LINE);
+
+            if (!this.checkBottomLines.Checked)
+                return;
+            
+            // enable TopBottoms indicator on Daily Chart
+            if (!dataChartDaily.ChartIndicators.Any(x => x.Type == IndicatorType.Bottoms))
+                dataChartDaily.CheckTops.Checked = true;
+
+            var topsIndicator = dataChartDaily.ChartIndicators.Where(x => x.Type == IndicatorType.Tops).FirstOrDefault();
+            var bottomsIndicator = dataChartDaily.ChartIndicators.Where(x => x.Type == IndicatorType.Bottoms).FirstOrDefault();
+
+            if (topsIndicator == null || bottomsIndicator == null)
+                return;
+                        
+            double date = 0;
+            double startX = -1;
+
+            for (var i = 0; i < dataChart1M.Chart.Series[0].Points.Count; i++)
+            {
+
+                if (date != Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue))
+                {
+                    // next date
+                    date = Math.Truncate(dataChart1M.Chart.Series[0].Points[i].XValue);
+
+                    if (startX > -1)
+                    {
+                        AddTopBottomAnnotations(topsIndicator, bottomsIndicator, date, startX, i, 180);
+                    }
+
+                    startX = i;
+                }
+            }
+
+            // draw last day annotations
+            AddTopBottomAnnotations(topsIndicator, bottomsIndicator, date, startX, null, 180);
+        }
+
+        private void AddTopBottomAnnotations(IIndicator topsIndicator, IIndicator bottomsIndicator, double date, double startX, double? end, int daysRange = 180)
+        {
+            var importantTops = ((IndicatorTop)topsIndicator).Tops.Where(x => x.XValue < date
+                                                                            && x.XValue >= date - daysRange);
+
+            foreach (var top in importantTops)
+            {
+                var topAnnotation = dataChart1M.AddHorizontalLineAnnotation(PriceLineType.TOP_LINE, top.YValues[0], startX, end);
+                topAnnotation.ToolTip = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.TOP_LINE), "_", DateTime.FromOADate(top.XValue).ToShortDateString(), "_", top.YValues[0].ToString());
+            }
+
+            var importantBottoms = ((IndicatorBottom)bottomsIndicator).Bottoms.Where(x => x.XValue < date
+                                                    && x.XValue >= date - daysRange);
+
+            foreach (var bottom in importantBottoms)
+            {
+                var bottomAnnotation = dataChart1M.AddHorizontalLineAnnotation(PriceLineType.BOTTOM_LINE, bottom.YValues[1], startX, end);
+                bottomAnnotation.ToolTip = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.BOTTOM_LINE), "_", DateTime.FromOADate(bottom.XValue).ToShortDateString(), "_", bottom.YValues[1].ToString());
+            }
+        }
         
         private void checkHighLowStudy_CheckedChanged(object sender, EventArgs e)
         {
@@ -1022,6 +1087,11 @@ namespace IBSampleApp
         private void comboIDBarSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             Update1MChart(dataChart1M.ChartEndDate, true);
+        }
+
+        private void checkBottomLines_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateTopBottomLevels();
         }
 
     }

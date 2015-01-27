@@ -95,7 +95,9 @@ namespace IBSampleApp.types
         DAILY_MARKER,
         DAILY_MARKER_1M,
         PERCENTAGE_LINE,
-        PERCENTAGE_LINE_TEXT
+        PERCENTAGE_LINE_TEXT,
+        BOTTOM_LINE,
+        TOP_LINE
     }
 
     public class ChartPaintCompletedEventArgs : EventArgs

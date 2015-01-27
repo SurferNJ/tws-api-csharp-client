@@ -48,7 +48,10 @@ namespace CSharpClientApp.usercontrols
 
         private const int MouseDownTextAnnotationOffset = -10;
 
-        private List<IIndicator> chartIndicators = new List<IIndicator>();
+        public List<IIndicator> ChartIndicators = new List<IIndicator>();
+
+        // expose for external control
+        public CheckBox CheckTops { get { return this.checkTops;  } }
                         
         // DataChart user control communicates with PriceLineManager to create/change/remove price lines
         private CSharpClientApp.ui.PriceLineManager _priceLineManager;
@@ -237,11 +240,13 @@ namespace CSharpClientApp.usercontrols
             historicalChart.Annotations.Add(a);
         }
 
-        public void AddHorizontalLineAnnotation(PriceLineType type, double price, double start, double? end)
-        {
+        public Annotation AddHorizontalLineAnnotation(PriceLineType type, double price, double start, double? end)
+        {      
+            var name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_", price.ToString(), start.ToString());
+                       
             var a = new HorizontalLineAnnotation()
             {
-                Name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_", start.ToString()),
+                Name = name,
                 AxisX = historicalChart.ChartAreas[0].AxisX,
                 AxisY = historicalChart.ChartAreas[0].AxisY,
                 AnchorY = price,
@@ -251,9 +256,10 @@ namespace CSharpClientApp.usercontrols
                 IsSizeAlwaysRelative = false,
                 ClipToChartArea = historicalChart.ChartAreas[0].Name,
                 LineColor = GetAnnotationColor(type),
-                LineWidth = 3,
+                LineWidth = GetAnnotationLineWidth(type),
+                LineDashStyle = GetAnnotationLineDashStyle(type),
                 AllowSelecting = true,
-                AllowMoving = false                
+                AllowMoving = false,
             };
 
             if (end != null)
@@ -267,6 +273,8 @@ namespace CSharpClientApp.usercontrols
             }
 
             historicalChart.Annotations.Add(a);
+
+            return a;
         }
 
         public void AddVerticalLineAnnotation(PriceLineType type, double position)
@@ -383,7 +391,7 @@ namespace CSharpClientApp.usercontrols
 
         private Color GetAnnotationColor(PriceLineType lineType)
         {
-            var result = Color.Yellow;
+            Color result;
 
             switch (lineType)
             {
@@ -413,8 +421,50 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.PERCENTAGE_LINE:
                     result = Color.WhiteSmoke;
                     break;
+                case PriceLineType.TOP_LINE:
+                    result = Color.WhiteSmoke;
+                    break;
+                case PriceLineType.BOTTOM_LINE:
+                    result = Color.Red;
+                    break;
                 default:
                     result = Color.Red;
+                    break;
+            }
+
+            return result;
+        }
+
+        private int GetAnnotationLineWidth(PriceLineType lineType)
+        {
+            int result;
+
+            switch (lineType)
+            {
+                case PriceLineType.TOP_LINE:
+                case PriceLineType.BOTTOM_LINE:
+                    result = 1;
+                    break;
+                default:
+                    result = 3;
+                    break;
+            }
+
+            return result;
+        }
+
+        private ChartDashStyle GetAnnotationLineDashStyle(PriceLineType lineType)
+        {
+            ChartDashStyle result;
+
+            switch (lineType)
+            {
+                case PriceLineType.TOP_LINE:
+                case PriceLineType.BOTTOM_LINE:
+                    result = ChartDashStyle.Dash;
+                    break;
+                default:
+                    result = ChartDashStyle.Solid;
                     break;
             }
 
@@ -619,7 +669,7 @@ namespace CSharpClientApp.usercontrols
 
         public void CreateIndicators()
         {
-            foreach (var indicator in chartIndicators)
+            foreach (var indicator in ChartIndicators)
             {
                 indicator.Create();
             }
@@ -627,7 +677,7 @@ namespace CSharpClientApp.usercontrols
 
         public void UpdateIndicators()
         {
-            foreach (var indicator in chartIndicators)
+            foreach (var indicator in ChartIndicators)
             {
                 indicator.Update(); 
             }
@@ -664,7 +714,7 @@ namespace CSharpClientApp.usercontrols
 
                 indicator.Create();
 
-                chartIndicators.Add(indicator);
+                ChartIndicators.Add(indicator);
             }
             catch(Exception ex)
             {
@@ -674,12 +724,12 @@ namespace CSharpClientApp.usercontrols
 
         private void RemoveIndicatorEMA(IndicatorType ema)
         {
-            var indicator = chartIndicators.Where(x => x.Type == ema).FirstOrDefault();
+            var indicator = ChartIndicators.Where(x => x.Type == ema).FirstOrDefault();
 
             if (indicator != null)
             {
                 indicator.Clear();
-                chartIndicators.Remove(indicator);
+                ChartIndicators.Remove(indicator);
             }
         }
 
@@ -819,12 +869,16 @@ namespace CSharpClientApp.usercontrols
             UpdateTopBottom(checkTops.Checked);
         }
 
-        private void UpdateTopBottom(bool enable)
+        public void UpdateTopBottom(bool enable)
         {
             if (enable)
+            {                
                 AddIndicatorTopBottom();
+            }
             else
+            {                
                 RemoveIndicatorTopBottom();
+            }
         }
 
         private void AddIndicatorTopBottom()
@@ -833,11 +887,11 @@ namespace CSharpClientApp.usercontrols
             {
                 var indicatorTop = new IndicatorTop(this.Chart, 2);
                 indicatorTop.Create();
-                chartIndicators.Add(indicatorTop);
+                ChartIndicators.Add(indicatorTop);
 
                 var indicatorBottom = new IndicatorBottom(this.Chart, 2);
                 indicatorBottom.Create();
-                chartIndicators.Add(indicatorBottom);
+                ChartIndicators.Add(indicatorBottom);
             }
             catch (Exception ex)
             {
@@ -847,20 +901,20 @@ namespace CSharpClientApp.usercontrols
 
         private void RemoveIndicatorTopBottom()
         {
-            var indicatorTop = chartIndicators.Where(x => x.Type == IndicatorType.Tops).FirstOrDefault();
+            var indicatorTop = ChartIndicators.Where(x => x.Type == IndicatorType.Tops).FirstOrDefault();
 
             if (indicatorTop != null)
             {
                 indicatorTop.Clear();
-                chartIndicators.Remove(indicatorTop);
+                ChartIndicators.Remove(indicatorTop);
             }
 
-            var indicatorBottom = chartIndicators.Where(x => x.Type == IndicatorType.Bottoms).FirstOrDefault();
+            var indicatorBottom = ChartIndicators.Where(x => x.Type == IndicatorType.Bottoms).FirstOrDefault();
 
             if (indicatorBottom != null)
             {
                 indicatorBottom.Clear();
-                chartIndicators.Remove(indicatorBottom);
+                ChartIndicators.Remove(indicatorBottom);
             }
         }
     }
