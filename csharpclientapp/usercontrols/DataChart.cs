@@ -240,7 +240,7 @@ namespace CSharpClientApp.usercontrols
             historicalChart.Annotations.Add(a);
         }
 
-        public Annotation AddHorizontalLineAnnotation(PriceLineType type, double price, double start, double? end)
+        public Annotation AddHorizontalLineAnnotation(PriceLineType type, double price, double start, double? end, bool isInfinite = false)
         {      
             var name = String.Concat(Enum.GetName(typeof(PriceLineType), type), "_", price.ToString(), start.ToString());
                        
@@ -252,7 +252,7 @@ namespace CSharpClientApp.usercontrols
                 AnchorY = price,
                 X = start,
                 //Width = historicalChart.ChartAreas[0].AxisX.Maximum,
-                //IsInfinitive = true,
+                IsInfinitive = isInfinite,
                 IsSizeAlwaysRelative = false,
                 ClipToChartArea = historicalChart.ChartAreas[0].Name,
                 LineColor = GetAnnotationColor(type),
@@ -427,6 +427,9 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.BOTTOM_LINE:
                     result = Color.Red;
                     break;
+                case PriceLineType.REFERENCE_LINE:
+                    result = Color.Purple;
+                    break;
                 default:
                     result = Color.Red;
                     break;
@@ -463,6 +466,9 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.BOTTOM_LINE:
                     result = ChartDashStyle.Dash;
                     break;
+                case PriceLineType.REFERENCE_LINE:
+                    result = ChartDashStyle.DashDotDot;
+                    break;
                 default:
                     result = ChartDashStyle.Solid;
                     break;
@@ -488,6 +494,20 @@ namespace CSharpClientApp.usercontrols
 
         private void historicalChart_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+
+
+            if (checkDrawReferenceLine.Checked && (Control.ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                Point mousePoint = new Point(e.X, e.Y);
+
+                double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+
+                double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+
+                var a = AddHorizontalLineAnnotation(PriceLineType.REFERENCE_LINE, y, 0, null, true);
+                //a.IsSizeAlwaysRelative = false;
+            }
+
             if (checkDraw.Checked)
             {
                 if (MouseDownDrawing == false)
@@ -916,6 +936,11 @@ namespace CSharpClientApp.usercontrols
                 indicatorBottom.Clear();
                 ChartIndicators.Remove(indicatorBottom);
             }
+        }
+
+        private void checkDrawReferenceLine_CheckedChanged(object sender, EventArgs e)
+        {
+            this.RemoveAnnotation(PriceLineType.REFERENCE_LINE);
         }
     }
 }

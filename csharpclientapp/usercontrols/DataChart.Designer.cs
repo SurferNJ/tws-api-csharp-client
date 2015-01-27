@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
@@ -67,6 +67,7 @@
             this.checkDraw = new System.Windows.Forms.CheckBox();
             this.checkVolumeOnOff = new System.Windows.Forms.CheckBox();
             this.checkTops = new System.Windows.Forms.CheckBox();
+            this.checkDrawReferenceLine = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -198,48 +199,48 @@
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea1.AlignWithChartArea = "ChartArea2";
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.Name = "ChartArea1";
-            chartArea1.Position.Auto = false;
-            chartArea1.Position.Height = 100F;
-            chartArea1.Position.Width = 100F;
-            chartArea2.AlignWithChartArea = "ChartArea1";
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea2";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 50F;
-            chartArea2.Position.Width = 100F;
-            chartArea2.Position.Y = 50F;
-            this.historicalChart.ChartAreas.Add(chartArea1);
-            this.historicalChart.ChartAreas.Add(chartArea2);
+            chartArea3.AlignWithChartArea = "ChartArea2";
+            chartArea3.AxisX.MajorGrid.Enabled = false;
+            chartArea3.AxisX.MajorTickMark.Enabled = false;
+            chartArea3.AxisY.IsStartedFromZero = false;
+            chartArea3.BackColor = System.Drawing.Color.Black;
+            chartArea3.Name = "ChartArea1";
+            chartArea3.Position.Auto = false;
+            chartArea3.Position.Height = 100F;
+            chartArea3.Position.Width = 100F;
+            chartArea4.AlignWithChartArea = "ChartArea1";
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.Name = "ChartArea2";
+            chartArea4.Position.Auto = false;
+            chartArea4.Position.Height = 50F;
+            chartArea4.Position.Width = 100F;
+            chartArea4.Position.Y = 50F;
+            this.historicalChart.ChartAreas.Add(chartArea3);
+            this.historicalChart.ChartAreas.Add(chartArea4);
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
-            legend1.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend2);
             this.historicalChart.Location = new System.Drawing.Point(4, 31);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.IsVisibleInLegend = false;
-            series1.IsXValueIndexed = true;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            series2.ChartArea = "ChartArea2";
-            series2.IsVisibleInLegend = false;
-            series2.IsXValueIndexed = true;
-            series2.LabelForeColor = System.Drawing.SystemColors.MenuHighlight;
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            series2.SmartLabelStyle.Enabled = false;
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            this.historicalChart.Series.Add(series1);
-            this.historicalChart.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series3.IsVisibleInLegend = false;
+            series3.IsXValueIndexed = true;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.YValuesPerPoint = 4;
+            series4.ChartArea = "ChartArea2";
+            series4.IsVisibleInLegend = false;
+            series4.IsXValueIndexed = true;
+            series4.LabelForeColor = System.Drawing.SystemColors.MenuHighlight;
+            series4.Legend = "Legend1";
+            series4.Name = "Series2";
+            series4.SmartLabelStyle.Enabled = false;
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            this.historicalChart.Series.Add(series3);
+            this.historicalChart.Series.Add(series4);
             this.historicalChart.Size = new System.Drawing.Size(612, 268);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
@@ -438,10 +439,22 @@
             this.checkTops.UseVisualStyleBackColor = true;
             this.checkTops.CheckedChanged += new System.EventHandler(this.checkTops_CheckedChanged);
             // 
+            // checkDrawReferenceLine
+            // 
+            this.checkDrawReferenceLine.AutoSize = true;
+            this.checkDrawReferenceLine.Location = new System.Drawing.Point(10, 31);
+            this.checkDrawReferenceLine.Name = "checkDrawReferenceLine";
+            this.checkDrawReferenceLine.Size = new System.Drawing.Size(52, 21);
+            this.checkDrawReferenceLine.TabIndex = 40;
+            this.checkDrawReferenceLine.Text = "Ref";
+            this.checkDrawReferenceLine.UseVisualStyleBackColor = true;
+            this.checkDrawReferenceLine.CheckedChanged += new System.EventHandler(this.checkDrawReferenceLine_CheckedChanged);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkDrawReferenceLine);
             this.Controls.Add(this.checkTops);
             this.Controls.Add(this.checkVolumeOnOff);
             this.Controls.Add(this.checkDraw);
@@ -510,5 +523,6 @@
         private System.Windows.Forms.CheckBox checkDraw;
         private System.Windows.Forms.CheckBox checkVolumeOnOff;
         private System.Windows.Forms.CheckBox checkTops;
+        private System.Windows.Forms.CheckBox checkDrawReferenceLine;
     }
 }

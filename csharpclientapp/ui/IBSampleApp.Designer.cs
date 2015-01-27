@@ -38,10 +38,10 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             CSharpClientApp.ui.PriceLineManager priceLineManager1 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager2 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager3 = new CSharpClientApp.ui.PriceLineManager();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.connectionTab = new System.Windows.Forms.TabPage();
@@ -55,7 +55,6 @@ namespace IBSampleApp
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();
             this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
-            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
             this.cancelMarketDataRequests = new System.Windows.Forms.Button();
             this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
             this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
@@ -81,10 +80,6 @@ namespace IBSampleApp
             this.hdRequest_EndTime = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
-            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
-            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
-            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
-            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
             this.deepBookGrid = new System.Windows.Forms.DataGridView();
@@ -387,6 +382,11 @@ namespace IBSampleApp
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
             this.checkBottomLines = new System.Windows.Forms.CheckBox();
+            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
+            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
+            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
+            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
+            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.TabControl.SuspendLayout();
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
@@ -606,21 +606,6 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
-            // dataChartRT
-            // 
-            this.dataChartRT.BarSizeInSeconds = 0;
-            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
-            this.dataChartRT.Name = "dataChartRT";
-            this.dataChartRT.OrderFormBuy = null;
-            this.dataChartRT.OrderFormSell = null;
-            this.dataChartRT.PriceLineManager = priceLineManager1;
-            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
-            this.dataChartRT.TabIndex = 3;
-            this.dataChartRT.XLabelFormat = null;
-            this.dataChartRT.XValue = 0D;
-            this.dataChartRT.YValue = 0D;
-            // 
             // cancelMarketDataRequests
             // 
             this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
@@ -760,7 +745,9 @@ namespace IBSampleApp
             "2 D",
             "3 D",
             "5 D",
-            "10 D"});
+            "10 D",
+            "20 D",
+            "30 D"});
             this.comboDuration.Location = new System.Drawing.Point(1399, 4);
             this.comboDuration.Margin = new System.Windows.Forms.Padding(4);
             this.comboDuration.Name = "comboDuration";
@@ -926,52 +913,6 @@ namespace IBSampleApp
             this.histDataTabClose_MDT.TabStop = true;
             this.histDataTabClose_MDT.Text = "Close";
             this.histDataTabClose_MDT.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.histDataTabClose_MDT_LinkClicked);
-            // 
-            // dataChartDaily
-            // 
-            this.dataChartDaily.BarSizeInSeconds = 0;
-            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
-            this.dataChartDaily.Name = "dataChartDaily";
-            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
-            this.dataChartDaily.OrderFormSell = this.orderFormSell;
-            this.dataChartDaily.PriceLineManager = priceLineManager2;
-            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
-            this.dataChartDaily.TabIndex = 34;
-            this.dataChartDaily.XLabelFormat = null;
-            this.dataChartDaily.XValue = 0D;
-            this.dataChartDaily.YValue = 0D;
-            // 
-            // orderFormBuy
-            // 
-            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
-            this.orderFormBuy.Name = "orderFormBuy";
-            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
-            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
-            this.orderFormBuy.TabIndex = 31;
-            // 
-            // orderFormSell
-            // 
-            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
-            this.orderFormSell.Name = "orderFormSell";
-            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
-            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
-            this.orderFormSell.TabIndex = 32;
-            // 
-            // dataChart1M
-            // 
-            this.dataChart1M.BarSizeInSeconds = 0;
-            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
-            this.dataChart1M.Name = "dataChart1M";
-            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
-            this.dataChart1M.OrderFormSell = this.orderFormSell;
-            this.dataChart1M.PriceLineManager = priceLineManager3;
-            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
-            this.dataChart1M.TabIndex = 33;
-            this.dataChart1M.XLabelFormat = null;
-            this.dataChart1M.XValue = 0D;
-            this.dataChart1M.YValue = 0D;
             // 
             // deepBookTab_MDT
             // 
@@ -4148,6 +4089,67 @@ namespace IBSampleApp
             this.checkBottomLines.Text = "Bottom Lines";
             this.checkBottomLines.UseVisualStyleBackColor = true;
             this.checkBottomLines.CheckedChanged += new System.EventHandler(this.checkBottomLines_CheckedChanged);
+            // 
+            // dataChartRT
+            // 
+            this.dataChartRT.BarSizeInSeconds = 0;
+            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
+            this.dataChartRT.Name = "dataChartRT";
+            this.dataChartRT.OrderFormBuy = null;
+            this.dataChartRT.OrderFormSell = null;
+            this.dataChartRT.PriceLineManager = priceLineManager1;
+            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
+            this.dataChartRT.TabIndex = 3;
+            this.dataChartRT.XLabelFormat = null;
+            this.dataChartRT.XValue = 0D;
+            this.dataChartRT.YValue = 0D;
+            // 
+            // dataChartDaily
+            // 
+            this.dataChartDaily.BarSizeInSeconds = 0;
+            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
+            this.dataChartDaily.Name = "dataChartDaily";
+            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
+            this.dataChartDaily.OrderFormSell = this.orderFormSell;
+            this.dataChartDaily.PriceLineManager = priceLineManager2;
+            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
+            this.dataChartDaily.TabIndex = 34;
+            this.dataChartDaily.XLabelFormat = null;
+            this.dataChartDaily.XValue = 0D;
+            this.dataChartDaily.YValue = 0D;
+            // 
+            // orderFormBuy
+            // 
+            this.orderFormBuy.Location = new System.Drawing.Point(795, 23);
+            this.orderFormBuy.Name = "orderFormBuy";
+            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
+            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
+            this.orderFormBuy.TabIndex = 31;
+            // 
+            // orderFormSell
+            // 
+            this.orderFormSell.Location = new System.Drawing.Point(658, 23);
+            this.orderFormSell.Name = "orderFormSell";
+            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
+            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
+            this.orderFormSell.TabIndex = 32;
+            // 
+            // dataChart1M
+            // 
+            this.dataChart1M.BarSizeInSeconds = 0;
+            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
+            this.dataChart1M.Name = "dataChart1M";
+            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
+            this.dataChart1M.OrderFormSell = this.orderFormSell;
+            this.dataChart1M.PriceLineManager = priceLineManager3;
+            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
+            this.dataChart1M.TabIndex = 33;
+            this.dataChart1M.XLabelFormat = null;
+            this.dataChart1M.XValue = 0D;
+            this.dataChart1M.YValue = 0D;
             // 
             // IBSampleApp
             // 

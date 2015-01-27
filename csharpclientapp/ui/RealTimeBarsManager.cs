@@ -94,7 +94,7 @@ namespace IBSampleApp.ui
                     rtBarsChart.Series[0].Points[index + 1].YValues[2] = rtBar.Open;
                     rtBarsChart.Series[0].Points[index + 1].YValues[3] = rtBar.Close;
 
-                    rtBarsChart.Series[1].Points.AddXY(messageTimestamp, rtBar.Volume);
+                    rtBarsChart.Series[1].Points.AddXY(messageTimestamp, rtBar.LongVolume);
 
                     dataChart.UpdateIndicators();
                                         
@@ -113,7 +113,7 @@ namespace IBSampleApp.ui
                     var close = rtBar.Close;
                     var high = Math.Max(rtBar.High, rtBarsChart.Series[0].Points[index].YValues[0]);
                     var low = Math.Min(rtBar.Low, rtBarsChart.Series[0].Points[index].YValues[1]);
-                    var volume = rtBar.Volume;
+                    var volume = rtBar.LongVolume;
 
                     rtBarsChart.Series[0].Points.Remove(rtBarsChart.Series[0].Points[index]);
 

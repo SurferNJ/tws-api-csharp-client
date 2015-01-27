@@ -97,7 +97,8 @@ namespace IBSampleApp.types
         PERCENTAGE_LINE,
         PERCENTAGE_LINE_TEXT,
         BOTTOM_LINE,
-        TOP_LINE
+        TOP_LINE,
+        REFERENCE_LINE
     }
 
     public class ChartPaintCompletedEventArgs : EventArgs
