@@ -94,6 +94,8 @@ namespace IBSampleApp.types
         HIGH_LINE,
         DAILY_MARKER,
         DAILY_MARKER_1M,
+        MONTHLY_MARKER,
+        ANNUAL_MARKER,
         PERCENTAGE_LINE,
         PERCENTAGE_LINE_TEXT,
         BOTTOM_LINE,

@@ -67,17 +67,17 @@ namespace IBSampleApp
             this.volume = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.closeTickerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.historicalDataTab = new System.Windows.Forms.TabPage();
+            this.buttonShow = new System.Windows.Forms.Button();
+            this.pickerEndDate = new System.Windows.Forms.DateTimePicker();
+            this.checkBottomLines = new System.Windows.Forms.CheckBox();
             this.comboDuration = new System.Windows.Forms.ComboBox();
             this.comboIDBarSize = new System.Windows.Forms.ComboBox();
             this.contractMDRTH = new System.Windows.Forms.CheckBox();
             this.hdRequest_WhatToShow = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.hdEndDate_label_HDT = new System.Windows.Forms.Label();
             this.checkDailyLinesStudy = new System.Windows.Forms.CheckBox();
             this.hdRequest_Duration = new System.Windows.Forms.TextBox();
             this.checkHighLowStudy = new System.Windows.Forms.CheckBox();
             this.hdRequest_TimeUnit = new System.Windows.Forms.ComboBox();
-            this.hdRequest_EndTime = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
@@ -381,7 +381,7 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBottomLines = new System.Windows.Forms.CheckBox();
+            this.checkMonthlyLinesStudy = new System.Windows.Forms.CheckBox();
             this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
             this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
             this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
@@ -710,18 +710,18 @@ namespace IBSampleApp
             // historicalDataTab
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
+            this.historicalDataTab.Controls.Add(this.checkMonthlyLinesStudy);
+            this.historicalDataTab.Controls.Add(this.buttonShow);
+            this.historicalDataTab.Controls.Add(this.pickerEndDate);
             this.historicalDataTab.Controls.Add(this.checkBottomLines);
             this.historicalDataTab.Controls.Add(this.comboDuration);
             this.historicalDataTab.Controls.Add(this.comboIDBarSize);
             this.historicalDataTab.Controls.Add(this.contractMDRTH);
             this.historicalDataTab.Controls.Add(this.hdRequest_WhatToShow);
-            this.historicalDataTab.Controls.Add(this.label12);
-            this.historicalDataTab.Controls.Add(this.hdEndDate_label_HDT);
             this.historicalDataTab.Controls.Add(this.checkDailyLinesStudy);
             this.historicalDataTab.Controls.Add(this.hdRequest_Duration);
             this.historicalDataTab.Controls.Add(this.checkHighLowStudy);
             this.historicalDataTab.Controls.Add(this.hdRequest_TimeUnit);
-            this.historicalDataTab.Controls.Add(this.hdRequest_EndTime);
             this.historicalDataTab.Controls.Add(this.label10);
             this.historicalDataTab.Controls.Add(this.histDataTabClose_MDT);
             this.historicalDataTab.Controls.Add(this.dataChartDaily);
@@ -735,6 +735,36 @@ namespace IBSampleApp
             this.historicalDataTab.Size = new System.Drawing.Size(1648, 421);
             this.historicalDataTab.TabIndex = 0;
             this.historicalDataTab.Text = "Historical Bars";
+            // 
+            // buttonShow
+            // 
+            this.buttonShow.Location = new System.Drawing.Point(429, 3);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(75, 26);
+            this.buttonShow.TabIndex = 67;
+            this.buttonShow.Text = "Show";
+            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonShow.Click += new System.EventHandler(this.buttonShow_Click);
+            // 
+            // pickerEndDate
+            // 
+            this.pickerEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.pickerEndDate.Location = new System.Drawing.Point(158, 4);
+            this.pickerEndDate.Name = "pickerEndDate";
+            this.pickerEndDate.Size = new System.Drawing.Size(103, 22);
+            this.pickerEndDate.TabIndex = 66;
+            this.pickerEndDate.Value = new System.DateTime(2015, 1, 28, 20, 1, 35, 0);
+            // 
+            // checkBottomLines
+            // 
+            this.checkBottomLines.AutoSize = true;
+            this.checkBottomLines.Location = new System.Drawing.Point(1240, 5);
+            this.checkBottomLines.Name = "checkBottomLines";
+            this.checkBottomLines.Size = new System.Drawing.Size(112, 21);
+            this.checkBottomLines.TabIndex = 65;
+            this.checkBottomLines.Text = "Bottom Lines";
+            this.checkBottomLines.UseVisualStyleBackColor = true;
+            this.checkBottomLines.CheckedChanged += new System.EventHandler(this.checkBottomLines_CheckedChanged);
             // 
             // comboDuration
             // 
@@ -805,32 +835,12 @@ namespace IBSampleApp
             "YIELD_ASK",
             "YIELD_BID_ASK",
             "YIELD_LAST"});
-            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(511, 6);
+            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(62, 3);
             this.hdRequest_WhatToShow.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
-            this.hdRequest_WhatToShow.Size = new System.Drawing.Size(97, 21);
+            this.hdRequest_WhatToShow.Size = new System.Drawing.Size(89, 21);
             this.hdRequest_WhatToShow.TabIndex = 52;
             this.hdRequest_WhatToShow.Text = "TRADES";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(467, 7);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(42, 17);
-            this.label12.TabIndex = 53;
-            this.label12.Text = "Show";
-            // 
-            // hdEndDate_label_HDT
-            // 
-            this.hdEndDate_label_HDT.AutoSize = true;
-            this.hdEndDate_label_HDT.Location = new System.Drawing.Point(106, 7);
-            this.hdEndDate_label_HDT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.hdEndDate_label_HDT.Name = "hdEndDate_label_HDT";
-            this.hdEndDate_label_HDT.Size = new System.Drawing.Size(33, 17);
-            this.hdEndDate_label_HDT.TabIndex = 46;
-            this.hdEndDate_label_HDT.Text = "End";
             // 
             // checkDailyLinesStudy
             // 
@@ -847,7 +857,7 @@ namespace IBSampleApp
             // 
             // hdRequest_Duration
             // 
-            this.hdRequest_Duration.Location = new System.Drawing.Point(366, 4);
+            this.hdRequest_Duration.Location = new System.Drawing.Point(326, 3);
             this.hdRequest_Duration.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_Duration.Name = "hdRequest_Duration";
             this.hdRequest_Duration.Size = new System.Drawing.Size(42, 22);
@@ -871,31 +881,20 @@ namespace IBSampleApp
             // 
             this.hdRequest_TimeUnit.FormattingEnabled = true;
             this.hdRequest_TimeUnit.Items.AddRange(new object[] {
-            "S",
-            "D",
             "W",
             "M",
             "Y"});
-            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(416, 3);
+            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(376, 2);
             this.hdRequest_TimeUnit.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_TimeUnit.Name = "hdRequest_TimeUnit";
             this.hdRequest_TimeUnit.Size = new System.Drawing.Size(47, 24);
             this.hdRequest_TimeUnit.TabIndex = 49;
             this.hdRequest_TimeUnit.Text = "Y";
             // 
-            // hdRequest_EndTime
-            // 
-            this.hdRequest_EndTime.Location = new System.Drawing.Point(142, 4);
-            this.hdRequest_EndTime.Margin = new System.Windows.Forms.Padding(4);
-            this.hdRequest_EndTime.Name = "hdRequest_EndTime";
-            this.hdRequest_EndTime.Size = new System.Drawing.Size(149, 22);
-            this.hdRequest_EndTime.TabIndex = 45;
-            this.hdRequest_EndTime.Text = "20130808 23:59:59 GMT";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(308, 7);
+            this.label10.Location = new System.Drawing.Point(268, 6);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(62, 17);
@@ -1585,7 +1584,6 @@ namespace IBSampleApp
             this.histData_Button.TabIndex = 54;
             this.histData_Button.Text = "Historical";
             this.histData_Button.UseVisualStyleBackColor = true;
-            this.histData_Button.Click += new System.EventHandler(this.histDataButton_Click);
             // 
             // hdRequest_BarSize
             // 
@@ -4079,16 +4077,16 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // checkBottomLines
+            // checkMonthlyLinesStudy
             // 
-            this.checkBottomLines.AutoSize = true;
-            this.checkBottomLines.Location = new System.Drawing.Point(1240, 5);
-            this.checkBottomLines.Name = "checkBottomLines";
-            this.checkBottomLines.Size = new System.Drawing.Size(112, 21);
-            this.checkBottomLines.TabIndex = 65;
-            this.checkBottomLines.Text = "Bottom Lines";
-            this.checkBottomLines.UseVisualStyleBackColor = true;
-            this.checkBottomLines.CheckedChanged += new System.EventHandler(this.checkBottomLines_CheckedChanged);
+            this.checkMonthlyLinesStudy.AutoSize = true;
+            this.checkMonthlyLinesStudy.Location = new System.Drawing.Point(510, 5);
+            this.checkMonthlyLinesStudy.Name = "checkMonthlyLinesStudy";
+            this.checkMonthlyLinesStudy.Size = new System.Drawing.Size(76, 21);
+            this.checkMonthlyLinesStudy.TabIndex = 68;
+            this.checkMonthlyLinesStudy.Text = "Months";
+            this.checkMonthlyLinesStudy.UseVisualStyleBackColor = true;
+            this.checkMonthlyLinesStudy.CheckedChanged += new System.EventHandler(this.checkMonthlyLinesStudy_CheckedChanged);
             // 
             // dataChartRT
             // 
@@ -4305,9 +4303,6 @@ namespace IBSampleApp
         private System.Windows.Forms.Label strike_label_TMD_MDT;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button histData_Button;
-        private System.Windows.Forms.Label hdEndDate_label_HDT;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox hdRequest_EndTime;
         private System.Windows.Forms.ComboBox hdRequest_WhatToShow;
         private System.Windows.Forms.TextBox hdRequest_Duration;
         private System.Windows.Forms.ComboBox hdRequest_BarSize;
@@ -4597,6 +4592,9 @@ namespace IBSampleApp
         private System.Windows.Forms.ComboBox comboDuration;
         private System.Windows.Forms.ComboBox comboIDBarSize;
         private System.Windows.Forms.CheckBox checkBottomLines;
+        private System.Windows.Forms.DateTimePicker pickerEndDate;
+        private System.Windows.Forms.Button buttonShow;
+        private System.Windows.Forms.CheckBox checkMonthlyLinesStudy;
     }
 }
 

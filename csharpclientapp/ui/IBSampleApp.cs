@@ -55,6 +55,8 @@ namespace IBSampleApp
         {
             InitializeComponent();
 
+            pickerEndDate.Value = DateTime.Now;
+
             this.priceLineManager = new PriceLineManager();
             this.dataChartDaily.PriceLineManager = this.priceLineManager;
             this.dataChart1M.PriceLineManager = this.priceLineManager;
@@ -414,21 +416,21 @@ namespace IBSampleApp
             this.marketData_MDT.TabPages.Remove(deepBookTab_MDT);
         }
 
-        private void histDataButton_Click(object sender, EventArgs e)
-        {            
-            if (isConnected)
-            {
-                Contract contract = GetMDContract();
-                string endTime = hdRequest_EndTime.Text.Trim();
-                string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
-                string barSize = hdRequest_BarSize.Text.Trim();
-                string whatToShow = hdRequest_WhatToShow.Text.Trim();
-                int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
-                historicalDataManagers[0].AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
-                historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
-                ShowTab(marketData_MDT, historicalDataTab);
-            }
-        }
+        //private void histDataButton_Click(object sender, EventArgs e)
+        //{            
+        //    if (isConnected)
+        //    {
+        //        Contract contract = GetMDContract();
+        //        string endTime = hdRequest_EndTime.Text.Trim();
+        //        string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
+        //        string barSize = hdRequest_BarSize.Text.Trim();
+        //        string whatToShow = hdRequest_WhatToShow.Text.Trim();
+        //        int outsideRTH = this.contractMDRTH.Checked ? 1 : 0;
+        //        historicalDataManagers[0].AddRequest(contract, endTime, duration, barSize, whatToShow, outsideRTH, 1);
+        //        historicalDataTab.Text = Utils.ContractToString(contract) + " (HD)";
+        //        ShowTab(marketData_MDT, historicalDataTab);
+        //    }
+        //}
 
         private void histDataTabClose_MDT_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -722,7 +724,7 @@ namespace IBSampleApp
             if (isConnected)
             {
                 Contract contract = GetMDContract();
-                var endDate = DateTime.Now;
+                var endDate = pickerEndDate.Value;
 
                 string duration = hdRequest_Duration.Text.Trim() + " " + hdRequest_TimeUnit.Text.Trim();
 
@@ -980,6 +982,36 @@ namespace IBSampleApp
             dataChart1M.AddHorizontalLineAnnotation(PriceLineType.LOW_LINE, prevLow, startX, null);
         }
 
+        private void UpdateMonthlyDividersStudy()
+        {
+            // clear
+            this.dataChartDaily.RemoveAnnotation(PriceLineType.MONTHLY_MARKER);
+            this.dataChartDaily.RemoveAnnotation(PriceLineType.ANNUAL_MARKER);
+
+            if (!this.checkMonthlyLinesStudy.Checked)
+                return;
+
+            if (dataChartDaily.Chart.Series[0].Points.Count == 0) return;
+
+            var date = DateTime.FromOADate(dataChartDaily.Chart.Series[0].Points[0].XValue);
+                        
+            for (var i = 1; i < dataChartDaily.Chart.Series[0].Points.Count; i++)            
+            {
+                var nextDate = DateTime.FromOADate(dataChartDaily.Chart.Series[0].Points[i].XValue);
+
+                if (nextDate.Month != date.Month)
+                {
+                    if (nextDate.Year != date.Year)
+                        dataChartDaily.AddVerticalLineAnnotation(PriceLineType.ANNUAL_MARKER, i);
+                    else
+                        dataChartDaily.AddVerticalLineAnnotation(PriceLineType.MONTHLY_MARKER, i);
+
+                    date = nextDate;
+                }
+
+            }
+        }
+
         private void UpdateDailyDividersStudy()
         {
             // clear
@@ -1092,6 +1124,16 @@ namespace IBSampleApp
         private void checkBottomLines_CheckedChanged(object sender, EventArgs e)
         {
             UpdateTopBottomLevels();
+        }
+
+        private void buttonShow_Click(object sender, EventArgs e)
+        {
+            Load();
+        }
+
+        private void checkMonthlyLinesStudy_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateMonthlyDividersStudy();
         }
 
     }

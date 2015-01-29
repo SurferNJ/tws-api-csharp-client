@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.lblLow = new System.Windows.Forms.Label();
             this.lblLowLabel = new System.Windows.Forms.Label();
             this.lblClose = new System.Windows.Forms.Label();
@@ -56,6 +56,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemScopePrevious = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemScopeNext = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemExclude = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCleanDataPoints = new System.Windows.Forms.ToolStripMenuItem();
             this.checkEMA10 = new System.Windows.Forms.CheckBox();
             this.checkEMA21 = new System.Windows.Forms.CheckBox();
             this.checkEMA30 = new System.Windows.Forms.CheckBox();
@@ -68,6 +71,7 @@
             this.checkVolumeOnOff = new System.Windows.Forms.CheckBox();
             this.checkTops = new System.Windows.Forms.CheckBox();
             this.checkDrawReferenceLine = new System.Windows.Forms.CheckBox();
+            this.toolStripMenuClosingBell = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -199,48 +203,48 @@
             this.historicalChart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.historicalChart.BackImageTransparentColor = System.Drawing.Color.Silver;
             this.historicalChart.BackSecondaryColor = System.Drawing.Color.Silver;
-            chartArea3.AlignWithChartArea = "ChartArea2";
-            chartArea3.AxisX.MajorGrid.Enabled = false;
-            chartArea3.AxisX.MajorTickMark.Enabled = false;
-            chartArea3.AxisY.IsStartedFromZero = false;
-            chartArea3.BackColor = System.Drawing.Color.Black;
-            chartArea3.Name = "ChartArea1";
-            chartArea3.Position.Auto = false;
-            chartArea3.Position.Height = 100F;
-            chartArea3.Position.Width = 100F;
-            chartArea4.AlignWithChartArea = "ChartArea1";
-            chartArea4.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.Name = "ChartArea2";
-            chartArea4.Position.Auto = false;
-            chartArea4.Position.Height = 50F;
-            chartArea4.Position.Width = 100F;
-            chartArea4.Position.Y = 50F;
-            this.historicalChart.ChartAreas.Add(chartArea3);
-            this.historicalChart.ChartAreas.Add(chartArea4);
+            chartArea1.AlignWithChartArea = "ChartArea2";
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.IsStartedFromZero = false;
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            chartArea2.AlignWithChartArea = "ChartArea1";
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.Name = "ChartArea2";
+            chartArea2.Position.Auto = false;
+            chartArea2.Position.Height = 50F;
+            chartArea2.Position.Width = 100F;
+            chartArea2.Position.Y = 50F;
+            this.historicalChart.ChartAreas.Add(chartArea1);
+            this.historicalChart.ChartAreas.Add(chartArea2);
             this.historicalChart.ContextMenuStrip = this.contextMenuOrder;
-            legend2.Name = "Legend1";
-            this.historicalChart.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.historicalChart.Legends.Add(legend1);
             this.historicalChart.Location = new System.Drawing.Point(4, 31);
             this.historicalChart.Margin = new System.Windows.Forms.Padding(4);
             this.historicalChart.Name = "historicalChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series3.IsVisibleInLegend = false;
-            series3.IsXValueIndexed = true;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series3.YValuesPerPoint = 4;
-            series4.ChartArea = "ChartArea2";
-            series4.IsVisibleInLegend = false;
-            series4.IsXValueIndexed = true;
-            series4.LabelForeColor = System.Drawing.SystemColors.MenuHighlight;
-            series4.Legend = "Legend1";
-            series4.Name = "Series2";
-            series4.SmartLabelStyle.Enabled = false;
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            this.historicalChart.Series.Add(series3);
-            this.historicalChart.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.IsVisibleInLegend = false;
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            series2.ChartArea = "ChartArea2";
+            series2.IsVisibleInLegend = false;
+            series2.IsXValueIndexed = true;
+            series2.LabelForeColor = System.Drawing.SystemColors.MenuHighlight;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            series2.SmartLabelStyle.Enabled = false;
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            this.historicalChart.Series.Add(series1);
+            this.historicalChart.Series.Add(series2);
             this.historicalChart.Size = new System.Drawing.Size(612, 268);
             this.historicalChart.TabIndex = 15;
             this.historicalChart.Text = "Historical Data";
@@ -259,13 +263,17 @@
             this.contextMenuItemBuyLMT,
             this.contextMenuItemSellLMT,
             this.toolStripSeparator1,
+            this.toolStripMenuClosingBell,
             this.contextMenuItemEconomicCalendar,
             this.toolStripMenuItemDailyBattlePlan,
             this.toolStripSeparator2,
             this.toolStripMenuItemScopePrevious,
-            this.toolStripMenuItemScopeNext});
+            this.toolStripMenuItemScopeNext,
+            this.toolStripSeparator3,
+            this.toolStripMenuItemExclude,
+            this.toolStripMenuItemCleanDataPoints});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(207, 160);
+            this.contextMenuOrder.Size = new System.Drawing.Size(207, 266);
             // 
             // contextMenuItemBuyLMT
             // 
@@ -318,6 +326,25 @@
             this.toolStripMenuItemScopeNext.Size = new System.Drawing.Size(206, 24);
             this.toolStripMenuItemScopeNext.Text = "Scope Next";
             this.toolStripMenuItemScopeNext.Click += new System.EventHandler(this.toolStripMenuItemScopeNext_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(203, 6);
+            // 
+            // toolStripMenuItemExclude
+            // 
+            this.toolStripMenuItemExclude.Name = "toolStripMenuItemExclude";
+            this.toolStripMenuItemExclude.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemExclude.Text = "Exclude This Point";
+            this.toolStripMenuItemExclude.Click += new System.EventHandler(this.toolStripMenuItemExclude_Click);
+            // 
+            // toolStripMenuItemCleanDataPoints
+            // 
+            this.toolStripMenuItemCleanDataPoints.Name = "toolStripMenuItemCleanDataPoints";
+            this.toolStripMenuItemCleanDataPoints.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemCleanDataPoints.Text = "Clean Bad Points";
+            this.toolStripMenuItemCleanDataPoints.Click += new System.EventHandler(this.toolStripMenuItemCleanDataPoints_Click);
             // 
             // checkEMA10
             // 
@@ -450,6 +477,13 @@
             this.checkDrawReferenceLine.UseVisualStyleBackColor = true;
             this.checkDrawReferenceLine.CheckedChanged += new System.EventHandler(this.checkDrawReferenceLine_CheckedChanged);
             // 
+            // toolStripMenuClosingBell
+            // 
+            this.toolStripMenuClosingBell.Name = "toolStripMenuClosingBell";
+            this.toolStripMenuClosingBell.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuClosingBell.Text = "Closing Bell";
+            this.toolStripMenuClosingBell.Click += new System.EventHandler(this.toolStripMenuClosingBell_Click);
+            // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -524,5 +558,9 @@
         private System.Windows.Forms.CheckBox checkVolumeOnOff;
         private System.Windows.Forms.CheckBox checkTops;
         private System.Windows.Forms.CheckBox checkDrawReferenceLine;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExclude;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCleanDataPoints;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuClosingBell;
     }
 }

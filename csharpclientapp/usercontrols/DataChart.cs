@@ -294,6 +294,7 @@ namespace CSharpClientApp.usercontrols
                 AllowSelecting = true,
                 AllowMoving = false
             };
+                       
 
             historicalChart.Annotations.Add(a);
         }
@@ -331,7 +332,7 @@ namespace CSharpClientApp.usercontrols
                 LineColor = GetAnnotationColor(type),
                 LineWidth = 3,
                 AllowSelecting = true,
-                AllowMoving = false
+                AllowMoving = false,                
             };
                         
             historicalChart.Annotations.Add(upperHalf);
@@ -415,6 +416,12 @@ namespace CSharpClientApp.usercontrols
                 case PriceLineType.DAILY_MARKER:                    
                     result = Color.WhiteSmoke;
                     break;
+                case PriceLineType.MONTHLY_MARKER:
+                    result = Color.FromArgb(60, Color.WhiteSmoke);
+                    break;
+                case PriceLineType.ANNUAL_MARKER:
+                    result = Color.FromArgb(180, Color.Plum);
+                    break;
                 case PriceLineType.DAILY_MARKER_1M:
                     result = Color.FromArgb(120, Color.WhiteSmoke);
                     break;
@@ -494,92 +501,97 @@ namespace CSharpClientApp.usercontrols
 
         private void historicalChart_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-
-
-            if (checkDrawReferenceLine.Checked && (Control.ModifierKeys & Keys.Control) == Keys.Control)
+            try
             {
-                Point mousePoint = new Point(e.X, e.Y);
 
-                double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 
-                double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
-
-                var a = AddHorizontalLineAnnotation(PriceLineType.REFERENCE_LINE, y, 0, null, true);
-                //a.IsSizeAlwaysRelative = false;
-            }
-
-            if (checkDraw.Checked)
-            {
-                if (MouseDownDrawing == false)
+                if (checkDrawReferenceLine.Checked && (Control.ModifierKeys & Keys.Control) == Keys.Control)
                 {
-                    // start drawing
-                    MouseDownDrawing = true;
-
-                    // disable chart selections by user
-                    //this.historicalChart.ChartAreas[0].CursorX.IsUserEnabled = true;
-                    //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
-                    //this.historicalChart.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-
                     Point mousePoint = new Point(e.X, e.Y);
 
                     double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
 
                     double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
 
-                    MouseDownDrawingStartX = e.X;
-                    MouseDownDrawingStartY = e.Y;
-
-                    MouseDownLineAnnotation = new LineAnnotation();
-                    MouseDownLineAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE), "_", e.X.ToString(), "_", e.Y.ToString());
-                    MouseDownLineAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
-                    MouseDownLineAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
-                    MouseDownLineAnnotation.AnchorX = x;
-                    MouseDownLineAnnotation.AnchorY = y;
-                    MouseDownLineAnnotation.IsSizeAlwaysRelative = false;
-                    MouseDownLineAnnotation.AllowResizing = false;
-                    MouseDownLineAnnotation.AllowMoving = false;
-                    MouseDownLineAnnotation.LineColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
-                    MouseDownLineAnnotation.LineWidth = 2;
-                    MouseDownLineAnnotation.AllowSelecting = false;
-                    MouseDownLineAnnotation.AllowMoving = false;
-                    this.Chart.Annotations.Add(MouseDownLineAnnotation);
-
-                    MouseDownTextAnnotation = new TextAnnotation();
-                    MouseDownTextAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE_TEXT), "_", e.X.ToString(), "_", e.Y.ToString());
-                    MouseDownTextAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
-                    MouseDownTextAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
-                    MouseDownTextAnnotation.AnchorX = x - GetTextOffsetX();  //+ MouseDownTextAnnotationOffset;
-                    MouseDownTextAnnotation.AnchorY = y;
-                    MouseDownTextAnnotation.IsSizeAlwaysRelative = true;
-                    MouseDownTextAnnotation.AllowResizing = false;
-                    MouseDownTextAnnotation.AllowMoving = false;
-                    MouseDownTextAnnotation.AllowSelecting = false;
-                    MouseDownTextAnnotation.AllowMoving = false;
-                    MouseDownTextAnnotation.ForeColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
-                    MouseDownTextAnnotation.Width = 20;
-                    MouseDownTextAnnotation.Height = -6;
-
-                    MouseDownTextAnnotation.Text = "12%";
-                    MouseDownTextAnnotation.IsMultiline = false;
-
-                    // add the annotation to the chart annotations list
-                    this.Chart.Annotations.Add(MouseDownTextAnnotation);
-
-
-                    //historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
-                    //historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
-
+                    var a = AddHorizontalLineAnnotation(PriceLineType.REFERENCE_LINE, y, 0, null, true);
+                    //a.IsSizeAlwaysRelative = false;
                 }
-                else
+
+                if (checkDraw.Checked)
                 {
-                    // stop drawing
-                    MouseDownDrawing = false;
+                    if (MouseDownDrawing == false)
+                    {
+                        // start drawing
+                        MouseDownDrawing = true;
 
-                    //// enable chart selections by user
-                    //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+                        Point mousePoint = new Point(e.X, e.Y);
+
+                        double x = historicalChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X);
+
+                        double y = historicalChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+
+                        MouseDownDrawingStartX = e.X;
+                        MouseDownDrawingStartY = e.Y;
+
+                        MouseDownLineAnnotation = new LineAnnotation();
+                        MouseDownLineAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE), "_", e.X.ToString(), "_", e.Y.ToString());
+                        MouseDownLineAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
+                        MouseDownLineAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
+                        MouseDownLineAnnotation.AnchorX = x;
+                        MouseDownLineAnnotation.AnchorY = y;
+                        MouseDownLineAnnotation.IsSizeAlwaysRelative = false;
+                        MouseDownLineAnnotation.AllowResizing = false;
+                        MouseDownLineAnnotation.AllowMoving = false;
+                        MouseDownLineAnnotation.LineColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
+                        MouseDownLineAnnotation.LineWidth = 2;
+                        MouseDownLineAnnotation.AllowSelecting = false;
+                        MouseDownLineAnnotation.AllowMoving = false;
+                        this.Chart.Annotations.Add(MouseDownLineAnnotation);
+
+                        MouseDownTextAnnotation = new TextAnnotation();
+                        MouseDownTextAnnotation.Name = String.Concat(Enum.GetName(typeof(PriceLineType), PriceLineType.PERCENTAGE_LINE_TEXT), "_", e.X.ToString(), "_", e.Y.ToString());
+                        MouseDownTextAnnotation.AxisX = historicalChart.ChartAreas[0].AxisX;
+                        MouseDownTextAnnotation.AxisY = historicalChart.ChartAreas[0].AxisY;
+                        MouseDownTextAnnotation.AnchorX = x - GetTextOffsetX();  //+ MouseDownTextAnnotationOffset;
+                        MouseDownTextAnnotation.AnchorY = y;
+                        MouseDownTextAnnotation.IsSizeAlwaysRelative = true;
+                        MouseDownTextAnnotation.AllowResizing = false;
+                        MouseDownTextAnnotation.AllowMoving = false;
+                        MouseDownTextAnnotation.AllowSelecting = false;
+                        MouseDownTextAnnotation.AllowMoving = false;
+                        MouseDownTextAnnotation.ForeColor = GetAnnotationColor(PriceLineType.PERCENTAGE_LINE);
+                        MouseDownTextAnnotation.Width = 20;
+                        MouseDownTextAnnotation.Height = -6;
+
+                        MouseDownTextAnnotation.Text = "12%";
+                        MouseDownTextAnnotation.IsMultiline = false;
+
+                        // add the annotation to the chart annotations list
+                        this.Chart.Annotations.Add(MouseDownTextAnnotation);
+
+
+                        //historicalChart.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
+                        //historicalChart.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+
+                    }
+                    else
+                    {
+                        // stop drawing
+                        MouseDownDrawing = false;
+
+                        //// enable chart selections by user
+                        //this.historicalChart.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
+                    }
+
+
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                // TODO - check if need to catch any exceptions here
 
-
+                MouseDownDrawing = false;
             }
         }
 
@@ -942,5 +954,57 @@ namespace CSharpClientApp.usercontrols
         {
             this.RemoveAnnotation(PriceLineType.REFERENCE_LINE);
         }
+
+        private void toolStripMenuItemExclude_Click(object sender, EventArgs e)
+        {
+            DateTime date;
+
+            var dateText = this.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                var dt = date.ToOADate();
+
+                var point = Chart.Series[0].Points.Where(x => x.XValue >= dt).FirstOrDefault();
+                
+                if (point != null)
+                {
+                    point.YValues[0] = point.YValues[2];
+                    point.YValues[1] = point.YValues[2];
+                    point.IsEmpty = true;
+                }
+            }
+        }
+
+        private void toolStripMenuItemCleanDataPoints_Click(object sender, EventArgs e)
+        {
+            for (var i = 0; i < Chart.Series[0].Points.Count(); i++)
+            {
+                var point = Chart.Series[0].Points[i];
+
+                // for some reason some historical data points show abnormally high value
+                // need to clean them to allow proper zooming
+                if (point.YValues[0] > 2 * point.YValues[1])
+                {
+                    point.YValues[0] = point.YValues[2];
+                    point.YValues[1] = point.YValues[2];
+                    point.IsEmpty = true;
+                }
+            }
+        }
+
+        private void toolStripMenuClosingBell_Click(object sender, EventArgs e)
+        {
+            DateTime date;
+
+            var dateText = this.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                IBSampleApp.util.UrlLauncher.ClosingBellShow(date);
+            }
+        }
+
+
     }
 }
