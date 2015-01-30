@@ -203,6 +203,12 @@ namespace IBSampleApp.ui
                 // adding close
                 historicalChart.Series[0].Points[i].YValues[3] = historicalData[i].Close;
 
+                double percentage = (historicalData[i].Close / historicalData[i].Open - 1);
+
+                double percentageOvernight = i > 0 ? (historicalData[i].Close / historicalData[i - 1].Close - 1) : 0;
+                                
+                historicalChart.Series[0].Points[i].ToolTip = String.Concat("This: ", percentage.ToString("0.00%"),"\nPrevious: ",percentageOvernight.ToString("0.00%"));
+
                 // adding date and high
                 historicalChart.Series[1].Points.AddXY(dt, historicalData[i].Volume);
             }
