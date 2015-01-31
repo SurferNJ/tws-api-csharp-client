@@ -1005,6 +1005,26 @@ namespace CSharpClientApp.usercontrols
             }
         }
 
+        private void toolStripMenuBusinessInsider_Click(object sender, EventArgs e)
+        {
+            DateTime date;
+
+            var dateText = this.XLabelText;
+
+            if (DateTime.TryParse(dateText, out date))
+            {
+                IBSampleApp.util.UrlLauncher.BusinessInsiderShow(date);
+            }
+        }
+
+        private void checkBoxBarCandlestick_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxBarCandlestick.Checked)
+                Chart.Series[0].ChartType = SeriesChartType.Stock;
+            else
+                Chart.Series[0].ChartType = SeriesChartType.Candlestick;
+        }
+
 
     }
 }

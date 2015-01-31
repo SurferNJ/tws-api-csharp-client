@@ -18,6 +18,9 @@ namespace IBSampleApp.util
         private static readonly string urlClosingBell =
             "https://www.google.com/?gws_rd=ssl#q=closing+bell+business+insider+{0}+{1}+{2}";
 
+        private static readonly string urlBusinessInsider =
+    "http://www.businessinsider.com/archives?date={0}-{1}-{2}&vertical=clusterstock";
+
         public static void EconomicCalendarShow(DateTime date)
         {
             
@@ -40,6 +43,15 @@ namespace IBSampleApp.util
         {
 
             var target = String.Format(urlClosingBell, date.ToString("MMMM"), date.Day, date.Year);
+
+            ProcessStartInfo sInfo = new ProcessStartInfo(target);
+            Process.Start(sInfo);
+        }
+
+        public static void BusinessInsiderShow(DateTime date)
+        {
+
+            var target = String.Format(urlBusinessInsider, date.Year, date.Month, date.Day);
 
             ProcessStartInfo sInfo = new ProcessStartInfo(target);
             Process.Start(sInfo);

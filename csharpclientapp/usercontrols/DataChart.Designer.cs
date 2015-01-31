@@ -51,6 +51,8 @@
             this.contextMenuItemBuyLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemSellLMT = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuBusinessInsider = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuClosingBell = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuItemEconomicCalendar = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDailyBattlePlan = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -71,7 +73,7 @@
             this.checkVolumeOnOff = new System.Windows.Forms.CheckBox();
             this.checkTops = new System.Windows.Forms.CheckBox();
             this.checkDrawReferenceLine = new System.Windows.Forms.CheckBox();
-            this.toolStripMenuClosingBell = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkBoxBarCandlestick = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.historicalChart)).BeginInit();
             this.contextMenuOrder.SuspendLayout();
             this.SuspendLayout();
@@ -263,6 +265,7 @@
             this.contextMenuItemBuyLMT,
             this.contextMenuItemSellLMT,
             this.toolStripSeparator1,
+            this.toolStripMenuBusinessInsider,
             this.toolStripMenuClosingBell,
             this.contextMenuItemEconomicCalendar,
             this.toolStripMenuItemDailyBattlePlan,
@@ -273,76 +276,90 @@
             this.toolStripMenuItemExclude,
             this.toolStripMenuItemCleanDataPoints});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(207, 266);
+            this.contextMenuOrder.Size = new System.Drawing.Size(235, 262);
             // 
             // contextMenuItemBuyLMT
             // 
             this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
-            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(206, 24);
+            this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(234, 24);
             this.contextMenuItemBuyLMT.Text = "Buy LMT";
             this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
             // 
             // contextMenuItemSellLMT
             // 
             this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
-            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(206, 24);
+            this.contextMenuItemSellLMT.Size = new System.Drawing.Size(234, 24);
             this.contextMenuItemSellLMT.Text = "Sell LMT";
             this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(203, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(231, 6);
+            // 
+            // toolStripMenuBusinessInsider
+            // 
+            this.toolStripMenuBusinessInsider.Name = "toolStripMenuBusinessInsider";
+            this.toolStripMenuBusinessInsider.Size = new System.Drawing.Size(234, 24);
+            this.toolStripMenuBusinessInsider.Text = "Business Insider Archive";
+            this.toolStripMenuBusinessInsider.Click += new System.EventHandler(this.toolStripMenuBusinessInsider_Click);
+            // 
+            // toolStripMenuClosingBell
+            // 
+            this.toolStripMenuClosingBell.Name = "toolStripMenuClosingBell";
+            this.toolStripMenuClosingBell.Size = new System.Drawing.Size(234, 24);
+            this.toolStripMenuClosingBell.Text = "Closing Bell";
+            this.toolStripMenuClosingBell.Click += new System.EventHandler(this.toolStripMenuClosingBell_Click);
             // 
             // contextMenuItemEconomicCalendar
             // 
             this.contextMenuItemEconomicCalendar.Name = "contextMenuItemEconomicCalendar";
-            this.contextMenuItemEconomicCalendar.Size = new System.Drawing.Size(206, 24);
+            this.contextMenuItemEconomicCalendar.Size = new System.Drawing.Size(234, 24);
             this.contextMenuItemEconomicCalendar.Text = "Economic Calendar";
             this.contextMenuItemEconomicCalendar.Click += new System.EventHandler(this.contextMenuItemEconomicCalendar_Click);
             // 
             // toolStripMenuItemDailyBattlePlan
             // 
             this.toolStripMenuItemDailyBattlePlan.Name = "toolStripMenuItemDailyBattlePlan";
-            this.toolStripMenuItemDailyBattlePlan.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemDailyBattlePlan.Size = new System.Drawing.Size(234, 24);
             this.toolStripMenuItemDailyBattlePlan.Text = "Daily Battle Plan";
             this.toolStripMenuItemDailyBattlePlan.Click += new System.EventHandler(this.toolStripMenuItemDailyBattlePlan_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(203, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(231, 6);
             // 
             // toolStripMenuItemScopePrevious
             // 
             this.toolStripMenuItemScopePrevious.Name = "toolStripMenuItemScopePrevious";
-            this.toolStripMenuItemScopePrevious.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemScopePrevious.Size = new System.Drawing.Size(234, 24);
             this.toolStripMenuItemScopePrevious.Text = "Scope Previous";
             this.toolStripMenuItemScopePrevious.Click += new System.EventHandler(this.toolStripMenuItemScopePrevious_Click);
             // 
             // toolStripMenuItemScopeNext
             // 
             this.toolStripMenuItemScopeNext.Name = "toolStripMenuItemScopeNext";
-            this.toolStripMenuItemScopeNext.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemScopeNext.Size = new System.Drawing.Size(234, 24);
             this.toolStripMenuItemScopeNext.Text = "Scope Next";
             this.toolStripMenuItemScopeNext.Click += new System.EventHandler(this.toolStripMenuItemScopeNext_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(203, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(231, 6);
             // 
             // toolStripMenuItemExclude
             // 
             this.toolStripMenuItemExclude.Name = "toolStripMenuItemExclude";
-            this.toolStripMenuItemExclude.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemExclude.Size = new System.Drawing.Size(234, 24);
             this.toolStripMenuItemExclude.Text = "Exclude This Point";
             this.toolStripMenuItemExclude.Click += new System.EventHandler(this.toolStripMenuItemExclude_Click);
             // 
             // toolStripMenuItemCleanDataPoints
             // 
             this.toolStripMenuItemCleanDataPoints.Name = "toolStripMenuItemCleanDataPoints";
-            this.toolStripMenuItemCleanDataPoints.Size = new System.Drawing.Size(206, 24);
+            this.toolStripMenuItemCleanDataPoints.Size = new System.Drawing.Size(234, 24);
             this.toolStripMenuItemCleanDataPoints.Text = "Clean Bad Points";
             this.toolStripMenuItemCleanDataPoints.Click += new System.EventHandler(this.toolStripMenuItemCleanDataPoints_Click);
             // 
@@ -477,17 +494,22 @@
             this.checkDrawReferenceLine.UseVisualStyleBackColor = true;
             this.checkDrawReferenceLine.CheckedChanged += new System.EventHandler(this.checkDrawReferenceLine_CheckedChanged);
             // 
-            // toolStripMenuClosingBell
+            // checkBoxBarCandlestick
             // 
-            this.toolStripMenuClosingBell.Name = "toolStripMenuClosingBell";
-            this.toolStripMenuClosingBell.Size = new System.Drawing.Size(206, 24);
-            this.toolStripMenuClosingBell.Text = "Closing Bell";
-            this.toolStripMenuClosingBell.Click += new System.EventHandler(this.toolStripMenuClosingBell_Click);
+            this.checkBoxBarCandlestick.AutoSize = true;
+            this.checkBoxBarCandlestick.Location = new System.Drawing.Point(10, 58);
+            this.checkBoxBarCandlestick.Name = "checkBoxBarCandlestick";
+            this.checkBoxBarCandlestick.Size = new System.Drawing.Size(52, 21);
+            this.checkBoxBarCandlestick.TabIndex = 41;
+            this.checkBoxBarCandlestick.Text = "Bar";
+            this.checkBoxBarCandlestick.UseVisualStyleBackColor = true;
+            this.checkBoxBarCandlestick.CheckedChanged += new System.EventHandler(this.checkBoxBarCandlestick_CheckedChanged);
             // 
             // DataChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkBoxBarCandlestick);
             this.Controls.Add(this.checkDrawReferenceLine);
             this.Controls.Add(this.checkTops);
             this.Controls.Add(this.checkVolumeOnOff);
@@ -562,5 +584,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExclude;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCleanDataPoints;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuClosingBell;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuBusinessInsider;
+        private System.Windows.Forms.CheckBox checkBoxBarCandlestick;
     }
 }
