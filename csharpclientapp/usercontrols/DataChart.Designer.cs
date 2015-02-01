@@ -276,20 +276,20 @@
             this.toolStripMenuItemExclude,
             this.toolStripMenuItemCleanDataPoints});
             this.contextMenuOrder.Name = "contextMenuOrder";
-            this.contextMenuOrder.Size = new System.Drawing.Size(235, 262);
+            this.contextMenuOrder.Size = new System.Drawing.Size(235, 290);
             // 
             // contextMenuItemBuyLMT
             // 
             this.contextMenuItemBuyLMT.Name = "contextMenuItemBuyLMT";
             this.contextMenuItemBuyLMT.Size = new System.Drawing.Size(234, 24);
-            this.contextMenuItemBuyLMT.Text = "Buy LMT";
+            this.contextMenuItemBuyLMT.Text = "Buy";
             this.contextMenuItemBuyLMT.Click += new System.EventHandler(this.contextMenuItemBuyLMT_Click);
             // 
             // contextMenuItemSellLMT
             // 
             this.contextMenuItemSellLMT.Name = "contextMenuItemSellLMT";
             this.contextMenuItemSellLMT.Size = new System.Drawing.Size(234, 24);
-            this.contextMenuItemSellLMT.Text = "Sell LMT";
+            this.contextMenuItemSellLMT.Text = "Sell";
             this.contextMenuItemSellLMT.Click += new System.EventHandler(this.contextMenuItemSellLMT_Click);
             // 
             // toolStripSeparator1
@@ -365,10 +365,11 @@
             // 
             // checkEMA10
             // 
-            this.checkEMA10.AutoSize = true;
+            this.checkEMA10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkEMA10.Location = new System.Drawing.Point(10, 3);
+            this.checkEMA10.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA10.Name = "checkEMA10";
-            this.checkEMA10.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA10.Size = new System.Drawing.Size(33, 19);
             this.checkEMA10.TabIndex = 28;
             this.checkEMA10.Text = "10";
             this.checkEMA10.UseVisualStyleBackColor = true;
@@ -376,10 +377,11 @@
             // 
             // checkEMA21
             // 
-            this.checkEMA21.AutoSize = true;
-            this.checkEMA21.Location = new System.Drawing.Point(62, 3);
+            this.checkEMA21.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA21.Location = new System.Drawing.Point(45, 2);
+            this.checkEMA21.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA21.Name = "checkEMA21";
-            this.checkEMA21.Size = new System.Drawing.Size(46, 21);
+            this.checkEMA21.Size = new System.Drawing.Size(41, 21);
             this.checkEMA21.TabIndex = 29;
             this.checkEMA21.Text = "21";
             this.checkEMA21.UseVisualStyleBackColor = true;
@@ -387,8 +389,9 @@
             // 
             // checkEMA30
             // 
-            this.checkEMA30.AutoSize = true;
-            this.checkEMA30.Location = new System.Drawing.Point(114, 3);
+            this.checkEMA30.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA30.Location = new System.Drawing.Point(88, 2);
+            this.checkEMA30.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA30.Name = "checkEMA30";
             this.checkEMA30.Size = new System.Drawing.Size(46, 21);
             this.checkEMA30.TabIndex = 30;
@@ -398,8 +401,9 @@
             // 
             // checkEMA50
             // 
-            this.checkEMA50.AutoSize = true;
-            this.checkEMA50.Location = new System.Drawing.Point(166, 3);
+            this.checkEMA50.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA50.Location = new System.Drawing.Point(125, 3);
+            this.checkEMA50.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA50.Name = "checkEMA50";
             this.checkEMA50.Size = new System.Drawing.Size(46, 21);
             this.checkEMA50.TabIndex = 31;
@@ -409,8 +413,9 @@
             // 
             // checkEMA100
             // 
-            this.checkEMA100.AutoSize = true;
-            this.checkEMA100.Location = new System.Drawing.Point(218, 3);
+            this.checkEMA100.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA100.Location = new System.Drawing.Point(163, 3);
+            this.checkEMA100.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA100.Name = "checkEMA100";
             this.checkEMA100.Size = new System.Drawing.Size(54, 21);
             this.checkEMA100.TabIndex = 32;
@@ -420,8 +425,9 @@
             // 
             // checkEMA150
             // 
-            this.checkEMA150.AutoSize = true;
-            this.checkEMA150.Location = new System.Drawing.Point(270, 3);
+            this.checkEMA150.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA150.Location = new System.Drawing.Point(214, 3);
+            this.checkEMA150.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA150.Name = "checkEMA150";
             this.checkEMA150.Size = new System.Drawing.Size(54, 21);
             this.checkEMA150.TabIndex = 33;
@@ -431,8 +437,9 @@
             // 
             // checkEMA200
             // 
-            this.checkEMA200.AutoSize = true;
-            this.checkEMA200.Location = new System.Drawing.Point(320, 3);
+            this.checkEMA200.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkEMA200.Location = new System.Drawing.Point(261, 3);
+            this.checkEMA200.Margin = new System.Windows.Forms.Padding(1);
             this.checkEMA200.Name = "checkEMA200";
             this.checkEMA200.Size = new System.Drawing.Size(54, 21);
             this.checkEMA200.TabIndex = 34;
@@ -452,8 +459,9 @@
             // 
             // checkDraw
             // 
-            this.checkDraw.AutoSize = true;
-            this.checkDraw.Location = new System.Drawing.Point(488, 3);
+            this.checkDraw.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkDraw.Location = new System.Drawing.Point(399, 2);
+            this.checkDraw.Margin = new System.Windows.Forms.Padding(1);
             this.checkDraw.Name = "checkDraw";
             this.checkDraw.Size = new System.Drawing.Size(62, 21);
             this.checkDraw.TabIndex = 36;
@@ -463,8 +471,9 @@
             // 
             // checkVolumeOnOff
             // 
-            this.checkVolumeOnOff.AutoSize = true;
-            this.checkVolumeOnOff.Location = new System.Drawing.Point(437, 3);
+            this.checkVolumeOnOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkVolumeOnOff.Location = new System.Drawing.Point(357, 3);
+            this.checkVolumeOnOff.Margin = new System.Windows.Forms.Padding(1);
             this.checkVolumeOnOff.Name = "checkVolumeOnOff";
             this.checkVolumeOnOff.Size = new System.Drawing.Size(50, 21);
             this.checkVolumeOnOff.TabIndex = 38;
@@ -474,8 +483,9 @@
             // 
             // checkTops
             // 
-            this.checkTops.AutoSize = true;
-            this.checkTops.Location = new System.Drawing.Point(369, 3);
+            this.checkTops.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTops.Location = new System.Drawing.Point(308, 3);
+            this.checkTops.Margin = new System.Windows.Forms.Padding(1);
             this.checkTops.Name = "checkTops";
             this.checkTops.Size = new System.Drawing.Size(62, 21);
             this.checkTops.TabIndex = 39;
@@ -486,9 +496,10 @@
             // checkDrawReferenceLine
             // 
             this.checkDrawReferenceLine.AutoSize = true;
-            this.checkDrawReferenceLine.Location = new System.Drawing.Point(10, 31);
+            this.checkDrawReferenceLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkDrawReferenceLine.Location = new System.Drawing.Point(448, 5);
             this.checkDrawReferenceLine.Name = "checkDrawReferenceLine";
-            this.checkDrawReferenceLine.Size = new System.Drawing.Size(52, 21);
+            this.checkDrawReferenceLine.Size = new System.Drawing.Size(46, 17);
             this.checkDrawReferenceLine.TabIndex = 40;
             this.checkDrawReferenceLine.Text = "Ref";
             this.checkDrawReferenceLine.UseVisualStyleBackColor = true;
@@ -497,9 +508,10 @@
             // checkBoxBarCandlestick
             // 
             this.checkBoxBarCandlestick.AutoSize = true;
-            this.checkBoxBarCandlestick.Location = new System.Drawing.Point(10, 58);
+            this.checkBoxBarCandlestick.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxBarCandlestick.Location = new System.Drawing.Point(489, 5);
             this.checkBoxBarCandlestick.Name = "checkBoxBarCandlestick";
-            this.checkBoxBarCandlestick.Size = new System.Drawing.Size(52, 21);
+            this.checkBoxBarCandlestick.Size = new System.Drawing.Size(45, 17);
             this.checkBoxBarCandlestick.TabIndex = 41;
             this.checkBoxBarCandlestick.Text = "Bar";
             this.checkBoxBarCandlestick.UseVisualStyleBackColor = true;
@@ -511,9 +523,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.checkBoxBarCandlestick);
             this.Controls.Add(this.checkDrawReferenceLine);
-            this.Controls.Add(this.checkTops);
-            this.Controls.Add(this.checkVolumeOnOff);
             this.Controls.Add(this.checkDraw);
+            this.Controls.Add(this.checkVolumeOnOff);
+            this.Controls.Add(this.checkTops);
             this.Controls.Add(this.labelCurrentPrice);
             this.Controls.Add(this.checkEMA200);
             this.Controls.Add(this.checkEMA150);

@@ -38,10 +38,10 @@ namespace IBSampleApp
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             CSharpClientApp.ui.PriceLineManager priceLineManager1 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager2 = new CSharpClientApp.ui.PriceLineManager();
             CSharpClientApp.ui.PriceLineManager priceLineManager3 = new CSharpClientApp.ui.PriceLineManager();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IBSampleApp));
             this.TabControl = new System.Windows.Forms.TabControl();
             this.connectionTab = new System.Windows.Forms.TabPage();
@@ -55,7 +55,6 @@ namespace IBSampleApp
             this.marketDataTab = new System.Windows.Forms.TabPage();
             this.marketData_MDT = new System.Windows.Forms.TabControl();
             this.topMarketDataTab_MDT = new System.Windows.Forms.TabPage();
-            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
             this.cancelMarketDataRequests = new System.Windows.Forms.Button();
             this.closeMketDataTab = new System.Windows.Forms.LinkLabel();
             this.marketDataGrid_MDT = new System.Windows.Forms.DataGridView();
@@ -70,10 +69,9 @@ namespace IBSampleApp
             this.historicalDataTab = new System.Windows.Forms.TabPage();
             this.tabDashboard = new System.Windows.Forms.TabControl();
             this.tabBuy = new System.Windows.Forms.TabPage();
-            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
             this.tabSell = new System.Windows.Forms.TabPage();
-            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
             this.tabSettings = new System.Windows.Forms.TabPage();
+            this.tabAlerts = new System.Windows.Forms.TabPage();
             this.checkMonthlyLinesStudy = new System.Windows.Forms.CheckBox();
             this.buttonShow = new System.Windows.Forms.Button();
             this.pickerEndDate = new System.Windows.Forms.DateTimePicker();
@@ -88,8 +86,6 @@ namespace IBSampleApp
             this.hdRequest_TimeUnit = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.histDataTabClose_MDT = new System.Windows.Forms.LinkLabel();
-            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
-            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.deepBookTab_MDT = new System.Windows.Forms.TabPage();
             this.closeDeepBookLink = new System.Windows.Forms.LinkLabel();
             this.deepBookGrid = new System.Windows.Forms.DataGridView();
@@ -391,7 +387,13 @@ namespace IBSampleApp
             this.messageBoxClear_link = new System.Windows.Forms.LinkLabel();
             this.messageBox = new System.Windows.Forms.TextBox();
             this.informationTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.tabAlerts = new System.Windows.Forms.TabPage();
+            this.tabProbabilities = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dataChartRT = new CSharpClientApp.usercontrols.DataChart();
+            this.orderFormBuy = new CSharpClientApp.usercontrols.OrderForm();
+            this.orderFormSell = new CSharpClientApp.usercontrols.OrderForm();
+            this.dataChartDaily = new CSharpClientApp.usercontrols.DataChart();
+            this.dataChart1M = new CSharpClientApp.usercontrols.DataChart();
             this.TabControl.SuspendLayout();
             this.connectionTab.SuspendLayout();
             this.marketDataTab.SuspendLayout();
@@ -402,6 +404,7 @@ namespace IBSampleApp
             this.tabDashboard.SuspendLayout();
             this.tabBuy.SuspendLayout();
             this.tabSell.SuspendLayout();
+            this.tabSettings.SuspendLayout();
             this.deepBookTab_MDT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).BeginInit();
             this.rtBarsTab_MDT.SuspendLayout();
@@ -614,21 +617,6 @@ namespace IBSampleApp
             this.topMarketDataTab_MDT.TabIndex = 0;
             this.topMarketDataTab_MDT.Text = "Market Data";
             // 
-            // dataChartRT
-            // 
-            this.dataChartRT.BarSizeInSeconds = 0;
-            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
-            this.dataChartRT.Name = "dataChartRT";
-            this.dataChartRT.OrderFormBuy = null;
-            this.dataChartRT.OrderFormSell = null;
-            this.dataChartRT.PriceLineManager = priceLineManager1;
-            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
-            this.dataChartRT.TabIndex = 3;
-            this.dataChartRT.XLabelFormat = null;
-            this.dataChartRT.XValue = 0D;
-            this.dataChartRT.YValue = 0D;
-            // 
             // cancelMarketDataRequests
             // 
             this.cancelMarketDataRequests.Location = new System.Drawing.Point(1300, 23);
@@ -734,19 +722,6 @@ namespace IBSampleApp
             // 
             this.historicalDataTab.BackColor = System.Drawing.Color.LightGray;
             this.historicalDataTab.Controls.Add(this.tabDashboard);
-            this.historicalDataTab.Controls.Add(this.checkMonthlyLinesStudy);
-            this.historicalDataTab.Controls.Add(this.buttonShow);
-            this.historicalDataTab.Controls.Add(this.pickerEndDate);
-            this.historicalDataTab.Controls.Add(this.checkBottomLines);
-            this.historicalDataTab.Controls.Add(this.comboDuration);
-            this.historicalDataTab.Controls.Add(this.comboIDBarSize);
-            this.historicalDataTab.Controls.Add(this.contractMDRTH);
-            this.historicalDataTab.Controls.Add(this.hdRequest_WhatToShow);
-            this.historicalDataTab.Controls.Add(this.checkDailyLinesStudy);
-            this.historicalDataTab.Controls.Add(this.hdRequest_Duration);
-            this.historicalDataTab.Controls.Add(this.checkHighLowStudy);
-            this.historicalDataTab.Controls.Add(this.hdRequest_TimeUnit);
-            this.historicalDataTab.Controls.Add(this.label10);
             this.historicalDataTab.Controls.Add(this.histDataTabClose_MDT);
             this.historicalDataTab.Controls.Add(this.dataChartDaily);
             this.historicalDataTab.Controls.Add(this.dataChart1M);
@@ -762,8 +737,9 @@ namespace IBSampleApp
             // 
             this.tabDashboard.Controls.Add(this.tabBuy);
             this.tabDashboard.Controls.Add(this.tabSell);
-            this.tabDashboard.Controls.Add(this.tabSettings);
+            this.tabDashboard.Controls.Add(this.tabProbabilities);
             this.tabDashboard.Controls.Add(this.tabAlerts);
+            this.tabDashboard.Controls.Add(this.tabSettings);
             this.tabDashboard.Location = new System.Drawing.Point(635, 7);
             this.tabDashboard.Name = "tabDashboard";
             this.tabDashboard.SelectedIndex = 0;
@@ -781,14 +757,6 @@ namespace IBSampleApp
             this.tabBuy.TabIndex = 0;
             this.tabBuy.Text = "Buy";
             // 
-            // orderFormBuy
-            // 
-            this.orderFormBuy.Location = new System.Drawing.Point(19, 16);
-            this.orderFormBuy.Name = "orderFormBuy";
-            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
-            this.orderFormBuy.Size = new System.Drawing.Size(131, 235);
-            this.orderFormBuy.TabIndex = 31;
-            // 
             // tabSell
             // 
             this.tabSell.BackColor = System.Drawing.Color.LightGray;
@@ -799,17 +767,23 @@ namespace IBSampleApp
             this.tabSell.TabIndex = 2;
             this.tabSell.Text = "Sell";
             // 
-            // orderFormSell
-            // 
-            this.orderFormSell.Location = new System.Drawing.Point(19, 16);
-            this.orderFormSell.Name = "orderFormSell";
-            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
-            this.orderFormSell.Size = new System.Drawing.Size(131, 235);
-            this.orderFormSell.TabIndex = 32;
-            // 
             // tabSettings
             // 
             this.tabSettings.BackColor = System.Drawing.Color.LightGray;
+            this.tabSettings.Controls.Add(this.label7);
+            this.tabSettings.Controls.Add(this.hdRequest_WhatToShow);
+            this.tabSettings.Controls.Add(this.checkBottomLines);
+            this.tabSettings.Controls.Add(this.checkMonthlyLinesStudy);
+            this.tabSettings.Controls.Add(this.contractMDRTH);
+            this.tabSettings.Controls.Add(this.comboIDBarSize);
+            this.tabSettings.Controls.Add(this.checkDailyLinesStudy);
+            this.tabSettings.Controls.Add(this.comboDuration);
+            this.tabSettings.Controls.Add(this.checkHighLowStudy);
+            this.tabSettings.Controls.Add(this.pickerEndDate);
+            this.tabSettings.Controls.Add(this.buttonShow);
+            this.tabSettings.Controls.Add(this.label10);
+            this.tabSettings.Controls.Add(this.hdRequest_TimeUnit);
+            this.tabSettings.Controls.Add(this.hdRequest_Duration);
             this.tabSettings.Location = new System.Drawing.Point(4, 25);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
@@ -817,10 +791,19 @@ namespace IBSampleApp
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
             // 
+            // tabAlerts
+            // 
+            this.tabAlerts.BackColor = System.Drawing.Color.LightGray;
+            this.tabAlerts.Location = new System.Drawing.Point(4, 25);
+            this.tabAlerts.Name = "tabAlerts";
+            this.tabAlerts.Size = new System.Drawing.Size(299, 301);
+            this.tabAlerts.TabIndex = 3;
+            this.tabAlerts.Text = "Alerts";
+            // 
             // checkMonthlyLinesStudy
             // 
             this.checkMonthlyLinesStudy.AutoSize = true;
-            this.checkMonthlyLinesStudy.Location = new System.Drawing.Point(510, 5);
+            this.checkMonthlyLinesStudy.Location = new System.Drawing.Point(16, 149);
             this.checkMonthlyLinesStudy.Name = "checkMonthlyLinesStudy";
             this.checkMonthlyLinesStudy.Size = new System.Drawing.Size(76, 21);
             this.checkMonthlyLinesStudy.TabIndex = 68;
@@ -830,7 +813,7 @@ namespace IBSampleApp
             // 
             // buttonShow
             // 
-            this.buttonShow.Location = new System.Drawing.Point(429, 3);
+            this.buttonShow.Location = new System.Drawing.Point(38, 105);
             this.buttonShow.Name = "buttonShow";
             this.buttonShow.Size = new System.Drawing.Size(75, 26);
             this.buttonShow.TabIndex = 67;
@@ -841,16 +824,16 @@ namespace IBSampleApp
             // pickerEndDate
             // 
             this.pickerEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.pickerEndDate.Location = new System.Drawing.Point(158, 4);
+            this.pickerEndDate.Location = new System.Drawing.Point(13, 44);
             this.pickerEndDate.Name = "pickerEndDate";
-            this.pickerEndDate.Size = new System.Drawing.Size(103, 22);
+            this.pickerEndDate.Size = new System.Drawing.Size(97, 22);
             this.pickerEndDate.TabIndex = 66;
             this.pickerEndDate.Value = new System.DateTime(2015, 1, 28, 20, 1, 35, 0);
             // 
             // checkBottomLines
             // 
             this.checkBottomLines.AutoSize = true;
-            this.checkBottomLines.Location = new System.Drawing.Point(1240, 5);
+            this.checkBottomLines.Location = new System.Drawing.Point(184, 160);
             this.checkBottomLines.Name = "checkBottomLines";
             this.checkBottomLines.Size = new System.Drawing.Size(112, 21);
             this.checkBottomLines.TabIndex = 65;
@@ -870,10 +853,10 @@ namespace IBSampleApp
             "10 D",
             "20 D",
             "30 D"});
-            this.comboDuration.Location = new System.Drawing.Point(1399, 4);
+            this.comboDuration.Location = new System.Drawing.Point(184, 44);
             this.comboDuration.Margin = new System.Windows.Forms.Padding(4);
             this.comboDuration.Name = "comboDuration";
-            this.comboDuration.Size = new System.Drawing.Size(62, 25);
+            this.comboDuration.Size = new System.Drawing.Size(71, 25);
             this.comboDuration.TabIndex = 64;
             this.comboDuration.Text = "2 D";
             this.comboDuration.SelectedIndexChanged += new System.EventHandler(this.comboDuration_SelectedIndexChanged);
@@ -890,7 +873,7 @@ namespace IBSampleApp
             "15 mins",
             "30 mins",
             "1 hour"});
-            this.comboIDBarSize.Location = new System.Drawing.Point(1469, 4);
+            this.comboIDBarSize.Location = new System.Drawing.Point(184, 73);
             this.comboIDBarSize.Margin = new System.Windows.Forms.Padding(4);
             this.comboIDBarSize.Name = "comboIDBarSize";
             this.comboIDBarSize.Size = new System.Drawing.Size(71, 25);
@@ -903,7 +886,7 @@ namespace IBSampleApp
             this.contractMDRTH.AutoSize = true;
             this.contractMDRTH.Checked = true;
             this.contractMDRTH.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.contractMDRTH.Location = new System.Drawing.Point(1157, 6);
+            this.contractMDRTH.Location = new System.Drawing.Point(185, 201);
             this.contractMDRTH.Margin = new System.Windows.Forms.Padding(4);
             this.contractMDRTH.Name = "contractMDRTH";
             this.contractMDRTH.Size = new System.Drawing.Size(89, 21);
@@ -927,7 +910,7 @@ namespace IBSampleApp
             "YIELD_ASK",
             "YIELD_BID_ASK",
             "YIELD_LAST"});
-            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(62, 3);
+            this.hdRequest_WhatToShow.Location = new System.Drawing.Point(117, 264);
             this.hdRequest_WhatToShow.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_WhatToShow.Name = "hdRequest_WhatToShow";
             this.hdRequest_WhatToShow.Size = new System.Drawing.Size(89, 21);
@@ -939,7 +922,7 @@ namespace IBSampleApp
             this.checkDailyLinesStudy.AutoSize = true;
             this.checkDailyLinesStudy.Checked = true;
             this.checkDailyLinesStudy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkDailyLinesStudy.Location = new System.Drawing.Point(1051, 6);
+            this.checkDailyLinesStudy.Location = new System.Drawing.Point(184, 133);
             this.checkDailyLinesStudy.Name = "checkDailyLinesStudy";
             this.checkDailyLinesStudy.Size = new System.Drawing.Size(99, 21);
             this.checkDailyLinesStudy.TabIndex = 63;
@@ -949,7 +932,7 @@ namespace IBSampleApp
             // 
             // hdRequest_Duration
             // 
-            this.hdRequest_Duration.Location = new System.Drawing.Point(326, 3);
+            this.hdRequest_Duration.Location = new System.Drawing.Point(16, 76);
             this.hdRequest_Duration.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_Duration.Name = "hdRequest_Duration";
             this.hdRequest_Duration.Size = new System.Drawing.Size(42, 22);
@@ -961,7 +944,7 @@ namespace IBSampleApp
             this.checkHighLowStudy.AutoSize = true;
             this.checkHighLowStudy.Checked = true;
             this.checkHighLowStudy.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkHighLowStudy.Location = new System.Drawing.Point(957, 6);
+            this.checkHighLowStudy.Location = new System.Drawing.Point(185, 106);
             this.checkHighLowStudy.Name = "checkHighLowStudy";
             this.checkHighLowStudy.Size = new System.Drawing.Size(88, 21);
             this.checkHighLowStudy.TabIndex = 35;
@@ -976,7 +959,7 @@ namespace IBSampleApp
             "W",
             "M",
             "Y"});
-            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(376, 2);
+            this.hdRequest_TimeUnit.Location = new System.Drawing.Point(66, 75);
             this.hdRequest_TimeUnit.Margin = new System.Windows.Forms.Padding(4);
             this.hdRequest_TimeUnit.Name = "hdRequest_TimeUnit";
             this.hdRequest_TimeUnit.Size = new System.Drawing.Size(47, 24);
@@ -986,12 +969,12 @@ namespace IBSampleApp
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(268, 6);
+            this.label10.Location = new System.Drawing.Point(47, 13);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(62, 17);
+            this.label10.Size = new System.Drawing.Size(39, 17);
             this.label10.TabIndex = 48;
-            this.label10.Text = "Duration";
+            this.label10.Text = "Daily";
             // 
             // histDataTabClose_MDT
             // 
@@ -1004,36 +987,6 @@ namespace IBSampleApp
             this.histDataTabClose_MDT.TabStop = true;
             this.histDataTabClose_MDT.Text = "Close";
             this.histDataTabClose_MDT.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.histDataTabClose_MDT_LinkClicked);
-            // 
-            // dataChartDaily
-            // 
-            this.dataChartDaily.BarSizeInSeconds = 0;
-            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
-            this.dataChartDaily.Name = "dataChartDaily";
-            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
-            this.dataChartDaily.OrderFormSell = this.orderFormSell;
-            this.dataChartDaily.PriceLineManager = priceLineManager2;
-            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
-            this.dataChartDaily.TabIndex = 34;
-            this.dataChartDaily.XLabelFormat = null;
-            this.dataChartDaily.XValue = 0D;
-            this.dataChartDaily.YValue = 0D;
-            // 
-            // dataChart1M
-            // 
-            this.dataChart1M.BarSizeInSeconds = 0;
-            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
-            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
-            this.dataChart1M.Name = "dataChart1M";
-            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
-            this.dataChart1M.OrderFormSell = this.orderFormSell;
-            this.dataChart1M.PriceLineManager = priceLineManager3;
-            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
-            this.dataChart1M.TabIndex = 33;
-            this.dataChart1M.XLabelFormat = null;
-            this.dataChart1M.XValue = 0D;
-            this.dataChart1M.YValue = 0D;
             // 
             // deepBookTab_MDT
             // 
@@ -4199,14 +4152,85 @@ namespace IBSampleApp
             // 
             this.informationTooltip.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
-            // tabAlerts
+            // tabProbabilities
             // 
-            this.tabAlerts.BackColor = System.Drawing.Color.LightGray;
-            this.tabAlerts.Location = new System.Drawing.Point(4, 25);
-            this.tabAlerts.Name = "tabAlerts";
-            this.tabAlerts.Size = new System.Drawing.Size(299, 301);
-            this.tabAlerts.TabIndex = 3;
-            this.tabAlerts.Text = "Alerts";
+            this.tabProbabilities.BackColor = System.Drawing.Color.LightGray;
+            this.tabProbabilities.Location = new System.Drawing.Point(4, 25);
+            this.tabProbabilities.Name = "tabProbabilities";
+            this.tabProbabilities.Size = new System.Drawing.Size(299, 301);
+            this.tabProbabilities.TabIndex = 4;
+            this.tabProbabilities.Text = "Probabilities";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(198, 13);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 17);
+            this.label7.TabIndex = 69;
+            this.label7.Text = "Intraday";
+            // 
+            // dataChartRT
+            // 
+            this.dataChartRT.BarSizeInSeconds = 0;
+            this.dataChartRT.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartRT.Location = new System.Drawing.Point(578, 23);
+            this.dataChartRT.Name = "dataChartRT";
+            this.dataChartRT.OrderFormBuy = null;
+            this.dataChartRT.OrderFormSell = null;
+            this.dataChartRT.PriceLineManager = priceLineManager1;
+            this.dataChartRT.Size = new System.Drawing.Size(622, 331);
+            this.dataChartRT.TabIndex = 3;
+            this.dataChartRT.XLabelFormat = null;
+            this.dataChartRT.XValue = 0D;
+            this.dataChartRT.YValue = 0D;
+            // 
+            // orderFormBuy
+            // 
+            this.orderFormBuy.Location = new System.Drawing.Point(6, 16);
+            this.orderFormBuy.Name = "orderFormBuy";
+            this.orderFormBuy.Order = CSharpClientApp.usercontrols.OrderType.BUY;
+            this.orderFormBuy.Size = new System.Drawing.Size(287, 279);
+            this.orderFormBuy.TabIndex = 31;
+            // 
+            // orderFormSell
+            // 
+            this.orderFormSell.Location = new System.Drawing.Point(3, 16);
+            this.orderFormSell.Name = "orderFormSell";
+            this.orderFormSell.Order = CSharpClientApp.usercontrols.OrderType.SELL;
+            this.orderFormSell.Size = new System.Drawing.Size(275, 282);
+            this.orderFormSell.TabIndex = 32;
+            // 
+            // dataChartDaily
+            // 
+            this.dataChartDaily.BarSizeInSeconds = 0;
+            this.dataChartDaily.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChartDaily.Location = new System.Drawing.Point(7, 24);
+            this.dataChartDaily.Name = "dataChartDaily";
+            this.dataChartDaily.OrderFormBuy = this.orderFormBuy;
+            this.dataChartDaily.OrderFormSell = this.orderFormSell;
+            this.dataChartDaily.PriceLineManager = priceLineManager2;
+            this.dataChartDaily.Size = new System.Drawing.Size(622, 329);
+            this.dataChartDaily.TabIndex = 34;
+            this.dataChartDaily.XLabelFormat = null;
+            this.dataChartDaily.XValue = 0D;
+            this.dataChartDaily.YValue = 0D;
+            // 
+            // dataChart1M
+            // 
+            this.dataChart1M.BarSizeInSeconds = 0;
+            this.dataChart1M.ChartEndDate = new System.DateTime(((long)(0)));
+            this.dataChart1M.Location = new System.Drawing.Point(948, 23);
+            this.dataChart1M.Name = "dataChart1M";
+            this.dataChart1M.OrderFormBuy = this.orderFormBuy;
+            this.dataChart1M.OrderFormSell = this.orderFormSell;
+            this.dataChart1M.PriceLineManager = priceLineManager3;
+            this.dataChart1M.Size = new System.Drawing.Size(626, 330);
+            this.dataChart1M.TabIndex = 33;
+            this.dataChart1M.XLabelFormat = null;
+            this.dataChart1M.XValue = 0D;
+            this.dataChart1M.YValue = 0D;
             // 
             // IBSampleApp
             // 
@@ -4233,6 +4257,8 @@ namespace IBSampleApp
             this.tabDashboard.ResumeLayout(false);
             this.tabBuy.ResumeLayout(false);
             this.tabSell.ResumeLayout(false);
+            this.tabSettings.ResumeLayout(false);
+            this.tabSettings.PerformLayout();
             this.deepBookTab_MDT.ResumeLayout(false);
             this.deepBookTab_MDT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deepBookGrid)).EndInit();
@@ -4662,6 +4688,8 @@ namespace IBSampleApp
         private System.Windows.Forms.TabPage tabSettings;
         private System.Windows.Forms.TabPage tabSell;
         private System.Windows.Forms.TabPage tabAlerts;
+        private System.Windows.Forms.TabPage tabProbabilities;
+        private System.Windows.Forms.Label label7;
     }
 }
 
